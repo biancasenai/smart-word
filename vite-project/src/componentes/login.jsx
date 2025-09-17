@@ -1,8 +1,18 @@
-import React from "react";
-import App from "../App.jsx";
+import React, { useState } from "react";
 import logo from "../img/logo.png"; // Ajuste o caminho conforme a localização do arquivo da logo
 
-const Login = () => {
+const Login = ({ onLogin }) => {
+  const [cpf, setCpf] = useState("");
+  const [senha, setSenha] = useState("");
+  const [placa, setPlaca] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Salva no localStorage
+    localStorage.setItem("userInfo", JSON.stringify({ cpf, senha, placa }));
+    onLogin(); // Chama a função recebida do App para ir para Home
+  };
+
   return (
     <div
       style={{
@@ -79,23 +89,30 @@ const Login = () => {
           flexDirection: "column",
           gap: "15px",
         }}
+        onSubmit={handleSubmit}
       >
         <input
           type="text"
           placeholder="CPF"
           style={inputStyle}
           maxLength="11"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
         />
         <input
           type="password"
           placeholder="SENHA DO USUÁRIO"
           style={inputStyle}
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
         />
         <input
           type="text"
           placeholder="PLACA DO CARRO"
           style={inputStyle}
           maxLength="7"
+          value={placa}
+          onChange={(e) => setPlaca(e.target.value)}
         />
 
         <button type="submit" style={buttonStyle}>

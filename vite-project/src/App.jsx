@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './componentes/Login';
-import Home from './pages/home';
+import Login from "./componentes/login";
+import Home from "./pages/home";
+import Bateria from "./pages/bateria";
+import Relatorio from "./pages/Relatório";
+import Navegar from "./pages/navegar";
+import TrocarPontos from "./pages/TrocarPontos";
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -24,11 +29,19 @@ function App() {
           </span>
         </button>
       </header>
-      {isLoggedIn ? (
-        <Home />
-      ) : (
-        <Login onLogin={() => setIsLoggedIn(true)} />
-      )}
+      <Router>
+        {isLoggedIn ? (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/bateria" element={<Bateria />} />
+            <Route path="/relatorio" element={<Relatorio />} />
+            <Route path="/navegar" element={<Navegar />} />
+            <Route path="/trocar-pontos" element={<TrocarPontos />} />
+          </Routes>
+        ) : (
+          <Login onLogin={() => setIsLoggedIn(true)} />
+        )}
+      </Router>
     </div>
   );
 }

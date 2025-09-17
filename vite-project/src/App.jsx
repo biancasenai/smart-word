@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import Login from './pages/Login';
+import Login from './componentes/Login';
 import Home from './pages/home';
 
 function App() {

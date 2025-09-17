@@ -1,4 +1,5 @@
 import React from "react";
+import App from "../App.jsx";
 import logo from "../img/logo.png"; // Ajuste o caminho conforme a localização do arquivo da logo
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
       }}
     >
       {/* ONDAS COLORIDAS */}
-      <div style={{ position: "absolute", top: 0, left: 0, width: "100%" }}>
+      <div style={{ position: "absolute", top: 0, left: 0, width: "1 00%" }}>
         {/* Onda azul */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -56,11 +57,11 @@ const Login = () => {
           src={logo} // Logo importada
           alt="Logo"
           style={{
-            width: "153px",
+            width: "173px",
             height: "153px",
             borderRadius: "50%",
             background: "#7A5AC5",
-            
+
             padding: "10px",
             border: "3px solid #151B8B",
           }}

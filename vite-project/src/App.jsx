@@ -5,9 +5,8 @@ import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
-import Navegar from "./pages/navegar";
 import TrocarPontos from "./pages/TrocarPontos";
-
+import Navegar from './pages/navegar';
 function App() {
   const [dark, setDark] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);

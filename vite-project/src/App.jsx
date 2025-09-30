@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
 import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
@@ -13,14 +13,15 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <div className={`app${dark ? ' dark' : ''}`}>
+    <div className={`app${dark ? " dark" : ""}`}>
       <header className="header-bar">
         <h1>
-          smart<br />
+          smart
+          <br />
           word
         </h1>
         <button
-          className={`theme-toggle${dark ? ' active' : ''}`}
+          className={`theme-toggle${dark ? " active" : ""}`}
           onClick={() => setDark((v) => !v)}
           aria-label="Alternar tema"
         >

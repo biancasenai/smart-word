@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap');
+
+body, .app {
+  font-family: "monospace", Arial, sans-serif;
+}
+
+button {
+    font-family: 'Kodchasan', Arial, sans-serif;
+  }
+
 .top-bar {
     display: flex;
     align-items: center;
@@ -28,12 +38,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    transition: background 0.3s, color 0.3s;
 }
 
 .header-bar h1 {
     margin: 0;
     font-size: 1.7rem;
     margin-left: 6%;
+}
+
+.app.dark .header-bar {
+    background-color: #F39F9F;
+    color: #fff;
 }
 
 .theme-toggle {
@@ -77,12 +93,33 @@
 
 .app {
     padding-top: 80px;
-    background: #f5f5f5;
+    background: #151B8B;
     min-height: 100vh;
     transition: background 0.3s, color 0.3s;
 }
 
 .app.dark {
-    background: #181818;
+    background: #FFC29B;
     color: #fff;
 }
+
+.theme-button {
+  font-family: 'Kodchasan', Arial, sans-serif;
+  width: 520px;
+  padding: 36px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(90deg, #F37E7E 60%, #FF76A1 100%);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: background 0.3s, color 0.3s;
+}
+
+.app.dark .theme-button {
+  background: linear-gradient(90deg, #F37E7E 60%, #B95E82 100%);
+  color: #fff;
+}
+

@@ -5,7 +5,6 @@ import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
-import Navegar from "./pages/navegar";
 import TrocarPontos from "./pages/TrocarPontos";
 import 'bootstrap/dist/css/bootstrap.min.css';
 

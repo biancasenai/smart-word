@@ -1,29 +1,22 @@
 import React, { useState } from "react";
 import logo from "../img/logo.png";
 
-const Login = ({ onLogin }) => {
+const Cadastro = ({ onCadastro, goToLogin }) => {
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
   const [placa, setPlaca] = useState("");
-  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Pega todos os usuários salvos
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const newUser = { cpf, senha, placa };
 
-    // Procura usuário correspondente
-    const userFound = users.find(
-      (user) => user.cpf === cpf && user.senha === senha && user.placa === placa
-    );
+    existingUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
 
-    if (userFound) {
-      setError("");
-      onLogin(); // entra no site
-    } else {
-      setError("❌ Login não encontrado. Verifique seus dados.");
-    }
+    alert("✅ Cadastro realizado com sucesso!");
+    onCadastro(); // vai para login
   };
 
   return (
@@ -61,7 +54,7 @@ const Login = ({ onLogin }) => {
           }}
         />
         <h2 style={{ marginTop: "10px", fontWeight: "500", color: "#fff" }}>
-          LOGIN
+          CADASTRO
         </h2>
       </div>
 
@@ -85,7 +78,7 @@ const Login = ({ onLogin }) => {
         />
         <input
           type="password"
-          placeholder="Senha do usuário"
+          placeholder="Senha"
           style={inputStyle}
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
@@ -100,15 +93,14 @@ const Login = ({ onLogin }) => {
         />
 
         <button type="submit" style={buttonStyle}>
-          ENTRAR
+          CADASTRAR
         </button>
-
-        {error && (
-          <p style={{ color: "red", marginTop: "10px", fontWeight: "bold" }}>
-            {error}
-          </p>
-        )}
       </form>
+
+      {/* Botão de ir para Login */}
+      <button onClick={goToLogin} style={buttonLoginStyle}>
+        Já tenho login
+      </button>
     </div>
   );
 };
@@ -130,7 +122,7 @@ const buttonStyle = {
   padding: "12px",
   border: "none",
   borderRadius: "20px",
-  background: "linear-gradient(to right, #FF76A1, #F37E7E)", // rosa/vermelho
+  background: "linear-gradient(to right, #76E7FF, #3A9BE7)", // azul
   color: "white",
   fontSize: "16px",
   fontWeight: "bold",
@@ -138,4 +130,17 @@ const buttonStyle = {
   transition: "0.3s",
 };
 
-export default Login;
+const buttonLoginStyle = {
+  marginTop: "20px",
+  padding: "10px 20px",
+  border: "none",
+  borderRadius: "15px",
+  background: "linear-gradient(to right, #FF76A1, #F37E7E)", // rosa/vermelho
+  color: "white",
+  fontSize: "14px",
+  fontWeight: "bold",
+  cursor: "pointer",
+  transition: "0.3s",
+};
+
+export default Cadastro;

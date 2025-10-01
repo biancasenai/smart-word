@@ -1,127 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap');
-body, .app {
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap");
+body,
+.app {
   font-family: "monospace", Arial, sans-serif;
 }
 
 button {
-    font-family: 'Kodchasan', Arial, sans-serif;
-  }
+  font-family: "Kodchasan", Arial, sans-serif;
+}
 
 .top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #f5f5f5;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .logo {
-    height: 40px;
-  }
-  
-  .app-title {
-    margin: 0;
-    font-size: 1.5rem;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  height: 40px;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
 .header-bar {
-    background-color: #0D1164;
-    color: white;
-    padding: 1rem 2rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: background 0.3s, color 0.3s;
+  background-color: #0d1164;
+  color: white;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s, color 0.3s;
 }
 
 .header-bar h1 {
-    margin: 0;
-    font-size: 1.7rem;
-    margin-left: 6%;
+  margin: 0;
+  font-size: 1.7rem;
+  margin-left: 6%;
 }
 
 .app.dark .header-bar {
-    background-color: #F39F9F;
-    color: #fff;
+  background-color: #f39f9f;
+  color: #fff;
 }
 
 .theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
 }
 
 .toggle-track {
-    width: 44px;
-    height: 24px;
-    background: #ccc;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    transition: background 0.3s;
-    position: relative;
+  width: 44px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s;
+  position: relative;
 }
 
 .theme-toggle.active .toggle-track {
-    background: #222;
+  background: #222;
 }
 
 .toggle-ball {
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border-radius: 50%;
-    position: absolute;
-    left: 2px;
-    transition: left 0.3s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  transition: left 0.3s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .theme-toggle.active .toggle-ball {
-    left: 22px;
-    background: #ffd700;
+  left: 22px;
+  background: #ffd700;
 }
 
 .app {
-    padding-top: 80px;
-    background: #151b8b;
-    min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
+  padding-top: 80px;
+  background: #151b8b;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
 }
 
 .app.dark {
-    background: #FFC29B;
-    color: #fff;
+  background: #ffc29b;
+  color: #fff;
 }
 
 .theme-button {
-  font-family: 'Kodchasan', Arial, sans-serif;
+  font-family: "Kodchasan", Arial, sans-serif;
   width: 520px;
   padding: 36px;
   border-radius: 16px;
   border: none;
-  background: linear-gradient(90deg, #F37E7E 60%, #FF76A1 100%);
+  background: linear-gradient(90deg, #f37e7e 60%, #ff76a1 100%);
   color: white;
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   transition: background 0.3s, color 0.3s;
 }
 
 .app.dark .theme-button {
-  background: linear-gradient(90deg, #F37E7E 60%, #B95E82 100%);
+  background: linear-gradient(90deg, #f37e7e 60%, #b95e82 100%);
   color: #fff;
 }
-
 
 .voltar-home {
   position: fixed;
@@ -142,16 +142,15 @@ button {
 
 /* Tema Light */
 .light .voltar-home {
-  background-color: #0D1164;
-  color: #151B8B;
+  background-color: #0d1164;
+  color: #151b8b;
 }
 
 /* Tema Dark */
 .dark .voltar-home {
-  background-color: #F39F9F;
-  color: #FFC29B;
+  background-color: #f39f9f;
+  color: #ffc29b;
 }
-
 
 /* Página bateria */
 .bateria-page {
@@ -173,7 +172,7 @@ button {
 .bateria-shell {
   width: 750px;
   height: 400px;
-  border: 6px solid #FF256A;
+  border: 6px solid #ff256a;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -192,7 +191,7 @@ button {
   right: -18px;
   width: 18px;
   height: 40px;
-  background: #FF256A;
+  background: #ff256a;
   border-radius: 3px;
 }
 
@@ -217,7 +216,7 @@ button {
 
 .bateria-range {
   font-size: 26px;
-  color: #FF256A;
+  color: #ff256a;
   font-weight: 500;
 }
 
@@ -226,13 +225,18 @@ button {
   bottom: 0;
   width: 10px;
   height: 10px;
-  background: rgba(255,255,255,0.7);
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
   animation: rise 2s linear forwards;
 }
 
 @keyframes rise {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-150px) scale(0.5); opacity: 0; }
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px) scale(0.5);
+    opacity: 0;
+  }
 }
-

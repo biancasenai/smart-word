@@ -52,7 +52,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/bateria" element={<Bateria />} />
               <Route path="/relatorio" element={<Relatorio />} />
-              <Route path="/navegar" element={<Navegar />} />
+              <Route path="/navegar" element={<navegar />} />
               <Route path="/trocar-pontos" element={<TrocarPontos />} />
             </Routes>
           </>
@@ -60,7 +60,10 @@ function App() {
           <Login onLogin={() => setIsLoggedIn(true)} />
         )}
       </Router>
+  
+
     </div>
+    
   );
 }
 

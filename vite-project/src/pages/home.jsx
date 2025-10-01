@@ -10,6 +10,7 @@ function Home() {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
+
     }}>
       {/* Esquerda */}
       <div style={{
@@ -39,6 +40,6 @@ function Home() {
 }
 
 
-// ...existing code...
+
 
 export default Home;

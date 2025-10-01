@@ -1,10 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Importa o useNavigate
 import Mercado from "./PontosMercado";
 import Manutencoes from "./PontosManutencao";
 import Hoteis from "./PontosHoteis";
 import Cashback from "./PontosCashback";
 import Produtos from "./PontosProdutos";
+import { useNavigate } from "react-router";
 
 const trocarpontos = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate

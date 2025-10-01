@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 
-const PontosMercado = () => {
+const PontosProdutos = () => {
   const [pontos, setPontos] = useState(1000);
 
   const handleChange = (event) => {
@@ -97,9 +97,7 @@ const PontosMercado = () => {
             fontWeight: "bold",
             fontSize: "34px",
           }}
-        >
-         
-        </p>
+        ></p>
       </div>
 
       {/* Lado direito: QR Code */}
@@ -145,4 +143,4 @@ const PontosMercado = () => {
   );
 };
 
-export default PontosMercado;
+export default PontosProdutos;

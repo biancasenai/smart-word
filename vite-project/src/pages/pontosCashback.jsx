@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-
-const PontosMercado = () => {
+const PontosCashback = () => {
   const [pontos, setPontos] = useState(1000);
 
   const handleChange = (event) => {
@@ -12,9 +11,6 @@ const PontosMercado = () => {
   for (let i = 1000; i <= 4000; i += 500) {
     pontosOptions.push(i);
   }
-
-
-
 
   return (
     <div
@@ -97,17 +93,10 @@ const PontosMercado = () => {
             fontWeight: "bold",
             fontSize: "34px",
           }}
-        >
-         
-        </p>
+        ></p>
       </div>
-
-       
-       
-       
-      
     </div>
   );
 };
 
-export default PontosMercado;
+export default PontosCashback;

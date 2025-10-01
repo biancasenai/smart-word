@@ -81,6 +81,7 @@ const Login = ({ onLogin }) => {
           style={inputStyle}
           maxLength="11"
           value={cpf}
+          
           onChange={(e) => setCpf(e.target.value)}
         />
         <input

@@ -9,18 +9,23 @@ import Relatorio from "./pages/Relatório";
 import TrocarPontos from "./pages/TrocarPontos";
 import Navegar from "./pages/navegar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import PontosMercado from "./pages/PontosMercado";
+import PontosManutencao from "./pages/PontosManutencao";
+import PontosHoteis from "./pages/PontosHoteis";
+import PontosCashback from "./pages/PontosCashback";
+import PontosProdutos from "./pages/PontosProdutos";
 
 // Botão que será usado em todas as páginas
 function VoltarHomeButton() {
-  const navigate = useNavigate();
   return (
-    <button className="voltar-home" onClick={() => navigate("/")}>
+    <button className="voltar-home" onClick={() => history.back()}>
       ◀
     </button>
   );
 }
 
 function App() {
+  const navigate = useNavigate();
   const [dark, setDark] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
@@ -28,7 +33,7 @@ function App() {
   return (
     <div className={`app${dark ? " dark" : ""}`}>
       <header className="header-bar">
-        <h1>
+        <h1 role="button" onClick={() => navigate("/")}>
           smart
           <br />
           word
@@ -53,6 +58,11 @@ function App() {
             <Route path="/relatorio" element={<Relatorio />} />
             <Route path="/navegar" element={<Navegar />} />
             <Route path="/trocar-pontos" element={<TrocarPontos />} />
+            <Route path="/pontosMercado" element={<PontosMercado />} />
+            <Route path="/pontosManutencao" element={<PontosManutencao />} />
+            <Route path="/pontosHoteis" element={<PontosHoteis />} />
+            <Route path="/pontosCashback" element={<PontosCashback />} />
+            <Route path="/pontosProdutos" element={<PontosProdutos />} />
           </Routes>
         </>
       ) : showLogin ? (
@@ -63,26 +73,7 @@ function App() {
           goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
         />
       )}
-      <Router>
-        {isLoggedIn ? (
-          <>
-            <VoltarHomeButton />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/bateria" element={<Bateria />} />
-              <Route path="/relatorio" element={<Relatorio />} />
-              <Route path="/navegar" element={<navegar />} />
-              <Route path="/trocar-pontos" element={<TrocarPontos />} />
-            </Routes>
-          </>
-        ) : (
-          <Login onLogin={() => setIsLoggedIn(true)} />
-        )}
-      </Router>
-  
-
     </div>
-    
   );
 }
 

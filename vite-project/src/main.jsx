@@ -9,5 +9,5 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // só se usar navbar e coll
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-  </BrowserRouter>
+  </StrictMode>
 );

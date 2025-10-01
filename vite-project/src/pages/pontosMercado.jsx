@@ -97,9 +97,7 @@ const PontosMercado = () => {
             fontWeight: "bold",
             fontSize: "34px",
           }}
-        >
-         
-        </p>
+        ></p>
       </div>
 
       {/* Lado direito: QR Code */}

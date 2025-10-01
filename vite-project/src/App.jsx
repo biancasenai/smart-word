@@ -19,15 +19,15 @@ import PontosProdutos from "./pages/PontosProdutos";
 
 // Botão que será usado em todas as páginas
 function VoltarHomeButton() {
-  const navigate = useNavigate();
   return (
-    <button className="voltar-home" onClick={() => navigate("/")}>
+    <button className="voltar-home" onClick={() => history.back()}>
       ◀
     </button>
   );
 }
 
 function App() {
+  const navigate = useNavigate();
   const [dark, setDark] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login

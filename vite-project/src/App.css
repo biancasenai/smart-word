@@ -92,7 +92,7 @@ button {
 
 .app {
     padding-top: 80px;
-    background: #151B8B;
+    background: #151b8b;
     min-height: 100vh;
     transition: background 0.3s, color 0.3s;
 }

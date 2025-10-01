@@ -27,13 +27,17 @@ function App() {
 
   return (
     <div className={`app${dark ? " dark" : ""}`}>
+    <div className={`app${dark ? " dark" : ""}`}>
       <header className="header-bar">
         <h1>
+          smart
+          <br />
           smart
           <br />
           word
         </h1>
         <button
+          className={`theme-toggle${dark ? " active" : ""}`}
           className={`theme-toggle${dark ? " active" : ""}`}
           onClick={() => setDark((v) => !v)}
           aria-label="Alternar tema"
@@ -53,6 +57,11 @@ function App() {
             <Route path="/relatorio" element={<Relatorio />} />
             <Route path="/navegar" element={<Navegar />} />
             <Route path="/trocar-pontos" element={<TrocarPontos />} />
+            <Route path="/pontosMercado" element={<PontosMercado />} />
+            <Route path="/pontosManutencao" element={<PontosManuntecao />} />
+            <Route path="/pontosHoteis" element={<PontosHoteis />} />
+            <Route path="/pontosCashback" element={<PontosCashback />} />
+            <Route path="/pontosProdutos" element={<PontosProdutos />} />
           </Routes>
         </>
       ) : showLogin ? (
@@ -87,3 +96,4 @@ function App() {
 }
 
 export default App;
+

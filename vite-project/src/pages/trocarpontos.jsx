@@ -1,7 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Importa o useNavigate
+import Mercado from "./PontosMercado";
+import Manutencoes from "./PontosManutencao";
+import Hoteis from "./PontosHoteis";
+import Cashback from "./PontosCashback";
+import Produtos from "./PontosProdutos";
 
-const TrocarPontos = () => {
+const trocarpontos = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate
 
   return (
@@ -18,7 +23,7 @@ const TrocarPontos = () => {
       {/* Retângulo 1 */}
       <div
         style={rectangleStyle}
-        onClick={() => navigate("/mercados")} // Redireciona para /mercados
+        onClick={() => navigate("/pontosMercado")} // Redireciona para /mercados
       >
         TROQUE PONTOS EM MERCADOS
       </div>
@@ -26,7 +31,7 @@ const TrocarPontos = () => {
       {/* Retângulo 2 */}
       <div
         style={rectangleStyle}
-        onClick={() => navigate("/manutencoes")} // Redireciona para /manutencoes
+        onClick={() => navigate("/pontosManutencao")} // Redireciona para /manutencoes
       >
         TROQUE PONTOS EM MANUTENÇÕES
       </div>
@@ -34,7 +39,7 @@ const TrocarPontos = () => {
       {/* Retângulo 3 */}
       <div
         style={rectangleStyle}
-        onClick={() => navigate("/hoteis")} // Redireciona para /hoteis
+        onClick={() => navigate("/pontosHoteis")} // Redireciona para /hoteis
       >
         TROQUE PONTOS EM HOTÉIS
       </div>
@@ -42,7 +47,7 @@ const TrocarPontos = () => {
       {/* Retângulo 4 */}
       <div
         style={rectangleStyle}
-        onClick={() => navigate("/produtos-exclusivos")} // Redireciona para /produtos-exclusivos
+        onClick={() => navigate("/pontosProdutos")} // Redireciona para /produtos-exclusivos
       >
         TROQUE PONTOS EM PRODUTOS EXCLUSIVOS
       </div>
@@ -50,7 +55,7 @@ const TrocarPontos = () => {
       {/* Retângulo 5 */}
       <div
         style={rectangleStyle}
-        onClick={() => navigate("/outros")} // Redireciona para /outros
+        onClick={() => navigate("/pontosCashback")} // Redireciona para /outros
       >
         CASHBACK DIRETO
       </div>
@@ -75,4 +80,4 @@ const rectangleStyle = {
   textAlign: "center",
 };
 
-export default TrocarPontos;
+export default trocarpontos;

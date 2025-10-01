@@ -7,6 +7,11 @@ import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
 import Navegar from "./pages/navegar";
 import TrocarPontos from "./pages/TrocarPontos";
+import PontosMercado from "./pages/PontosMercado";
+import PontosManuntecao from "./pages/PontosManutencao";
+import PontosHoteis from "./pages/PontosHoteis";
+import PontosCashback from "./pages/PontosCashback";
+import PontosProdutos from "./pages/PontosProdutos";
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -38,6 +43,11 @@ function App() {
             <Route path="/relatorio" element={<Relatorio />} />
             <Route path="/navegar" element={<Navegar />} />
             <Route path="/trocar-pontos" element={<TrocarPontos />} />
+            <Route path="/pontosMercado" element={<PontosMercado />} />
+            <Route path="/pontosManutencao" element={<PontosManuntecao />} />
+            <Route path="/pontosHoteis" element={<PontosHoteis />} />
+            <Route path="/pontosCashback" element={<PontosCashback />} />
+            <Route path="/pontosProdutos" element={<PontosProdutos />} />
           </Routes>
         ) : (
           <Login onLogin={() => setIsLoggedIn(true)} />

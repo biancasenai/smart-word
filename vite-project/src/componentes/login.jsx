@@ -97,6 +97,7 @@ const Login = ({ onLogin }) => {
           style={inputStyle}
           maxLength="11"
           value={cpf}
+          
           onChange={(e) => setCpf(e.target.value)}
         />
         <input
@@ -135,6 +136,21 @@ const inputStyle = {
   textAlign: "center",
   fontSize: "14px",
 };
+
+// Adiciona estilo para os placeholders
+const placeholderStyle = `
+  ::placeholder {
+    color: #ffffff; /* Define a cor preta para os placeholders */
+    font-size: 20px; /* Ajusta o tamanho da fonte */
+  }
+`;
+
+// Adiciona o estilo global ao documento
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = placeholderStyle;
+document.head.appendChild(styleSheet);
+
 
 // estilo do botão
 const buttonStyle = {

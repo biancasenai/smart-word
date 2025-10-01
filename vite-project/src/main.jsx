@@ -8,5 +8,5 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js"; // só se usar navbar e coll
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <App />
-  </StrictMode>
+  </BrowserRouter>
 );

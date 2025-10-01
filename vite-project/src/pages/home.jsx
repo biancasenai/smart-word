@@ -38,21 +38,7 @@ function Home() {
   );
 }
 
-// ...existing code...
-const buttonStyle = {
-  fontFamily: "Kodchasan, Arial, sans-serif",
-  width: '520px',
-  padding: '56px',
-  borderRadius: '16px',
-  border: 'none',
-  background: 'linear-gradient(90deg, #F37E7E 60%, #FF76A1 100%)',
-  color: 'white',
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  cursor: 'pointer',
-  boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
-  transition: 'transform 0.1s',
-};
+
 // ...existing code...
 
 export default Home;

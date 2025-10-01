@@ -1,81 +1,53 @@
 // Bateria.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Bateria() {
-  const [dark, setDark] = useState(true);
-  const percent = 20;
-  const tempo = "8 horas";
+  const [battery, setBattery] = useState({ percent: 80, charging: true, rangeKm: 250 });
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      // Simulação de atualização do nível da bateria
+      setBattery(prev => {
+        let next = prev.percent - Math.random() * 3;
+        if (next < 0) next = 100; // recarrega automaticamente
+        return { ...prev, percent: Math.round(next) };
+      });
+    }, 3000);
+
+    return () => clearInterval(id);
+  }, []);
+
+  const clamped = Math.max(0, Math.min(100, battery.percent));
+  const color =
+    clamped > 60 ? "#2a9d8f" :
+    clamped > 30 ? "#f4a261" : "#e76f51";
 
   return (
-    <div style={{ ...styles.page, backgroundColor: dark ? "#101A88" : "#FBC4A0" }}>
-      {/* Botão de troca de tema */}
-      <button onClick={() => setDark(!dark)} style={styles.button}>
-        Alternar para {dark ? "Light" : "Dark"}
-      </button>
-
-      {/* Bateria */}
-      <div style={{ ...styles.battery, borderColor: dark ? "#FF4E88" : "#6D214F" }}>
-        <div style={{ ...styles.level, background: dark ? "linear-gradient(90deg,#FF4E88,#8B2E5D)" : "linear-gradient(90deg,#F78FB3,#C44569)" }} />
-        <span style={{ ...styles.percent, color: dark ? "#fff" : "#222" }}>
-          {percent}%
-        </span>
+    <div style={styles.page}>
+     
+      
+      <div style={{ ...styles.shell, borderColor: color }}>
+        <div style={{ ...styles.level, width: `${clamped}%`, backgroundColor: color }} />
+        <div style={styles.tip}></div>
       </div>
 
-      {/* Texto embaixo */}
-      <p style={{ ...styles.text, color: dark ? "#fff" : "#222" }}>
-        Bateria {percent}% faltam {tempo} para estar completa
-      </p>
+      <div style={styles.info}>
+        <span style={styles.percent}>{clamped}%</span>
+        {battery.charging && <span style={styles.charging}>⚡ Carregando</span>}
+        <span style={styles.range}>Autonomia: {battery.rangeKm} km</span>
+      </div>
     </div>
   );
 }
 
 const styles = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "0.3s ease"
-  },
-  button: {
-    position: "absolute",
-    top: 20,
-    right: 20,
-    padding: "10px 20px",
-    borderRadius: "8px",
-    border: "none",
-    cursor: "pointer",
-    fontWeight: "600"
-  },
-  battery: {
-    width: "400px",
-    height: "200px",
-    border: "5px solid",
-    borderRadius: "20px",
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden"
-  },
-  level: {
-    position: "absolute",
-    right: 0,
-    top: 0,
-    bottom: 0,
-    width: "20%", // largura proporcional ao % da bateria
-    opacity: 0.5,
-    borderRadius: "0 15px 15px 0"
-  },
-  percent: {
-    fontSize: "80px",
-    fontWeight: "bold",
-    zIndex: 2
-  },
-  text: {
-    marginTop: "40px",
-    fontSize: "24px",
-    fontWeight: "500"
-  }
+  page: { display:"flex", flexDirection:"column", alignItems:"center", gap:"30px", marginTop:"60px", fontFamily:"Arial, sans-serif" },
+  title: { fontSize:"42px", fontWeight:"bold" },
+  shell: { width:"750px", height:"400px", border:"6px solid #333", borderRadius:"10px", position:"relative", overflow:"hidden" },
+  level: { height:"100%", transition:"width .4s ease" },
+  tip: { position:"absolute", top:"30px", right:"-18px", width:"18px", height:"40px", background:"#333", borderRadius:"3px" },
+  info: { display:"flex", flexDirection:"column", alignItems:"center", gap:"12px" },
+  percent: { fontSize:"36px", fontWeight:"700" },
+  charging: { color:"#f2c94c", fontWeight:"700", fontSize:"28px" },
+  range: { fontSize:"26px", color:"#333", fontWeight:"500" }
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Login from "./componentes/login";
 import Home from "./pages/home";
@@ -7,6 +7,21 @@ import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
 import Navegar from "./pages/navegar";
 import TrocarPontos from "./pages/TrocarPontos";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+// Botão que será usado em todas as páginas
+function VoltarHomeButton() {
+  const navigate = useNavigate();
+  return (
+    <button 
+  className="voltar-home" 
+  onClick={() => navigate('/')}
+>
+  ◀
+</button>
+  );
+}
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -29,15 +44,19 @@ function App() {
           </span>
         </button>
       </header>
+
       <Router>
         {isLoggedIn ? (
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/bateria" element={<Bateria />} />
-            <Route path="/relatorio" element={<Relatorio />} />
-            <Route path="/navegar" element={<Navegar />} />
-            <Route path="/trocar-pontos" element={<TrocarPontos />} />
-          </Routes>
+          <>
+            <VoltarHomeButton />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/bateria" element={<Bateria />} />
+              <Route path="/relatorio" element={<Relatorio />} />
+              <Route path="/navegar" element={<Navegar />} />
+              <Route path="/trocar-pontos" element={<TrocarPontos />} />
+            </Routes>
+          </>
         ) : (
           <Login onLogin={() => setIsLoggedIn(true)} />
         )}

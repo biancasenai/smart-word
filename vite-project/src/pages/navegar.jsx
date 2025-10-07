@@ -1,179 +1,262 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  GoogleMap,
-  LoadScript,
+  MapContainer,
+  TileLayer,
   Marker,
-  DirectionsService,
-  DirectionsRenderer,
-  Autocomplete,
-  InfoWindow,
-} from "@react-google-maps/api";
+  Polyline,
+  useMap,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
-const containerStyle = {
-  width: "100%",
-  height: "100vh",
-};
+// Corrigir ícone padrão do Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+});
 
-const centerDefault = { lat: -23.55, lng: -46.63 }; // fallback
+// Atualiza a posição do mapa
+function ChangeView({ center }) {
+  const map = useMap();
+  useEffect(() => {
+    if (center) map.setView(center, 14);
+  }, [center, map]);
+  return null;
+}
 
-const POIs = [
-  {
-    id: 1,
-    name: "Posto de Gasolina",
-    position: { lat: -23.551, lng: -46.635 },
-  },
-  { id: 2, name: "Restaurante", position: { lat: -23.553, lng: -46.631 } },
-  { id: 3, name: "Estacionamento", position: { lat: -23.549, lng: -46.632 } },
-];
-
-const Navegar = () => {
-  const [localAtual, setLocalAtual] = useState(centerDefault);
+export default function MapaComRota() {
+  const [posicaoAtual, setPosicaoAtual] = useState(null);
   const [partida, setPartida] = useState("");
   const [destino, setDestino] = useState("");
-  const [directions, setDirections] = useState(null);
-  const [calculate, setCalculate] = useState(false);
-  const [routeInfo, setRouteInfo] = useState(null);
-  const [selectedPOI, setSelectedPOI] = useState(null);
+  const [coordenadasPartida, setCoordenadasPartida] = useState(null);
+  const [coordenadasDestino, setCoordenadasDestino] = useState(null);
+  const [rota, setRota] = useState(null);
+  const [erro, setErro] = useState(null); // Estado para mensagem de erro
+  const [mostrarBarra, setMostrarBarra] = useState(false); // Controle para exibir/esconder a barra
 
-  const partidaRef = useRef(null);
-  const destinoRef = useRef(null);
-
-  // Geolocalização
+  // Detectar localização atual
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        setLocalAtual({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        setPartida("Meu Local Atual");
+      navigator.geolocation.getCurrentPosition((p) => {
+        const coords = { lat: p.coords.latitude, lng: p.coords.longitude };
+        setPosicaoAtual(coords);
+        setCoordenadasPartida(coords);
+        setPartida("Meu local atual");
       });
     }
   }, []);
 
-  const handleCalculateRoute = () => {
-    if (!destino) return;
-    setCalculate(true);
+  // Função para buscar endereço (Nominatim)
+  const buscarEndereco = async (endereco, tipo) => {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      endereco
+    )}`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.length > 0) {
+      const coord = {
+        lat: parseFloat(data[0].lat),
+        lng: parseFloat(data[0].lon),
+      };
+      if (tipo === "partida") {
+        setCoordenadasPartida(coord);
+      } else {
+        setCoordenadasDestino(coord);
+      }
+      setErro(null); // Limpa o erro se o local for encontrado
+    } else {
+      setErro(`Endereço "${endereco}" não encontrado.`); // Define a mensagem de erro
+    }
   };
 
+  // Calcular rota via API OSRM
+  const calcularRota = async () => {
+    if (!coordenadasPartida || !coordenadasDestino) {
+      setErro("Por favor, insira os pontos de partida e destino.");
+      return;
+    }
+
+    const url = `https://router.project-osrm.org/route/v1/driving/${coordenadasPartida.lng},${coordenadasPartida.lat};${coordenadasDestino.lng},${coordenadasDestino.lat}?overview=full&geometries=geojson`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.routes && data.routes.length > 0) {
+      const rotaCoords = data.routes[0].geometry.coordinates.map((c) => [
+        c[1],
+        c[0],
+      ]);
+      setRota(rotaCoords);
+      setErro(null); // Limpa o erro se a rota for encontrada
+    } else {
+      setErro("Não foi possível calcular a rota."); // Define a mensagem de erro
+    }
+  };
+
+  const handleBuscar = async (e) => {
+    e.preventDefault();
+    if (partida && partida !== "Meu local atual")
+      await buscarEndereco(partida, "partida");
+    if (destino) await buscarEndereco(destino, "destino");
+  };
+
+  useEffect(() => {
+    if (coordenadasPartida && coordenadasDestino) {
+      calcularRota();
+    }
+  }, [coordenadasPartida, coordenadasDestino]);
+
   return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyCU9RW5uBqT1MXTOJD2eoiB_nbIa9ZZYro"
-      libraries={["places"]}
-    >
-      {/* Inputs */}
-      <div
+    <div style={{ height: "100vh", width: "100%", position: "relative" }}>
+      {/* Botão para voltar à página anterior */}
+      <button
+        onClick={() => window.history.back()}
         style={{
           position: "absolute",
-          top: 10,
-          left: "50%",
-          transform: "translateX(-50%)",
+          top: "20px",
+          left: "20px",
           zIndex: 1000,
-          width: "90%",
-          maxWidth: "600px",
-          background: "#fff",
-          padding: "10px",
+          background: "#0077B6",
+          color: "#fff",
+          padding: "10px 15px",
           borderRadius: "8px",
-          boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+          border: "none",
+          cursor: "pointer",
+          fontWeight: "bold",
+          boxShadow: "0 3px 8px rgba(0,0,0,0.25)",
         }}
       >
-        <div style={{ marginBottom: "8px" }}>
-          <label>🚩 Seu local / Partida</label>
-          <Autocomplete onLoad={(auto) => (partidaRef.current = auto)}>
+        ◀ Voltar
+      </button>
+
+      {/* Ícone para abrir a barra de pesquisa */}
+      <div
+        onClick={() => setMostrarBarra(!mostrarBarra)}
+        style={{
+          position: "absolute",
+          top: "180px", // Movido mais para baixo
+          left: "40px",
+          zIndex: 1000,
+          background: "#90E0EF",
+          padding: "20px", // Tamanho do botão aumentado
+          borderRadius: "50%",
+          cursor: "pointer",
+          boxShadow: "0 3px 8px rgba(0,0,0,0.25)",
+        }}
+      >
+        <span role="img" aria-label="search" style={{ fontSize: "24px" }}>
+          🔍
+        </span>
+      </div>
+
+      {/* Barra de busca */}
+      {mostrarBarra && (
+        <form
+          onSubmit={handleBuscar}
+          style={{
+            position: "absolute",
+            top: "150px",
+            left: "20px",
+            zIndex: 1000,
+            background: "#90E0EF",
+            padding: "15px",
+            borderRadius: "12px",
+            boxShadow: "0 3px 8px rgba(0,0,0,0.25)",
+            width: "300px",
+          }}
+        >
+          <div style={{ marginBottom: "8px" }}>
+            <label style={{ fontWeight: "bold" }}>🚩 Ponto de Partida</label>
             <input
               type="text"
               value={partida}
               onChange={(e) => setPartida(e.target.value)}
-              placeholder="Digite o ponto de partida"
-              style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+              placeholder="Rua, bairro, CEP..."
+              style={{
+                width: "100%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "20px",
+                marginTop: "5px",
+              }}
             />
-          </Autocomplete>
-        </div>
-        <div>
-          <label>🏁 Lugar de parada / Destino</label>
-          <Autocomplete onLoad={(auto) => (destinoRef.current = auto)}>
+          </div>
+
+          <div>
+            <label style={{ fontWeight: "bold" }}>🏁 Destino</label>
             <input
               type="text"
               value={destino}
               onChange={(e) => setDestino(e.target.value)}
-              placeholder="Digite o destino"
-              style={{ width: "100%", padding: "8px", marginTop: "5px" }}
+              placeholder="Rua, bairro, CEP..."
+              style={{
+                width: "100%",
+                padding: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "20px",
+                marginTop: "5px",
+              }}
             />
-          </Autocomplete>
-        </div>
-        <button
-          onClick={handleCalculateRoute}
+          </div>
+
+          <button
+            type="submit"
+            style={{
+              marginTop: "10px",
+              width: "100%",
+              padding: "15px", // Aumentado o tamanho do botão
+              borderRadius: "20px",
+              background: "#0077B6",
+              color: "#fff",
+              border: "none",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            Calcular Rota 🚗
+          </button>
+        </form>
+      )}
+
+      {/* Exibir mensagem de erro */}
+      {erro && (
+        <div
           style={{
-            marginTop: "20px",
+            position: "absolute",
+            top: "120px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            background: "#ffcccc",
+            color: "#cc0000",
             padding: "10px",
-            width: "100%",
-            borderRadius: "100px",
-            background: "#7e22c4",
-            color: "#ffffff",
-            border: "none",
-            fontWeight: "bold",
-            cursor: "pointer",
-            paddingTop: "10px",
+            borderRadius: "8px",
+            boxShadow: "0 3px 8px rgba(0,0,0,0.25)",
+            width: "90%",
+            maxWidth: "600px",
+            textAlign: "center",
           }}
         >
-          Calcular Rota
-        </button>
-
-        {/* Info da rota */}
-        {routeInfo && (
-          <div style={{ marginTop: "10px", fontWeight: "bold" }}>
-            Distância: {routeInfo.distance} | Tempo: {routeInfo.duration}
-          </div>
-        )}
-      </div>
+          {erro}
+        </div>
+      )}
 
       {/* Mapa */}
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={localAtual}
-        zoom={13}
+      <MapContainer
+        center={posicaoAtual || [-22, -48]}
+        zoom={14}
+        style={{ height: "100%", width: "100%" }}
       >
-        <Marker position={localAtual} />
-
-        {/* POIs */}
-        {POIs.map((poi) => (
-          <Marker
-            key={poi.id}
-            position={poi.position}
-            onClick={() => setSelectedPOI(poi)}
-          />
-        ))}
-        {selectedPOI && (
-          <InfoWindow
-            position={selectedPOI.position}
-            onCloseClick={() => setSelectedPOI(null)}
-          >
-            <div>{selectedPOI.name}</div>
-          </InfoWindow>
-        )}
-
-        {/* Direções */}
-        {calculate && partida && destino && (
-          <DirectionsService
-            options={{
-              origin: partida === "Meu Local Atual" ? localAtual : partida,
-              destination: destino,
-              travelMode: "DRIVING",
-            }}
-            callback={(res, status) => {
-              if (status === "OK") {
-                setDirections(res);
-                setCalculate(false);
-                const route = res.routes[0].legs[0];
-                setRouteInfo({
-                  distance: route.distance.text,
-                  duration: route.duration.text,
-                });
-              }
-            }}
-          />
-        )}
-        {directions && <DirectionsRenderer directions={directions} />}
-      </GoogleMap>
-    </LoadScript>
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        {posicaoAtual && <Marker position={posicaoAtual} />}
+        {coordenadasDestino && <Marker position={coordenadasDestino} />}
+        {/* Rota */}
+        {rota && <Polyline positions={rota} color="#0077B6" weight={6} />}
+      </MapContainer>
+    </div>
   );
-};
-
-export default Navegar;
+}

@@ -32,22 +32,24 @@ function App() {
 
   return (
     <div className={`app${dark ? " dark" : ""}`}>
-      <header className="header-bar">
-        <h1 role="button" onClick={() => navigate("/")}>
-          smart
-          <br />
-          word
-        </h1>
-        <button
-          className={`theme-toggle${dark ? " active" : ""}`}
-          onClick={() => setDark((v) => !v)}
-          aria-label="Alternar tema"
-        >
-          <span className="toggle-track">
-            <span className="toggle-ball" />
-          </span>
-        </button>
-      </header>
+     {isLoggedIn && (
+  <header className="header-bar">
+    <h1 role="button" onClick={() => navigate("/")}>
+      SMART
+      <br />
+      WORD
+    </h1>
+    <button
+      className={`theme-toggle${dark ? " active" : ""}`}
+      onClick={() => setDark((v) => !v)}
+      aria-label="Alternar tema"
+    >
+      <span className="toggle-track">
+        <span className="toggle-ball" />
+      </span>
+    </button>
+  </header>
+)}
 
       {isLoggedIn ? (
         <>

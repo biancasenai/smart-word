@@ -25,27 +25,6 @@ button {
   margin: 0;
   font-size: 1.5rem;
 }
-.header-bar {
-  background-color: #0d1164;
-  color: white;
-  padding: 1rem 2rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background 0.3s, color 0.3s;
-}
-
-.header-bar h1 {
-  margin: 0;
-  font-size: 1.7rem;
-  margin-left: 6%;
-}
 
 .app.dark .header-bar {
   background-color: #f39f9f;

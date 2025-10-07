@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import logo from "../img/logo.png";
-
+import logoEsquerda from "../img/SmartWord.png"; // imagem à esquerda
+import minhaImagem from "../img/usuario.png"; // ajuste o nome e caminho conforme necessário
 const Cadastro = ({ onCadastro, goToLogin }) => {
   const [cpf, setCpf] = useState("");
   const [senha, setSenha] = useState("");
@@ -16,98 +16,106 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
     localStorage.setItem("users", JSON.stringify(existingUsers));
 
     alert("✅ Cadastro realizado com sucesso!");
-    onCadastro(); // vai para login
+    onCadastro();
   };
 
   return (
     <div
       style={{
-        backgroundColor: "#0D1164",
+        backgroundColor: "#00072D",
         height: "100vh",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column",
+        justifyContent: "space-evenly",
       }}
     >
-      {/* Card com logo */}
-      <div
-        style={{
-          position: "relative",
-          marginTop: "160px",
-          padding: "40px",
-          background: "#0D1164",
-          borderRadius: "20px",
-          textAlign: "center",
-        }}
-      >
+      {/* Imagem no lado esquerdo */}
+      <div style={{ flex: 1, display: "flex", justifyContent: "center",height:"100%", }}>
         <img
-          src={logo}
-          alt="Logo"
+          src={logoEsquerda}
+          alt="Smart Word"
           style={{
-            width: "173px",
-            height: "153px",
-            borderRadius: "50%",
-            background: "#7A5AC5",
-            padding: "10px",
-            border: "3px solid #151B8B",
+            width: "100%",
+            height: "auto",
+            maxWidth: "1000px",
           }}
         />
-        <h2 style={{ marginTop: "10px", fontWeight: "500", color: "#fff" }}>
-          CADASTRO
-        </h2>
       </div>
 
-      {/* Formulário */}
-      <form
+      {/* Lado direito - Formulário e nova imagem */}
+      <div
         style={{
-          marginTop: "30px",
+          flex: 1,
           display: "flex",
           flexDirection: "column",
-          gap: "15px",
+          alignItems: "center",
         }}
-        onSubmit={handleSubmit}
       >
-        <input
-          type="text"
-          placeholder="CPF"
-          style={inputStyle}
-          maxLength="11"
-          value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          style={inputStyle}
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Placa do carro"
-          style={inputStyle}
-          maxLength="7"
-          value={placa}
-          onChange={(e) => setPlaca(e.target.value)}
+        {/* Nova imagem acima da escrita */}
+        <img
+          src={minhaImagem}
+          alt="Ícone de Cadastro"
+          style={{
+            width: "200px",
+            height: "200px",
+            marginBottom: "10px",
+          }}
         />
 
-        <button type="submit" style={buttonStyle}>
-          CADASTRAR
+        <h2 style={{ fontSize:"50px", color: "#fff", fontFamily:"Kodchasan", }}>Bem-vindo!</h2>
+        <h3 style={{ fontSize: "25px", color: "#fff",fontFamily:"Kodchasan", }}>Faça seu cadastro:</h3>
+
+        <form
+          style={{
+            marginTop: "30px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+            alignItems: "center",
+          
+          }}
+          onSubmit={handleSubmit}
+        >
+          <input
+            type="text"
+            placeholder="CPF"
+            style={inputStyle}
+            maxLength="11"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            style={inputStyle}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Placa do carro"
+            style={inputStyle}
+            maxLength="7"
+            value={placa}
+            onChange={(e) => setPlaca(e.target.value)}
+          />
+
+          <button type="submit" style={buttonStyle}>
+            CADASTRAR
+          </button>
+        </form>
+
+        <button onClick={goToLogin} style={buttonLoginStyle}>
+          Já tenho conta
         </button>
-      </form>
-
-      {/* Botão de ir para Login */}
-      <button onClick={goToLogin} style={buttonLoginStyle}>
-        Já tenho login
-      </button>
+      </div>
     </div>
   );
 };
 
 const inputStyle = {
   padding: "20px",
-  width: "700px",
+  width: "650px",
   borderRadius: "90px",
   border: "4px solid #151B8B",
   outline: "none",
@@ -115,32 +123,32 @@ const inputStyle = {
   color: "white",
   textAlign: "center",
   fontSize: "14px",
+  fontFamily: "Kodchasan",
 };
 
 const buttonStyle = {
-  marginTop: "15px",
-  padding: "12px",
-  border: "none",
-  borderRadius: "20px",
-  background: "linear-gradient(to right, #76E7FF, #3A9BE7)", // azul
+  padding: "20px",
+  width: "350px",
+  borderRadius: "90px",
+  outline: "none",
+  background: "#0E6BA8",
   color: "white",
-  fontSize: "16px",
-  fontWeight: "bold",
-  cursor: "pointer",
-  transition: "0.3s",
+  textAlign: "center",
+  fontSize: "20px",
+  fontFamily: "Kodchasan",
 };
 
 const buttonLoginStyle = {
   marginTop: "20px",
-  padding: "10px 20px",
+  background: "none",
   border: "none",
-  borderRadius: "15px",
-  background: "linear-gradient(to right, #FF76A1, #F37E7E)", // rosa/vermelho
   color: "white",
-  fontSize: "14px",
-  fontWeight: "bold",
+  fontSize: "16px",
+  fontFamily: "Kodchasan",
+  textDecoration: "underline",
   cursor: "pointer",
-  transition: "0.3s",
+  padding: 0,
 };
+
 
 export default Cadastro;

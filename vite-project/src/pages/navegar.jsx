@@ -1,162 +1,212 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  GoogleMap,
-  LoadScript,
+  MapContainer,
+  TileLayer,
   Marker,
-  DirectionsService,
-  DirectionsRenderer,
-  Autocomplete,
-  InfoWindow
-} from "@react-google-maps/api";
+  Polyline,
+  useMap,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
-const containerStyle = {
-  width: "100%",
-  height: "100vh",
-};
+// Corrigir ícone padrão do Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+});
 
-const centerDefault = { lat: -23.55, lng: -46.63 }; // fallback
+// Atualiza o centro do mapa
+function ChangeView({ center }) {
+  const map = useMap();
+  useEffect(() => {
+    if (center) map.setView(center, 15);
+  }, [center, map]);
+  return null;
+}
 
-const POIs = [
-  { id: 1, name: "Posto de Gasolina", position: { lat: -23.551, lng: -46.635 } },
-  { id: 2, name: "Restaurante", position: { lat: -23.553, lng: -46.631 } },
-  { id: 3, name: "Estacionamento", position: { lat: -23.549, lng: -46.632 } },
-];
+export default function MapaComRota() {
+  const [posicaoAtual, setPosicaoAtual] = useState(null);
+  const [destino, setDestino] = useState("");
+  const [coordenadasDestino, setCoordenadasDestino] = useState(null);
+  const [rota, setRota] = useState(null);
+  const [sugestoes, setSugestoes] = useState([]);
+  const [mensagem, setMensagem] = useState("");
 
-const Navegar = () => {
-  const [localAtual, setLocalAtual] = useState(centerDefault);
-  const [partida, setPartida] = useState(""); 
-  const [destino, setDestino] = useState(""); 
-  const [directions, setDirections] = useState(null);
-  const [calculate, setCalculate] = useState(false);
-  const [routeInfo, setRouteInfo] = useState(null); 
-  const [selectedPOI, setSelectedPOI] = useState(null);
-
-  const partidaRef = useRef(null);
-  const destinoRef = useRef(null);
-
-  // Geolocalização
+  // Detectar localização atual automaticamente
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        setLocalAtual({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        setPartida("Meu Local Atual");
+      navigator.geolocation.getCurrentPosition((p) => {
+        const coords = { lat: p.coords.latitude, lng: p.coords.longitude };
+        setPosicaoAtual(coords);
       });
     }
   }, []);
 
-  const handleCalculateRoute = () => {
-    if (!destino) return;
-    setCalculate(true);
+  // Buscar endereços (aceita endereços completos)
+  const buscarSugestoes = async (texto) => {
+    setDestino(texto);
+    if (texto.length < 3) {
+      setSugestoes([]);
+      return;
+    }
+
+    if (!posicaoAtual) return;
+
+    const latMin = posicaoAtual.lat - 0.3;
+    const latMax = posicaoAtual.lat + 0.3;
+    const lonMin = posicaoAtual.lng - 0.3;
+    const lonMax = posicaoAtual.lng + 0.3;
+
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      texto
+    )}&addressdetails=1&limit=5&viewbox=${lonMin},${latMax},${lonMax},${latMin}&bounded=1`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    setSugestoes(
+      data.map((item) => ({
+        nome: item.display_name,
+        lat: parseFloat(item.lat),
+        lon: parseFloat(item.lon),
+      }))
+    );
+  };
+
+  // Calcular rota (OSRM)
+  const calcularRota = async (coordDestino) => {
+    if (!posicaoAtual) return;
+
+    try {
+      const url = `https://router.project-osrm.org/route/v1/driving/${posicaoAtual.lng},${posicaoAtual.lat};${coordDestino.lon},${coordDestino.lat}?overview=full&geometries=geojson`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.routes && data.routes.length > 0) {
+        const rotaCoords = data.routes[0].geometry.coordinates.map((c) => [
+          c[1],
+          c[0],
+        ]);
+        setRota(rotaCoords);
+        setCoordenadasDestino({
+          lat: coordDestino.lat,
+          lng: coordDestino.lon,
+        });
+        setSugestoes([]);
+        setMensagem(`Destino encontrado: ${coordDestino.nome}`);
+      } else {
+        setMensagem("Rota não encontrada 😕");
+      }
+    } catch (err) {
+      console.error(err);
+      setMensagem("Erro ao buscar a rota");
+    }
   };
 
   return (
-    <LoadScript googleMapsApiKey="SUA_API_KEY_AQUI" libraries={["places"]}>
-      {/* Inputs */}
-      <div style={{
-        position: "absolute",
-        top: 10,
-        left: "50%",
-        transform: "translateX(-50%)",
-        zIndex: 1000,
-        width: "90%",
-        maxWidth: "600px",
-        background: "#fff",
-        padding: "10px",
-        borderRadius: "8px",
-        boxShadow: "0 2px 5px rgba(0,0,0,0.2)"
-      }}>
-        <div style={{ marginBottom: "8px" }}>
-          <label>🚩 Seu local / Partida</label>
-          <Autocomplete onLoad={(auto) => (partidaRef.current = auto)}>
-            <input
-              type="text"
-              value={partida}
-              onChange={(e) => setPartida(e.target.value)}
-              placeholder="Digite o ponto de partida"
-              style={{ width: "100%", padding: "8px", marginTop: "5px" }}
-            />
-          </Autocomplete>
-        </div>
-        <div>
-          <label>🏁 Lugar de parada / Destino</label>
-          <Autocomplete onLoad={(auto) => (destinoRef.current = auto)}>
-            <input
-              type="text"
-              value={destino}
-              onChange={(e) => setDestino(e.target.value)}
-              placeholder="Digite o destino"
-              style={{ width: "100%", padding: "8px", marginTop: "5px" }}
-            />
-          </Autocomplete>
-        </div>
-        <button onClick={handleCalculateRoute} style={{
-          marginTop: "10px",
-          padding: "10px",
-          width: "100%",
-          borderRadius: "10px",
-          background: "#4285F4",
-          color: "#fff",
-          border: "none",
-          fontWeight: "bold",
-          cursor: "pointer"
-        }}>
-          Calcular Rota
-        </button>
-
-        {/* Info da rota */}
-        {routeInfo && (
-          <div style={{ marginTop: "10px", fontWeight: "bold" }}>
-            Distância: {routeInfo.distance} | Tempo: {routeInfo.duration}
-          </div>
+    <div style={{ height: "100vh", width: "100%", position: "relative" }}>
+      {/* ---------------------- BARRA DE PESQUISA ---------------------- */}
+      <div
+        style={{
+          position: "absolute",
+          top: "120px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          background: "#ffffff",
+          padding: "15px",
+          borderRadius: "20px",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.25)",
+          width: "90%",
+          maxWidth: "400px",
+        }}
+      >
+        <input
+          type="text"
+          value={destino}
+          onChange={(e) => buscarSugestoes(e.target.value)}
+          placeholder="Digite um endereço completo (ex: Rua Paraná, 100, Vila Maria Cristina)"
+          style={{
+            width: "100%",
+            padding: "12px 15px",
+            borderRadius: "20px",
+            border: "1px solid #a6e9ff",
+            fontSize: "15px",
+            outline: "none",
+          }}
+        />
+        {sugestoes.length > 0 && (
+          <ul
+            style={{
+              listStyle: "none",
+              padding: 0,
+              marginTop: "8px",
+              background: "#fff",
+              borderRadius: "12px",
+              boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
+              maxHeight: "160px",
+              overflowY: "auto",
+            }}
+          >
+            {sugestoes.map((s, i) => (
+              <li
+                key={i}
+                onClick={() => {
+                  setDestino(s.nome);
+                  calcularRota(s);
+                }}
+                style={{
+                  padding: "10px 12px",
+                  borderBottom: "1px solid #eee",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+              >
+                📍 {s.nome}
+              </li>
+            ))}
+          </ul>
+        )}
+        {mensagem && (
+          <p style={{ marginTop: "6px", fontSize: "13px", color: "#555" }}>
+            {mensagem}
+          </p>
         )}
       </div>
+      {/* ---------------------- FIM DA BARRA DE PESQUISA ---------------------- */}
 
-      {/* Mapa */}
-      <GoogleMap mapContainerStyle={containerStyle} center={localAtual} zoom={13}>
-        <Marker position={localAtual} />
-
-        {/* POIs */}
-        {POIs.map(poi => (
-          <Marker 
-            key={poi.id} 
-            position={poi.position} 
-            onClick={() => setSelectedPOI(poi)}
-          />
-        ))}
-        {selectedPOI && (
-          <InfoWindow
-            position={selectedPOI.position}
-            onCloseClick={() => setSelectedPOI(null)}
-          >
-            <div>{selectedPOI.name}</div>
-          </InfoWindow>
-        )}
-
-        {/* Direções */}
-        {calculate && partida && destino && (
-          <DirectionsService
-            options={{
-              origin: partida === "Meu Local Atual" ? localAtual : partida,
-              destination: destino,
-              travelMode: "DRIVING",
-            }}
-            callback={(res, status) => {
-              if (status === "OK") {
-                setDirections(res);
-                setCalculate(false);
-                const route = res.routes[0].legs[0];
-                setRouteInfo({
-                  distance: route.distance.text,
-                  duration: route.duration.text
-                });
-              }
-            }}
-          />
-        )}
-        {directions && <DirectionsRenderer directions={directions} />}
-      </GoogleMap>
-    </LoadScript>
+      {/* 🗺️ Mapa */}
+      {posicaoAtual ? (
+        <MapContainer
+          center={posicaoAtual}
+          zoom={14}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <Marker position={posicaoAtual}></Marker>
+          {coordenadasDestino && (
+            <Marker position={coordenadasDestino}></Marker>
+          )}
+          {rota && <Polyline positions={rota} color="#0077B6" weight={6} />}
+          <ChangeView center={posicaoAtual} />
+        </MapContainer>
+      ) : (
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "18px",
+            color: "#555",
+          }}
+        >
+          Obtendo localização...
+        </div>
+      )}
+    </div>
   );
-};
-
-export default Navegar;
+}

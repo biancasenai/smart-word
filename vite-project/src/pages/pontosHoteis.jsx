@@ -24,7 +24,7 @@ const PontosHoteis = () => {
         alignItems: "center",
         height: "100vh",
         padding: "0 100px",
-        backgroundColor: "#151b8b",
+        backgroundColor: "#00072D",
       }}
     >
       {/* Lado esquerdo: Seleção de pontos */}
@@ -48,7 +48,7 @@ const PontosHoteis = () => {
           style={{
             width: "400px",
             height: "80px",
-            backgroundColor: "#F37E7E",
+            backgroundColor: "#00B4D8",
             color: "white",
             display: "flex",
             justifyContent: "center",
@@ -89,6 +89,31 @@ const PontosHoteis = () => {
           }}
         >
           Você selecionou: {pontos} pontos
+        
+                 {/* Texto e campo de entrada */}
+              <p
+                style={{
+                  marginTop: "30px",
+                  color: "#fff",
+                  fontSize: "20px",
+                }}
+              >
+                Digite o hotel de sua escolha:
+              </p>
+              <input
+                type="text"
+                placeholder="Nome do hotel"
+                style={{
+                  marginTop: "10px",
+                  padding: "10px",
+                  width: "300px",
+                  borderRadius: "10px",
+                  border: "2px solid #fff",
+                  outline: "none",
+                  fontSize: "16px",
+                  color: "#000",
+                }}
+              />
         </p>
         <p
           style={{

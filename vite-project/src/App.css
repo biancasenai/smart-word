@@ -71,9 +71,9 @@ button {
 }
 
 .app {
-  padding-top: 80px;
-  background: #151b8b;
-  min-height: 100vh;
+  padding-top: 50px;
+  background: #00072D;
+  min-height: 0vh;
   transition: background 0.3s, color 0.3s;
 }
 
@@ -81,6 +81,21 @@ button {
   background: #ffc29b;
   color: #fff;
 }
+.header-bar {
+  height: 45px; /* ou o valor que você quiser */
+  background-color: #00072D;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: fixed;
+  top: 0; /* IMPORTANTE: mantém colada ao topo */
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 
 .theme-button {
   font-family: "Kodchasan", Arial, sans-serif;
@@ -88,7 +103,7 @@ button {
   padding: 36px;
   border-radius: 16px;
   border: none;
-  background: linear-gradient(90deg, #f37e7e 60%, #ff76a1 100%);
+  background: #0E6BA8 ;
   color: white;
   font-size: 1.2rem;
   font-weight: bold;
@@ -98,7 +113,7 @@ button {
 }
 
 .app.dark .theme-button {
-  background: linear-gradient(90deg, #f37e7e 60%, #b95e82 100%);
+  background:  #379BDE;
   color: #fff;
 }
 
@@ -121,14 +136,14 @@ button {
 
 /* Tema Light */
 .light .voltar-home {
-  background-color: #0d1164;
-  color: #151b8b;
+  background-color: #001C55;
+  color: #00072D;
 }
 
 /* Tema Dark */
 .dark .voltar-home {
-  background-color: #f39f9f;
-  color: #ffc29b;
+  background-color: #001C55;
+  color: #00072D;
 }
 
 /* Página bateria */

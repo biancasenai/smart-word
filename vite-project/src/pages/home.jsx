@@ -11,6 +11,7 @@ function Home() {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        background:"#00072D",
       }}
     >
       {/* Esquerda */}

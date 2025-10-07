@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 import "./App.css";
-import Cadastro from "./pages/Cadastro";
+import Cadastro from "./componentes/Cadastro";
 import Login from "./componentes/Login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
@@ -15,7 +15,7 @@ import PontosHoteis from "./pages/PontosHoteis";
 import PontosCashback from "./pages/PontosCashback";
 import PontosProdutos from "./pages/PontosProdutos";
 
-// Botão que será usado em todas as páginas
+// Botão voltar para todas as páginas
 function VoltarHomeButton() {
   return (
     <button className="voltar-home" onClick={() => history.back()}>
@@ -32,28 +32,28 @@ function App() {
 
   return (
     <div className={`app${dark ? " dark" : ""}`}>
-     {isLoggedIn && (
-  <header className="header-bar">
-    <h1 role="button" onClick={() => navigate("/")}>
-      SMART
-      <br />
-      WORD
-    </h1>
-    <button
-      className={`theme-toggle${dark ? " active" : ""}`}
-      onClick={() => setDark((v) => !v)}
-      aria-label="Alternar tema"
-    >
-      <span className="toggle-track">
-        <span className="toggle-ball" />
-      </span>
-    </button>
-  </header>
-)}
-
       {isLoggedIn ? (
         <>
+          {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
+          <header className="header-bar">
+            <h1 role="button" onClick={() => navigate("/")}>
+              SMART
+              <br />
+              WORD
+            </h1>
+            <button
+              className={`theme-toggle${dark ? " active" : ""}`}
+              onClick={() => setDark((v) => !v)}
+              aria-label="Alternar tema"
+            >
+              <span className="toggle-track">
+                <span className="toggle-ball" />
+              </span>
+            </button>
+          </header>
+
           <VoltarHomeButton />
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/bateria" element={<Bateria />} />
@@ -68,7 +68,10 @@ function App() {
           </Routes>
         </>
       ) : showLogin ? (
-        <Login onLogin={() => setIsLoggedIn(true)} />
+        <Login
+          onLogin={() => setIsLoggedIn(true)}
+          goToCadastro={() => setIsLoggedIn(false)} // voltar para Cadastro
+        />
       ) : (
         <Cadastro
           onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login

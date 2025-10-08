@@ -1,5 +1,5 @@
 @import "leaflet/dist/leaflet.css"; /* Importa estilos padrão do Leaflet para mapas */
-@import url('https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap'); /* Importa a fonte Kodchasan do Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Kodchasan:wght@400;700&display=swap"); /* Importa a fonte Kodchasan do Google Fonts */
 
 body,
 .app {
@@ -26,57 +26,76 @@ button {
 }
 
 .app.dark .header-bar {
-  background-color: #0D1164; /* Cor de fundo da barra no tema escuro */
+  background-color: #0d1164; /* Cor de fundo da barra no tema escuro */
   color: #fff; /* Cor do texto no tema escuro */
 }
 
+/* Estilo do botão de troca de tema */
 .theme-toggle {
-  background: none; /* Remove fundo do botão de alternar tema */
-  border: none; /* Remove borda */
-  cursor: pointer; /* Cursor tipo mãozinha */
-  outline: none; /* Remove contorno ao focar */
-  padding: 0; /* Remove padding */
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  position: fixed; /* Mantém fixo na tela */
+  bottom: 80px; /* Distância do rodapé */
+  right: 20px; /* Distância da borda direita */
+  z-index: 1000; /* Fica acima dos outros elementos */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; /* Espaço entre elementos, se quiser adicionar texto */
 }
 
 
 .toggle-track {
-  width: 44px; height: 24px; /* Dimensões da faixa do toggle */
-  background: #ccc; /* Cor de fundo inicial */
-  border-radius: 12px; /* Cantos arredondados */
-  display: flex; align-items: center; /* Centraliza verticalmente o conteúdo */
-  transition: background 0.3s; /* Animação suave ao trocar cor */
-  position: relative; /* Para posicionar o botão interno */
+  width: 44px;
+  height: 24px;
+  background: #ccc;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+/* Quando o tema estiver ativo */
 .theme-toggle.active .toggle-track {
-  background: #222; /* Cor da faixa quando ativo */
+  background: #222;
 }
 
+/* Bolinha que se move */
 .toggle-ball {
-  width: 20px; height: 20px; /* Tamanho da bolinha do toggle */
-  background: #fff; /* Cor inicial da bolinha */
-  border-radius: 50%; /* Forma circular */
-  position: absolute; /* Para mover dentro da faixa */
-  left: 2px; /* Posição inicial à esquerda */
-  transition: left 0.3s; /* Movimento suave */
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); /* Sombra leve */
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  transition: left 0.3s, background 0.3s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Bolinha ao ativar tema escuro */
 .theme-toggle.active .toggle-ball {
-  left: 22px; /* Move bolinha para direita quando ativo */
-  background: #ffc640; /* Muda cor da bolinha ao ativar */
+  left: 22px;
+  background: #ffc640;
 }
+
 
 .app {
   padding-top: 50px; /* Espaço superior para a barra */
-  background: #00072D; /* Cor de fundo padrão */
+  background: #00072d; /* Cor de fundo padrão */
   min-height: 0vh; /* Altura mínima (aqui 0) */
   transition: background 0.3s, color 0.3s; /* Transições suaves de cores */
 }
 
 /* Container da logo */
 .logo-container {
-  display: flex; align-items: center; gap: 14px; /* Layout horizontal com espaçamento */
+  display: flex;
+  align-items: center;
+  gap: 14px; /* Layout horizontal com espaçamento */
   cursor: pointer; /* Cursor de clique */
   font-family: Kodchasan; /* Fonte do container */
   margin-left: 70px; /* Afasta a logo da esquerda */
@@ -84,77 +103,114 @@ button {
 
 /* Logo — maior, proporcional à barra */
 .header-logo {
-  width: 85px; height: 70px; /* Dimensões da logo */
+  width: 85px;
+  height: 70px; /* Dimensões da logo */
   object-fit: contain; /* Mantém proporção da imagem */
 }
 
 /* Barra superior */
 .header-bar {
   height: 100px; /* Altura da barra */
-  background-color: #0D1164; color: white; /* Fundo e texto */
-  display: flex; align-items: center; justify-content: space-between; /* Layout flex horizontal */
+  background-color: #0d1164;
+  color: white; /* Fundo e texto */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Layout flex horizontal */
   padding: 0 20px; /* Espaço interno horizontal */
-  position: fixed; top: 0; width: 100%; /* Fixa no topo */
+  position: fixed;
+  top: 0;
+  width: 100%; /* Fixa no topo */
   z-index: 1000; /* Sobreposição acima de outros elementos */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra da barra */
 }
 
 .app.dark {
-  background: #0E6BA8; color: #fff; /* Fundo e cor do texto no tema escuro */
+  background: #0e6ba8;
+  color: #fff; /* Fundo e cor do texto no tema escuro */
 }
 
 .theme-button {
   font-family: "Kodchasan", Arial, sans-serif; /* Fonte do botão */
-  width: 520px; padding: 36px; /* Tamanho e espaçamento */
-  border-radius: 16px; border: none; /* Borda arredondada sem contorno */
-  background: #0E6BA8; color: white; /* Cor de fundo e texto */
-  font-size: 1.2rem; font-weight: bold; /* Tamanho e peso da fonte */
+  width: 520px;
+  padding: 36px; /* Tamanho e espaçamento */
+  border-radius: 16px;
+  border: none; /* Borda arredondada sem contorno */
+  background: #0e6ba8;
+  color: white; /* Cor de fundo e texto */
+  font-size: 1.2rem;
+  font-weight: bold; /* Tamanho e peso da fonte */
   cursor: pointer; /* Cursor tipo mão */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); /* Sombra leve */
   transition: background 0.3s, color 0.3s; /* Transição suave */
 }
 
 .app.dark .theme-button {
-  background: #379BDE; color: #fff; /* Cor do botão no tema escuro */
+  background: #379bde;
+  color: #fff; /* Cor do botão no tema escuro */
 }
 
 .voltar-home {
-  position: fixed; top: 105px; left: 40px; /* Posição fixa */
-  width: 50px; height: 50px; /* Tamanho do botão */
+  position: fixed;
+  top: 105px;
+  left: 40px; /* Posição fixa */
+  width: 50px;
+  height: 50px; /* Tamanho do botão */
   border-radius: 50%; /* Formato circular */
-  font-size: 20px; border: none; cursor: pointer; /* Estilo de fonte e interatividade */
-  z-index: 1000; display: flex; justify-content: center; align-items: center; /* Centraliza ícone/texto */
+  font-size: 20px;
+  border: none;
+  cursor: pointer; /* Estilo de fonte e interatividade */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centraliza ícone/texto */
   transition: background-color 0.3s, color 0.3s; /* Transições suaves */
 }
 
 /* Tema Light */
 .light .voltar-home {
-  background-color: #379BDE; color: #379BDE; /* Cores do botão no tema claro */
+  background-color: #379bde;
+  color: #379bde; /* Cores do botão no tema claro */
 }
 
 /* Tema Dark */
 .dark .voltar-home {
-  background-color: #0E6BA8; color: #0E6BA8; /* Cores do botão no tema escuro */
+  background-color: #0e6ba8;
+  color: #0e6ba8; /* Cores do botão no tema escuro */
 }
 
 /* Página bateria */
 .bateria-page {
-  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; /* Layout vertical centralizado */
-  height: 100vh; gap: 30px; /* Altura da tela e espaçamento entre itens */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Layout vertical centralizado */
+  height: 100vh;
+  gap: 30px; /* Altura da tela e espaçamento entre itens */
   font-family: "Poppins", Arial, sans-serif; /* Fonte específica */
-  background: linear-gradient(180deg, #00072d 0%, #0e0e3f 100%); /* Gradiente de fundo */
+  background: linear-gradient(
+    180deg,
+    #00072d 0%,
+    #0e0e3f 100%
+  ); /* Gradiente de fundo */
   padding-bottom: 250px; /* Deixa bateria mais abaixo */
 }
 
 /* Título */
 .bateria-title {
-  font-size: 42px; font-weight: bold; color: #ffffff; margin-bottom: 40px; /* Estiliza título da bateria */
+  font-size: 42px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 40px; /* Estiliza título da bateria */
 }
 
 /* Moldura da bateria */
 .bateria-shell {
-  width: 750px; height: 400px; border: 6px solid #901bfe; border-radius: 20px; /* Borda e arredondamento */
-  position: relative; overflow: hidden; /* Para posicionar elementos dentro */
+  width: 750px;
+  height: 400px;
+  border: 6px solid #901bfe;
+  border-radius: 20px; /* Borda e arredondamento */
+  position: relative;
+  overflow: hidden; /* Para posicionar elementos dentro */
   background: rgba(255, 255, 255, 0.05); /* Fundo semitransparente */
   box-shadow: 0 0 20px rgba(144, 27, 254, 0.4); /* Sombra da bateria */
 }
@@ -163,67 +219,222 @@ button {
 .bateria-level {
   height: 100%; /* Altura total da bateria */
   transition: width 0.4s ease; /* Animação ao mudar nível */
-  background: linear-gradient(to right, #901bfe, #b670f8); /* Gradiente do nível */
-  position: absolute; left: 0; bottom: 0; border-radius: 10px 0 0 10px; /* Posicionamento e arredondamento */
+  background: linear-gradient(
+    to right,
+    #901bfe,
+    #b670f8
+  ); /* Gradiente do nível */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-radius: 10px 0 0 10px; /* Posicionamento e arredondamento */
 }
 
 /* Porcentagem dentro da bateria */
 .bateria-percent {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); /* Centraliza texto */
-  font-size: 150px; font-weight: 700; color: #ffffff; /* Estilo do texto */
-  text-shadow: 0 0 15px rgba(144, 27, 254, 0.7); z-index: 2; font-family: Kodchasan; /* Sombra e fonte */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centraliza texto */
+  font-size: 150px;
+  font-weight: 700;
+  color: #ffffff; /* Estilo do texto */
+  text-shadow: 0 0 15px rgba(144, 27, 254, 0.7);
+  z-index: 2;
+  font-family: Kodchasan; /* Sombra e fonte */
 }
 
 /* Ponta da bateria */
 .bateria-tip {
-  position: absolute; top: 45%; right: -25px; transform: translateY(-50%); /* Posiciona ponta da bateria */
-  width: 22px; height: 80px; background: #901bfe; border-radius: 4px; /* Estilo da ponta */
+  position: absolute;
+  top: 45%;
+  right: -25px;
+  transform: translateY(-50%); /* Posiciona ponta da bateria */
+  width: 22px;
+  height: 80px;
+  background: #901bfe;
+  border-radius: 4px; /* Estilo da ponta */
 }
 
 /* Informações abaixo da bateria */
 .bateria-info {
-  display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 25px; /* Layout vertical centralizado */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 25px; /* Layout vertical centralizado */
   font-family: Kodchasan;
 }
 
 .bateria-range {
-  font-size: 28px; color: #fff; font-weight: 600; /* Estilo do range */
+  font-size: 28px;
+  color: #fff;
+  font-weight: 600; /* Estilo do range */
 }
 
 .bateria-charging {
-  font-weight: 600; font-size: 24px; color: #00ffbb; /* Texto indicando carregando */
+  font-weight: 600;
+  font-size: 24px;
+  color: #00ffbb; /* Texto indicando carregando */
 }
 
 .bubble {
-  position: absolute; bottom: 0; width: 10px; height: 10px; /* Bolhas animadas */
-  background: rgba(255, 255, 255, 0.7); border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 10px; /* Bolhas animadas */
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
   animation: rise 2s linear forwards; /* Animação de subir */
 }
 
 @keyframes rise {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-150px) scale(0.5); opacity: 0; } /* Bolha sobe e desaparece */
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-150px) scale(0.5);
+    opacity: 0;
+  } /* Bolha sobe e desaparece */
 }
 
 .home-container {
-  position: relative; display: flex; justify-content: center; align-items: center; height: 100vh; /* Centraliza conteúdo */
-  background: linear-gradient(180deg, #00072d 0%, #00114f 100%); overflow: hidden; /* Gradiente de fundo e esconde overflow */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Centraliza conteúdo */
+  background: linear-gradient(180deg, #00072d 0%, #00114f 100%);
+  overflow: hidden; /* Gradiente de fundo e esconde overflow */
 }
 
 /* Botões laterais */
 .left-buttons,
 .right-buttons {
-  display: flex; flex-direction: column; gap: 200px; z-index: 2; /* Layout vertical com espaçamento grande */
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
+  z-index: 2; /* Layout vertical com espaçamento grande */
 }
 
-.left-buttons { align-items: flex-end; margin-right: 100px; } /* Alinha à direita e afasta da margem */
-.right-buttons { align-items: flex-start; margin-left: 60px; } /* Alinha à esquerda e afasta da margem */
+.left-buttons {
+  align-items: flex-end;
+  margin-right: 100px;
+} /* Alinha à direita e afasta da margem */
+.right-buttons {
+  align-items: flex-start;
+  margin-left: 60px;
+} /* Alinha à esquerda e afasta da margem */
 
 /* 🌊 Onda fixa e proporcional */
 .wave-container {
-  position: absolute; bottom: 0; left: 0; width: 100%; height: 85vh; overflow: hidden; z-index: 1; /* Container da onda */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 85vh;
+  overflow: hidden;
+  z-index: 1; /* Container da onda */
 }
 
 .wave {
-  width: 100%; height: 100%; display: block; /* Onda ocupa todo o container */
+  width: 100%;
+  height: 100%;
+  display: block; /* Onda ocupa todo o container */
+}
+
+.chat-options {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.option-button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #0077cc;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.option-button:hover {
+  background-color: #005fa3;
+}
+
+/* Centraliza o chat na tela */
+.chatbot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #00072D, #c2e9fb);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Janela do chat */
+.chat-window {
+  background: #ffffff;
+  width: 450px;
+  max-width: 90%;
+  height: 600px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Área das mensagens */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+/* Estilo das mensagens */
+.message {
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin: 5px 0;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message.bot {
+  background: #f1f1f1;
+  align-self: flex-start;
+  color: #333;
+}
+
+.message.user {
+  background: #001C55;
+  color: #fff;
+  align-self: flex-end;
+}
+
+/* Botões */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  background: #0A2472; 
+  
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  border-radius: 8%;
+}
+
+button:hover {
+  background: #2196f3;
 }

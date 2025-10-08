@@ -1,20 +1,26 @@
 import React, { useState } from "react";
-import { QRCodeCanvas } from "qrcode.react";
+
 
 const PontosProdutos = () => {
   const [pontos, setPontos] = useState(1000);
+  const [codigo, setCodigo] = useState(""); // Estado para armazenar o código gerado
 
   const handleChange = (event) => {
-    setPontos(Number(event.target.value));
+    const pontosSelecionados = Number(event.target.value);
+    setPontos(pontosSelecionados);
+
+   
+    // Gera apenas um código aleatório
+    const codigoAleatorio = `${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+    setCodigo(codigoAleatorio);
   };
+
 
   const pontosOptions = [];
   for (let i = 1000; i <= 4000; i += 500) {
     pontosOptions.push(i);
   }
-
-  const valorEmDinheiro = (pontos / 100).toFixed(2);
-  const qrCodeValue = `Desconto de R$ ${valorEmDinheiro}`;
+  
 
   return (
     <div
@@ -24,7 +30,7 @@ const PontosProdutos = () => {
         alignItems: "center",
         height: "100vh",
         padding: "0 100px",
-        backgroundColor: "#151b8b",
+        backgroundColor: "#00072D",
       }}
     >
       {/* Lado esquerdo: Seleção de pontos */}
@@ -48,7 +54,7 @@ const PontosProdutos = () => {
           style={{
             width: "400px",
             height: "80px",
-            backgroundColor: "#F37E7E",
+            backgroundColor: "#00B4D8",
             color: "white",
             display: "flex",
             justifyContent: "center",
@@ -98,46 +104,42 @@ const PontosProdutos = () => {
             fontSize: "34px",
           }}
         ></p>
-      </div>
 
-      {/* Lado direito: QR Code */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#fff",
-          padding: "40px",
-          borderRadius: "20px",
-          margin: "0 auto", // Centraliza horizontalmente
-        }}
-      >
-        <h3
-          style={{
-            marginBottom: "30px",
-            color: "#151b8b",
-            fontSize: "28px",
-          }}
-        >
-          ESCANEIE O QR CODE
-        </h3>
-        <QRCodeCanvas
-          value={qrCodeValue}
-          size={450} // Aumenta o tamanho do QR Code
-          bgColor={"#ffffff"}
-          fgColor={"#000000"}
-        />
-        <p
-          style={{
-            marginTop: "20px",
-            color: "#151b8b",
-            fontWeight: "bold",
-            fontSize: "24px",
-          }}
-        >
-          {qrCodeValue}
-        </p>
+      
+{codigo && (
+  <>
+    {/* Texto acima do código */}
+    <p
+      style={{
+        fontSize: "20px",
+        fontWeight: "bold",
+        color: "#fff",
+        textAlign: "right", // Alinha o texto à direita
+        marginTop: "-80px", // Ajusta o espaçamento para ficar próximo ao código
+        marginLeft: "650px", // Move o texto para o lado direito
+        width: "80%", // Define uma largura para o alinhamento funcionar
+      }}
+    >
+      INSIRA O CÓDIGO ABAIXO NA FINALIZAÇÃO DE SUAS COMPRAS:
+    </p>
+
+    {/* Código gerado */}
+    <p
+      style={{
+        fontSize: "26px",
+        fontWeight: "bold",
+        color: "#FFF",
+        textAlign: "right", // Alinha o texto à direita
+        marginTop: "5px", // Ajusta o espaçamento
+        marginLeft: "650px", // Move o texto para o lado direito
+        width: "80%", // Define uma largura para o alinhamento funcionar
+      }}
+    >
+       {codigo}
+    </p>
+  </>
+)}
+       
       </div>
     </div>
   );

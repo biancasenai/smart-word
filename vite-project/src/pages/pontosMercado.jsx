@@ -13,8 +13,8 @@ const PontosMercado = () => {
     pontosOptions.push(i);
   }
 
-  const valorEmDinheiro = (pontos / 100).toFixed(2);
-  const qrCodeValue = `Desconto de R$ ${valorEmDinheiro}`;
+
+  const qrCodeValue = ` ${pontos / 100}% de desconto `;
 
   return (
     <div

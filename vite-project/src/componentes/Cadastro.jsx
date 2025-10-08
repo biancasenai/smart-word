@@ -67,7 +67,14 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
       </button>
 
       {/* Lado esquerdo - Imagem */}
-      <div style={{ flex: 1, display: "flex", justifyContent: "center", height: "100%" }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          height: "100%",
+        }}
+      >
         <img
           src={logoImg}
           alt="Smart Word"
@@ -80,15 +87,26 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
       </div>
 
       {/* Lado direito - Formulário */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <img
           src={userImg}
           alt="Ícone de Cadastro"
           style={{ width: "200px", height: "200px", marginBottom: "10px" }}
         />
 
-        <h2 style={{ fontSize: "50px", fontFamily: "Kodchasan" }}>Bem-vindo!</h2>
-        <h3 style={{ fontSize: "25px", fontFamily: "Kodchasan" }}>Faça seu cadastro:</h3>
+        <h2 style={{ fontSize: "50px", fontFamily: "Kodchasan" }}>
+          Bem-vindo!
+        </h2>
+        <h3 style={{ fontSize: "25px", fontFamily: "Kodchasan" }}>
+          Faça seu cadastro:
+        </h3>
 
         <form
           onSubmit={handleSubmit}

@@ -17,7 +17,6 @@ import PontosProdutos from "./pages/PontosProdutos";
 import logo from "./img/logoDark.png";
 import Chat from "./pages/ChatBot";
 
-
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {
   return (
@@ -39,15 +38,18 @@ function App() {
         <>
           {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
           <header className="header-bar">
-          <div className="logo-container" onClick={() => navigate("/")} role="button">
-  <img src={logo} alt="Logo" className="header-logo" />
-  <h1>
-    SMART
-    <br />
-    WORD
-  </h1>
-</div>
-
+            <div
+              className="logo-container"
+              onClick={() => navigate("/")}
+              role="button"
+            >
+              <img src={logo} alt="Logo" className="header-logo" />
+              <h1>
+                SMART
+                <br />
+                WORD
+              </h1>
+            </div>
 
             <button
               className={`theme-toggle${dark ? " active" : ""}`}
@@ -59,9 +61,20 @@ function App() {
               </span>
             </button>
             <button
-            className="chatbot-button"
-            onClick={() => navigate("/chatbot")}
-            aria-label="Ir para Chatbot">
+              className="chatbot-button"
+              onClick={() => navigate("/chatbot")}
+              aria-label="Ir para Chatbot"
+              style={{
+                borderRadius: "11%",
+                fontFamily: "Kodchasan",
+                backgroundColor: "#00B4D8",
+                color: "#fff",
+                border: "none",
+                padding: "10px 20px",
+                cursor: "pointer",
+                fontSize: "16px",
+              }}
+            >
               Chatbot
             </button>
           </header>

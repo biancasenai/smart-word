@@ -24,6 +24,8 @@ const PontosHoteis = () => {
         height: "100vh",
         padding: "0 100px",
         backgroundColor: "#00072D",
+        fontFamily:"Kodchasan",
+
       }}
     >
       {/* Lado esquerdo: Seleção de pontos */}
@@ -39,6 +41,8 @@ const PontosHoteis = () => {
             marginBottom: "40px",
             color: "#fff",
             fontSize: "36px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           SELECIONE A QUANTIDADE DE PONTOS
@@ -71,6 +75,8 @@ const PontosHoteis = () => {
               fontSize: "24px",
               fontWeight: "bold",
               cursor: "pointer",
+              fontFamily:"Kodchasan",
+
             }}
           >
             {pontosOptions.map((ponto) => (
@@ -85,6 +91,8 @@ const PontosHoteis = () => {
             marginTop: "30px",
             color: "#fff",
             fontSize: "24px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           Você selecionou: {pontos} pontos
@@ -95,6 +103,8 @@ const PontosHoteis = () => {
                   marginTop: "30px",
                   color: "#fff",
                   fontSize: "20px",
+                  fontFamily:"Kodchasan",
+
                 }}
               >
                 Digite o hotel de sua escolha:
@@ -142,6 +152,7 @@ const PontosHoteis = () => {
             marginBottom: "30px",
             color: "#151b8b",
             fontSize: "28px",
+            fontFamily:"Kodchasan",
           }}
         >
           ESCANEIE O QR CODE

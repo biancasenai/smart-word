@@ -15,7 +15,7 @@ function Home() {
           preserveAspectRatio="none"
         >
           <path
-            fill="#007bff"
+            fill="var(--wave-color)"
             fillOpacity="0.3"
             d="M0,160L60,149.3C120,139,240,117,360,128C480,139,600,181,720,200.3C840,213,960,203,1080,197.3C1200,192,1320,192,1380,192L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
           ></path>
@@ -27,10 +27,7 @@ function Home() {
         <button className="theme-button" onClick={() => navigate("/relatorio")}>
           RELATÓRIO
         </button>
-        <button
-          className="theme-button"
-          onClick={() => navigate("/trocar-pontos")}
-        >
+        <button className="theme-button" onClick={() => navigate("/trocar-pontos")}>
           TROCA DE PONTOS
         </button>
       </div>

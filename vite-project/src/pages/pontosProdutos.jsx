@@ -105,10 +105,6 @@ const PontosProdutos = () => {
           }}
         ></p>
 
-      
-{codigo && (
-  <>
-    {/* Texto acima do código */}
     <p
       style={{
         fontSize: "20px",
@@ -116,12 +112,15 @@ const PontosProdutos = () => {
         color: "#fff",
         textAlign: "right", // Alinha o texto à direita
         marginTop: "-80px", // Ajusta o espaçamento para ficar próximo ao código
-        marginLeft: "650px", // Move o texto para o lado direito
+        marginLeft: "600px", // Move o texto para o lado direito
         width: "80%", // Define uma largura para o alinhamento funcionar
       }}
     >
-      INSIRA O CÓDIGO ABAIXO NA FINALIZAÇÃO DE SUAS COMPRAS:
-    </p>
+INSIRA O CÓDIGO NO CARRINHO PARA GARANTIR SEU DESCONTO!    </p>
+      
+{codigo && (
+  <>
+    
 
     {/* Código gerado */}
     <p

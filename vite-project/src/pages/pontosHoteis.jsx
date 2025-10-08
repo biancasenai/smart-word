@@ -13,7 +13,7 @@ const PontosHoteis = () => {
     pontosOptions.push(i);
   }
 
-  const qrCodeValue = ` ${pontos / 100}% de desconto `;
+  const qrCodeValue = ` ${pontos / 100}% de desconto `; 
 
   return (
     <div

@@ -13,8 +13,7 @@ const PontosManutencao = () => {
     pontosOptions.push(i);
   }
 
-  const valorEmDinheiro = (pontos / 100).toFixed(2);
-  const qrCodeValue = `Desconto de R$ ${valorEmDinheiro}`;
+  const qrCodeValue = ` ${pontos / 100}% de desconto `;
 
   return (
     <div
@@ -24,7 +23,7 @@ const PontosManutencao = () => {
         alignItems: "center",
         height: "100vh",
         padding: "0 100px",
-        backgroundColor: "#151b8b",
+        backgroundColor: "#00072D",
       }}
     >
       {/* Lado esquerdo: Seleção de pontos */}
@@ -48,7 +47,7 @@ const PontosManutencao = () => {
           style={{
             width: "400px",
             height: "80px",
-            backgroundColor: "#F37E7E",
+            backgroundColor: "#00B4D8",
             color: "white",
             display: "flex",
             justifyContent: "center",

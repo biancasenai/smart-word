@@ -15,6 +15,7 @@ import PontosHoteis from "./pages/PontosHoteis";
 import PontosCashback from "./pages/PontosCashback";
 import PontosProdutos from "./pages/PontosProdutos";
 import logo from "./img/logoDark.png";
+import Chat from "./pages/ChatBot";
 
 
 // Botão voltar para todas as páginas
@@ -47,6 +48,7 @@ function App() {
   </h1>
 </div>
 
+
             <button
               className={`theme-toggle${dark ? " active" : ""}`}
               onClick={() => setDark((v) => !v)}
@@ -77,6 +79,14 @@ function App() {
             <Route path="/pontosHoteis" element={<PontosHoteis />} />
             <Route path="/pontosCashback" element={<PontosCashback />} />
             <Route path="/pontosProdutos" element={<PontosProdutos />} />
+            <Route
+              path="/chatbot"
+              element={
+                <div className="App">
+                  <Chat />
+                </div>
+              }
+            />
           </Routes>
         </>
       ) : showLogin ? (

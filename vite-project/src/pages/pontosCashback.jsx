@@ -2,15 +2,33 @@ import React, { useState } from "react";
 
 const PontosCashback = () => {
   const [pontos, setPontos] = useState(1000);
-
+  const [chavePix, setChavePix] = useState("celular"); // Estado para armazenar a chave PIX selecionada
   const handleChange = (event) => {
     setPontos(Number(event.target.value));
+
+  };
+
+  const handlePixChange = (event) => {
+    setChavePix(event.target.value); // Atualiza o estado com a opção selecionada
   };
 
   const pontosOptions = [];
   for (let i = 1000; i <= 4000; i += 500) {
     pontosOptions.push(i);
   }
+
+  const getPlaceholder = () => {
+    switch (chavePix) {
+      case "celular":
+        return "Digite seu número de celular";
+      case "cpf":
+        return "Digite seu CPF";
+      case "email":
+        return "Digite seu email";
+      default:
+        return "Digite aqui";
+    }
+  };
 
   return (
     <div
@@ -20,7 +38,7 @@ const PontosCashback = () => {
         alignItems: "center",
         height: "100vh",
         padding: "0 100px",
-        backgroundColor: "#151b8b",
+        backgroundColor: "#00072D",
       }}
     >
       {/* Lado esquerdo: Seleção de pontos */}
@@ -44,7 +62,7 @@ const PontosCashback = () => {
           style={{
             width: "400px",
             height: "80px",
-            backgroundColor: "#F37E7E",
+            backgroundColor: "#00B4D8",
             color: "white",
             display: "flex",
             justifyContent: "center",
@@ -96,6 +114,80 @@ const PontosCashback = () => {
         ></p>
 
 
+
+<div
+          style={{
+            display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#00B4D8",
+    padding: "20px",
+    borderRadius: "10px",
+    color: "#fff",
+          }}
+        >
+            <h3>Selecione a chave pix cadastrada</h3>
+          <select
+          value={chavePix}
+          onChange={handlePixChange}
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "transparent",
+              color: "#000",
+              border: "none",
+              outline: "none",
+              textAlign: "center",
+              fontSize: "24px",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            <option value="celular">Celular</option>
+    <option value="cpf">CPF</option>
+    <option value="email">Email</option>
+          </select>
+
+
+
+        </div>
+
+{/* Texto no lado direito e campo de entrada */}
+<div
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center", // Centraliza horizontalmente
+      justifyContent: "center", // Centraliza verticalmente
+     marginLeft:"800px",
+      marginTop: "20px",
+      width: "100%",
+    }}
+  >
+    <p
+      style={{
+        fontSize: "18px",
+        color: "#fff",
+        marginBottom: "10px",
+      }}
+    >
+      Digite sua chave PIX:
+    </p>
+    <input
+      type="text"
+      placeholder={getPlaceholder()} // Placeholder dinâmico
+      style={{
+        width: "60%",
+        padding: "10px",
+        borderRadius: "5px",
+        border: "1px solid #ccc",
+        fontSize: "16px",
+        outline: "none",
+      }}
+    />
+  </div>
+       
         
       </div>
     </div>
@@ -103,4 +195,3 @@ const PontosCashback = () => {
 };
 
 export default PontosCashback;
-''

@@ -70,13 +70,30 @@ const Login = ({ onLogin, goToCadastro }) => {
       </button>
 
       {/* Lado esquerdo - logo */}
-      <div style={{ flex: 1, display: "flex", justifyContent: "center", height: "100%" }}>
-        <img
-          src={logoImg}
-          alt="Smart Word"
-          style={{ width: "100%", height: "auto", maxWidth: "1000px" }}
-        />
-      </div>
+     {/* Lado esquerdo - Imagem */}
+<div
+  style={{
+    flex: 1,
+    display: "flex",
+    justifyContent: "flex-start", // garante que fique à esquerda
+    alignItems: "stretch", // ocupa toda a altura
+    height: "100vh", // ocupa toda a altura da tela
+    margin: 0,
+    padding: 0,
+  }}
+>
+  <img
+    src={logoImg}
+    alt="Smart Word"
+    style={{
+      width: "100%", // ocupa toda a largura do lado esquerdo
+      height: "100%", // ocupa toda a altura
+      objectFit: "cover", // preenche sem distorcer
+      display: "block", // remove espaços brancos padrão de imagens
+    }}
+  />
+</div>
+
 
       {/* Lado direito - login */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>

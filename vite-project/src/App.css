@@ -38,6 +38,7 @@ button {
   padding: 0; /* Remove padding */
 }
 
+
 .toggle-track {
   width: 44px; height: 24px; /* Dimensões da faixa do toggle */
   background: #ccc; /* Cor de fundo inicial */

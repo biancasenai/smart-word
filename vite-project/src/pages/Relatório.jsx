@@ -7,7 +7,7 @@ const Relatório = () => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: 'linear-gradient(to bottom, #151B8B, #6E279E)',
+    background: 'linear-gradient(to bottom, #00072D, #3C1059)',
     color: '#fff',
     fontSize: '24px',
     fontFamily: 'Arial, sans-serif',

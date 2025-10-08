@@ -19,14 +19,14 @@ export default function Bateria() {
   // Definindo gradiente linear conforme o nível da bateria
   const color =
     clamped > 60
-      ? "linear-gradient(to right, #FF256A, #FF7EB3)"   // alto
+      ? "linear-gradient(to right, #901BFE, #B670F8)"   // alto
       : clamped > 30
-      ? "linear-gradient(to right, #F37E7E, #FFA07A)"   // médio
-      : "linear-gradient(to right, #FF256A, #FF7EB3)";  // baixo
+      ? "linear-gradient(to right, #8B41D0, #D2A2FF)"   // médio
+      : "linear-gradient(to right, #901BFE, #B670F8)";  // baixo
 
   return (
     <div className="bateria-page">
-      <div className="bateria-shell" style={{ borderColor: "#FF256A" }}>
+      <div className="bateria-shell" style={{ borderColor: "#9D52E4" }}>
         <div className="bateria-level" style={{ width: `${clamped}%`, background: color }} />
         <div className="bateria-tip"></div>
       </div>

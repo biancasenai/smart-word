@@ -47,7 +47,6 @@ button {
   gap: 5px; /* Espaço entre elementos, se quiser adicionar texto */
 }
 
-
 .toggle-track {
   width: 44px;
   height: 24px;
@@ -57,7 +56,7 @@ button {
   align-items: center;
   transition: background 0.3s;
   position: relative;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Quando o tema estiver ativo */
@@ -82,7 +81,6 @@ button {
   left: 22px;
   background: #ffc640;
 }
-
 
 .app {
   padding-top: 50px; /* Espaço superior para a barra */
@@ -371,7 +369,7 @@ button {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #00072D, #c2e9fb);
+  background: linear-gradient(135deg, #00072d, #c2e9fb);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -411,7 +409,7 @@ button {
 }
 
 .message.user {
-  background: #001C55;
+  background: #001c55;
   color: #fff;
   align-self: flex-end;
 }
@@ -426,8 +424,8 @@ button {
 button {
   padding: 10px;
   border: none;
-  background: #0A2472; 
-  
+  background: #0a2472;
+
   color: #fff;
   cursor: pointer;
   font-size: 14px;

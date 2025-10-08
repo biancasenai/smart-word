@@ -82,7 +82,7 @@ button {
   color: #fff;
 }
 .header-bar {
-  height: 45px; /* ou o valor que você quiser */
+  height: 100px; /* ou o valor que você quiser */
   background-color: #00072D;
   color: white;
   display: flex;
@@ -94,6 +94,17 @@ button {
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-button {
+  background-color: #379BDE;
+  color: #ddd;
+  border-radius: 30px;
+  height: 60px;
+  width: 150px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 20px;
+  border-color: #ffffff;
 }
 
 

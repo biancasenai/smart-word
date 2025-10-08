@@ -50,6 +50,12 @@ function App() {
                 <span className="toggle-ball" />
               </span>
             </button>
+            <button
+            className="chatbot-button"
+            onClick={() => navigate("/chatbot")}
+            aria-label="Ir para Chatbot">
+              Chatbot
+            </button>
           </header>
 
           <VoltarHomeButton />

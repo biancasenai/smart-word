@@ -41,7 +41,21 @@ const PontosProdutos = () => {
           alignItems: "flex-start",
         }}
       >
-        <h2
+       
+        <p
+  style={{
+    fontSize: "20px",
+    fontWeight: "bold",
+    color: "#fff",
+    textAlign: "right",
+    marginTop: "-200px", // Subir o texto
+    marginLeft: "600px",
+    width: "80%",
+  }}
+>
+  INSIRA O CÓDIGO NO CARRINHO PARA GARANTIR SEU DESCONTO!
+</p>
+<h2
           style={{
             marginBottom: "40px",
             color: "#fff",
@@ -105,18 +119,6 @@ const PontosProdutos = () => {
           }}
         ></p>
 
-    <p
-      style={{
-        fontSize: "20px",
-        fontWeight: "bold",
-        color: "#fff",
-        textAlign: "right", // Alinha o texto à direita
-        marginTop: "-80px", // Ajusta o espaçamento para ficar próximo ao código
-        marginLeft: "600px", // Move o texto para o lado direito
-        width: "80%", // Define uma largura para o alinhamento funcionar
-      }}
-    >
-INSIRA O CÓDIGO NO CARRINHO PARA GARANTIR SEU DESCONTO!    </p>
       
 {codigo && (
   <>
@@ -124,18 +126,24 @@ INSIRA O CÓDIGO NO CARRINHO PARA GARANTIR SEU DESCONTO!    </p>
 
     {/* Código gerado */}
     <p
-      style={{
-        fontSize: "26px",
-        fontWeight: "bold",
-        color: "#FFF",
-        textAlign: "right", // Alinha o texto à direita
-        marginTop: "5px", // Ajusta o espaçamento
-        marginLeft: "650px", // Move o texto para o lado direito
-        width: "80%", // Define uma largura para o alinhamento funcionar
-      }}
-    >
-       {codigo}
-    </p>
+  style={{
+    fontSize: "26px",
+    fontWeight: "bold",
+    color: "#FFF",
+    textAlign: "right",
+    marginTop: "-250px",
+    marginLeft: "1120px",
+    width: "20%",
+    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    borderRadius: "10px",
+    padding: "12px 20px",
+    letterSpacing: "3px",
+    display: "inline-block",
+  }}
+>
+  {codigo}
+</p>
+
   </>
 )}
        

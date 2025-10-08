@@ -5,25 +5,25 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-        background:"#00072D",
-      }}
-    >
+    <div className="home-container">
+      {/* Fundo com onda fixa */}
+      <div className="wave-container">
+        <svg
+          className="wave"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="#007bff"
+            fillOpacity="0.3"
+            d="M0,160L60,149.3C120,139,240,117,360,128C480,139,600,181,720,200.3C840,213,960,203,1080,197.3C1200,192,1320,192,1380,192L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+
       {/* Esquerda */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "200px",
-          alignItems: "flex-end",
-          marginRight: "100px",
-        }}
-      >
+      <div className="left-buttons">
         <button className="theme-button" onClick={() => navigate("/relatorio")}>
           RELATÓRIO
         </button>
@@ -34,16 +34,9 @@ function Home() {
           TROCA DE PONTOS
         </button>
       </div>
+
       {/* Direita */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "200px",
-          alignItems: "flex-start",
-          marginLeft: "60px",
-        }}
-      >
+      <div className="right-buttons">
         <button className="theme-button" onClick={() => navigate("/bateria")}>
           BATERIA
         </button>
@@ -54,7 +47,5 @@ function Home() {
     </div>
   );
 }
-
-// ...existing code...
 
 export default Home;

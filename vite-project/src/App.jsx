@@ -14,6 +14,8 @@ import PontosManutencao from "./pages/PontosManutencao";
 import PontosHoteis from "./pages/PontosHoteis";
 import PontosCashback from "./pages/PontosCashback";
 import PontosProdutos from "./pages/PontosProdutos";
+import logo from "./img/logoDark.png";
+
 
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {
@@ -36,11 +38,15 @@ function App() {
         <>
           {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
           <header className="header-bar">
-            <h1 role="button" onClick={() => navigate("/")}>
-              SMART
-              <br />
-              WORD
-            </h1>
+          <div className="logo-container" onClick={() => navigate("/")} role="button">
+  <img src={logo} alt="Logo" className="header-logo" />
+  <h1>
+    SMART
+    <br />
+    WORD
+  </h1>
+</div>
+
             <button
               className={`theme-toggle${dark ? " active" : ""}`}
               onClick={() => setDark((v) => !v)}

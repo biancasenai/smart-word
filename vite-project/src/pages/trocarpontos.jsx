@@ -12,6 +12,7 @@ const trocarpontos = () => {
   return (
     <div
       style={{
+        backgroundColor: "#00072D",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

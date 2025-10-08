@@ -1,11 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { useTheme } from "../componentes/ThemeContext"; // Importa o hook do contexto
 
 function Home() {
   const navigate = useNavigate();
+  const { darkMode } = useTheme(); // Acessa o estado do tema
 
   return (
-    <div className="home-container">
+    <div
+      className="home-container"
+      style={{
+        backgroundColor: darkMode ? "#00072D" : "#FFFFFF",
+        color: darkMode ? "#FFFFFF" : "#000000",
+      }}
+    >
       {/* Fundo com onda fixa */}
       <div className="wave-container">
         <svg
@@ -15,7 +23,7 @@ function Home() {
           preserveAspectRatio="none"
         >
           <path
-            fill="var(--wave-color)"
+            fill={darkMode ? "#1E90FF" : "#87CEFA"}
             fillOpacity="0.3"
             d="M0,160L60,149.3C120,139,240,117,360,128C480,139,600,181,720,200.3C840,213,960,203,1080,197.3C1200,192,1320,192,1380,192L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
           ></path>
@@ -27,7 +35,10 @@ function Home() {
         <button className="theme-button" onClick={() => navigate("/relatorio")}>
           RELATÓRIO
         </button>
-        <button className="theme-button" onClick={() => navigate("/trocar-pontos")}>
+        <button
+          className="theme-button"
+          onClick={() => navigate("/trocar-pontos")}
+        >
           TROCA DE PONTOS
         </button>
       </div>

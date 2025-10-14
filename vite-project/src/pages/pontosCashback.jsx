@@ -120,6 +120,8 @@ const PontosCashback = () => {
             display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginLeft:"900px",
+    marginTop:"-10px",
     justifyContent: "center",
     backgroundColor: "#00B4D8",
     padding: "20px",
@@ -142,6 +144,7 @@ const PontosCashback = () => {
               fontSize: "24px",
               fontWeight: "bold",
               cursor: "pointer",
+              
             }}
           >
             <option value="celular">Celular</option>
@@ -153,13 +156,13 @@ const PontosCashback = () => {
 
         </div>
 
-{/* Texto no lado direito e campo de entrada */}
+
 <div
     style={{
       display: "flex",
       flexDirection: "column",
-      alignItems: "center", // Centraliza horizontalmente
-      justifyContent: "center", // Centraliza verticalmente
+      alignItems: "center", 
+      justifyContent: "center", 
      marginLeft:"800px",
       marginTop: "20px",
       width: "100%",
@@ -176,7 +179,7 @@ const PontosCashback = () => {
     </p>
     <input
       type="text"
-      placeholder={getPlaceholder()} // Placeholder dinâmico
+      placeholder={getPlaceholder()} 
       style={{
         width: "60%",
         padding: "10px",

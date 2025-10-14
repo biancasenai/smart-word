@@ -51,6 +51,8 @@ const PontosProdutos = () => {
     marginTop: "-200px", // Subir o texto
     marginLeft: "600px",
     width: "80%",
+    fontFamily:"Kodchasan",
+
   }}
 >
   INSIRA O CÓDIGO NO CARRINHO PARA GARANTIR SEU DESCONTO!
@@ -60,6 +62,8 @@ const PontosProdutos = () => {
             marginBottom: "40px",
             color: "#fff",
             fontSize: "36px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           SELECIONE A QUANTIDADE DE PONTOS
@@ -92,6 +96,8 @@ const PontosProdutos = () => {
               fontSize: "24px",
               fontWeight: "bold",
               cursor: "pointer",
+              fontFamily:"Kodchasan",
+
             }}
           >
             {pontosOptions.map((ponto) => (
@@ -106,6 +112,8 @@ const PontosProdutos = () => {
             marginTop: "30px",
             color: "#fff",
             fontSize: "24px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           Você selecionou: {pontos} pontos

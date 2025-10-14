@@ -16,6 +16,7 @@ import PontosCashback from "./pages/PontosCashback";
 import PontosProdutos from "./pages/PontosProdutos";
 import logo from "./img/logoDark.png";
 import Chat from "./pages/ChatBot";
+import { ThemeProvider } from './componentes/ThemeContext';
 
 
 // Botão voltar para todas as páginas
@@ -29,76 +30,96 @@ function VoltarHomeButton() {
 
 function App() {
   const navigate = useNavigate();
-  const [dark, setDark] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
 
   return (
-    <div className={`app${dark ? " dark" : ""}`}>
-      {isLoggedIn ? (
-        <>
-          {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
-          <header className="header-bar">
-          <div className="logo-container" onClick={() => navigate("/")} role="button">
-  <img src={logo} alt="Logo" className="header-logo" />
-  <h1>
-    SMART
-    <br />
-    WORD
-  </h1>
-</div>
-            <button
-              className={`theme-toggle${dark ? " active" : ""}`}
-              onClick={() => setDark((v) => !v)}
-              aria-label="Alternar tema"
-            >
-              <span className="toggle-track">
-                <span className="toggle-ball" />
-              </span>
-            </button>
-            <button
-            className="chatbot-button"
-            onClick={() => navigate("/chatbot")}
-            aria-label="Ir para Chatbot">
-              Chatbot
-            </button>
-          </header>
+    <ThemeProvider>
+      <div className={`app${darkMode ? " dark" : ""}`}>
+        <h1>SMART WORD</h1>
+        <ThemeProvider />
+        {isLoggedIn ? (
+          <>
+            {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
+            <header className="header-bar">
+              <div
+                className="logo-container"
+                onClick={() => navigate("/")}
+                role="button"
+              >
+                <img src={logo} alt="Logo" className="header-logo" />
+                <h1>
+                  SMART
+                  <br />
+                  WORD
+                </h1>
+              </div>
 
-          <VoltarHomeButton />
+              <button
+                className={`theme-toggle${darkMode ? " active" : ""}`}
+                onClick={() => setDarkMode((v) => !v)}
+                aria-label="Alternar tema"
+              >
+                <span className="toggle-track">
+                  <span className="toggle-ball" />
+                </span>
+              </button>
+              <button
+                className="chatbot-button"
+                onClick={() => navigate("/chatbot")}
+                aria-label="Ir para Chatbot"
+                style={{
+                  borderRadius: "11%",
+                  fontFamily: "Kodchasan",
+                  backgroundColor: "#00B4D8",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                Chatbot
+              </button>
+            </header>
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/bateria" element={<Bateria />} />
-            <Route path="/relatorio" element={<Relatorio />} />
-            <Route path="/navegar" element={<Navegar />} />
-            <Route path="/trocar-pontos" element={<TrocarPontos />} />
-            <Route path="/pontosMercado" element={<PontosMercado />} />
-            <Route path="/pontosManutencao" element={<PontosManutencao />} />
-            <Route path="/pontosHoteis" element={<PontosHoteis />} />
-            <Route path="/pontosCashback" element={<PontosCashback />} />
-            <Route path="/pontosProdutos" element={<PontosProdutos />} />
-            <Route
-              path="/chatbot"
-              element={
-                <div className="App">
-                  <Chat />
-                </div>
-              }
-            />
-          </Routes>
-        </>
-      ) : showLogin ? (
-        <Login
-          onLogin={() => setIsLoggedIn(true)}
-          goToCadastro={() => setIsLoggedIn(false)} // voltar para Cadastro
-        />
-      ) : (
-        <Cadastro
-          onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login
-          goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
-        />
-      )}
-    </div>
+            <VoltarHomeButton />
+
+            <Routes>
+              <Route path="/" element={<Home darkMode={darkMode} />} />
+              <Route path="/bateria" element={<Bateria />} />
+              <Route path="/relatorio" element={<Relatorio />} />
+              <Route path="/navegar" element={<Navegar />} />
+              <Route path="/trocar-pontos" element={<TrocarPontos />} />
+              <Route path="/pontosMercado" element={<PontosMercado />} />
+              <Route path="/pontosManutencao" element={<PontosManutencao />} />
+              <Route path="/pontosHoteis" element={<PontosHoteis />} />
+              <Route path="/pontosCashback" element={<PontosCashback />} />
+              <Route path="/pontosProdutos" element={<PontosProdutos />} />
+              <Route
+                path="/chatbot"
+                element={
+                  <div className="App">
+                    <Chat />
+                  </div>
+                }
+              />
+            </Routes>
+          </>
+        ) : showLogin ? (
+          <Login
+            onLogin={() => setIsLoggedIn(true)}
+            goToCadastro={() => setIsLoggedIn(false)} // voltar para Cadastro
+          />
+        ) : (
+          <Cadastro
+            onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login
+            goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
+          />
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
 

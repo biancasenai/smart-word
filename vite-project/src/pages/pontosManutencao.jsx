@@ -39,6 +39,8 @@ const PontosManutencao = () => {
             marginBottom: "40px",
             color: "#fff",
             fontSize: "36px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           SELECIONE A QUANTIDADE DE PONTOS
@@ -71,6 +73,8 @@ const PontosManutencao = () => {
               fontSize: "24px",
               fontWeight: "bold",
               cursor: "pointer",
+              fontFamily:"Kodchasan",
+
             }}
           >
             {pontosOptions.map((ponto) => (
@@ -85,6 +89,8 @@ const PontosManutencao = () => {
             marginTop: "30px",
             color: "#fff",
             fontSize: "24px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           Você selecionou: {pontos} pontos
@@ -117,6 +123,8 @@ const PontosManutencao = () => {
             marginBottom: "30px",
             color: "#151b8b",
             fontSize: "28px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           ESCANEIE O QR CODE

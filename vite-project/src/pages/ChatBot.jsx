@@ -12,7 +12,7 @@ export default function Chatbot() {
     let botResponse = "";
 
     if (userMessage === "Onde posso recarregar agora?") {
-      botResponse = "Você pode recarregar nos pontos mais próximos. Veja no mapa abaixo.";
+      botResponse = "Você pode recarregar nos pontos mais próximo, em mercados ou hoteis.";
       setShowSubOptions(false);
     } else if (userMessage === "Quanto tempo até minha autonomia acabar?") {
       botResponse = "Sua autonomia atual é de aproximadamente 200 km, o que dá cerca de 3 horas de uso.";

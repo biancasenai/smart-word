@@ -437,3 +437,40 @@ button {
 button:hover {
   background: #2196f3;
 }
+
+/* Tema claro */
+.light .chatbot-container {
+  background: #00B4D8;
+}
+.light .chat-window {
+  background: #ffffff;
+  color: #222;
+}
+.light .header-bar {
+  background: #0E6BA8;
+  color: #222;
+}
+.light button {
+  background: #474C9D;
+  color: #fff;
+  
+}
+
+/* Tema escuro */
+.dark .chatbot-container {
+  background:#00072D;
+}
+.dark .chat-window {
+  background: #fff;
+  color: #fff;
+}
+.dark .header-bar {
+  background: #00072d;
+  color: #fff;
+}
+.dark button {
+  background: #0A2472;
+  color: #fff;
+  border: 1px solid #fff;
+}
+

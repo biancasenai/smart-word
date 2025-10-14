@@ -36,7 +36,7 @@ const PontosCashback = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        height: "100vh",
+        height: "100vh", 
         padding: "0 100px",
         backgroundColor: "#00072D",
       }}

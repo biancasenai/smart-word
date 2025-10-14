@@ -47,8 +47,6 @@ function App() {
     WORD
   </h1>
 </div>
-
-
             <button
               className={`theme-toggle${dark ? " active" : ""}`}
               onClick={() => setDark((v) => !v)}

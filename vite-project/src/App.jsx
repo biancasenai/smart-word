@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 import "./App.css";
 import Cadastro from "./componentes/Cadastro";
-import Login from "./componentes/Login";
+import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
@@ -36,9 +36,9 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className={`app${darkMode ? " dark" : ""}`}>
+      {/* <div className={`app${darkMode ? " dark" : ""}`}>
         <h1>SMART WORD</h1>
-        <ThemeProvider />
+        <ThemeProvider /> */}
         {isLoggedIn ? (
           <>
             {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
@@ -118,7 +118,7 @@ function App() {
             goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
           />
         )}
-      </div>
+      {/* </div> */}
     </ThemeProvider>
   );
 }

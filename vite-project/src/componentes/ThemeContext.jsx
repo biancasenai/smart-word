@@ -23,4 +23,4 @@ export const ThemeProvider = ({ children }) => {
 // Hook para usar o contexto facilmente
 export const useTheme = () => useContext(ThemeContext)
 
-export default ThemeContext
+export default ThemeContext;

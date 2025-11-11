@@ -1,12 +1,12 @@
-import React from 'react'
-import { useTheme } from './ThemeContext'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { ThemeProvider } from "./componentes/ThemeContext";
 
-const ThemeProvider = () => {
-  const { theme, toggleTheme } = useTheme()
-  return (
-    <button onClick={toggleTheme}>
-      Trocar para {theme === 'light' ? 'dark' : 'light'}
-    </button>
-  )
-}
-export default ThemeProvider
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
+);

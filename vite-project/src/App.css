@@ -26,7 +26,7 @@ button {
 }
 
 .app.dark .header-bar {
-  background-color: #0d1164; /* Cor de fundo da barra no tema escuro */
+  /* background-color: #0d1164; Cor de fundo da barra no tema escuro */
   color: #fff; /* Cor do texto no tema escuro */
 }
 
@@ -84,8 +84,6 @@ margin-bottom: 38%;
 }
 
 .app {
-  padding-top: 50px; /* Espaço superior para a barra */
-  background: #00072d; /* Cor de fundo padrão */
   min-height: 0vh; /* Altura mínima (aqui 0) */
   transition: background 0.3s, color 0.3s; /* Transições suaves de cores */
 }
@@ -110,7 +108,7 @@ margin-bottom: 38%;
 /* Barra superior */
 .header-bar {
   height: 100px; /* Altura da barra */
-  background-color: #0d1164;
+  /* background-color: #0d1164; */
   color: white; /* Fundo e texto */
   display: flex;
   align-items: center;

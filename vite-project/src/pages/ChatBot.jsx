@@ -6,34 +6,40 @@ export default function Chatbot() {
   ]);
   const [showSubOptions, setShowSubOptions] = useState(false);
 
-  const handleClick = (userMessage) => {
+  const API_URL = "http://localhost:7264/api/Chatbot/pergunta"; // use http para evitar problemas de certificado
+
+  const handleClick = async (userMessage) => {
     setMessages(prev => [...prev, { from: "user", text: userMessage }]);
 
-    let botResponse = "";
-
-    if (userMessage === "Onde posso recarregar agora?") {
-      botResponse = "Você pode recarregar nos pontos mais próximo, em mercados ou hoteis.";
-      setShowSubOptions(false);
-    } else if (userMessage === "Quanto tempo até minha autonomia acabar?") {
-      botResponse = "Sua autonomia atual é de aproximadamente 200 km, o que dá cerca de 3 horas de uso.";
-      setShowSubOptions(false);
-    } else if (userMessage === "Quais pontos de recarga existem?") {
-      botResponse = "Você quer recarregar em Mercados ou Hotéis próximos?";
+    // Controle local de subopções
+    if (userMessage === "Quais pontos de recarga existem?") {
       setShowSubOptions(true);
-    } else if (userMessage === "Mercados") {
-      botResponse = "Pontos de recarga em Mercados próximos: Mercado A, Mercado B, Mercado C.";
-      setShowSubOptions(false);
-    } else if (userMessage === "Hotéis") {
-      botResponse = "Pontos de recarga em Hotéis próximos: Hotel X, Hotel Y, Hotel Z.";
-      setShowSubOptions(false);
     } else {
-      botResponse = "Desculpe, não entendi. Por favor, escolha uma opção abaixo.";
       setShowSubOptions(false);
     }
 
-    setTimeout(() => {
-      setMessages(prev => [...prev, { from: "bot", text: botResponse }]);
-    }, 500);
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pergunta: userMessage })
+      });
+
+      if (!response.ok) throw new Error("Erro na API");
+
+      const data = await response.json();
+      const botResponse = data.resposta || "Desculpe, não entendi. Por favor, escolha uma opção abaixo.";
+
+      setTimeout(() => {
+        setMessages(prev => [...prev, { from: "bot", text: botResponse }]);
+      }, 500);
+
+    } catch (error) {
+      console.error(error);
+      setTimeout(() => {
+        setMessages(prev => [...prev, { from: "bot", text: "Erro ao acessar a API. Tente novamente." }]);
+      }, 500);
+    }
   };
 
   return (

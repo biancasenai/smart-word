@@ -34,7 +34,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
 
   return (
-    <div className={`app${dark ? " dark" : ""}`}>
+    <div className={`app${dark ? "dark" : ""}`}>
       <ThemeProvider>
         {isLoggedIn ? (
           <>

@@ -16,8 +16,7 @@ import PontosCashback from "./pages/PontosCashback";
 import PontosProdutos from "./pages/PontosProdutos";
 import logo from "./img/logoDark.png";
 import Chat from "./pages/ChatBot";
-import { ThemeProvider } from './componentes/ThemeContext';
-
+import { ThemeProvider } from "./componentes/ThemeContext";
 
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {
@@ -30,15 +29,13 @@ function VoltarHomeButton() {
 
 function App() {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
+  const [dark, setDark] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
 
   return (
-    <ThemeProvider>
-      <div className={`app${darkMode ? " dark" : ""}`}>
-        <h1>SMART WORD</h1>
-        <ThemeProvider />
+    <div className={`app${dark ? " dark" : ""}`}>
+      <ThemeProvider>
         {isLoggedIn ? (
           <>
             {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
@@ -57,8 +54,8 @@ function App() {
               </div>
 
               <button
-                className={`theme-toggle${darkMode ? " active" : ""}`}
-                onClick={() => setDarkMode((v) => !v)}
+                className={`theme-toggle${dark ? " active" : ""}`}
+                onClick={() => setDark((v) => !v)}
                 aria-label="Alternar tema"
               >
                 <span className="toggle-track">
@@ -87,7 +84,7 @@ function App() {
             <VoltarHomeButton />
 
             <Routes>
-              <Route path="/" element={<Home darkMode={darkMode} />} />
+              <Route path="/" element={<Home />} />
               <Route path="/bateria" element={<Bateria />} />
               <Route path="/relatorio" element={<Relatorio />} />
               <Route path="/navegar" element={<Navegar />} />
@@ -118,8 +115,8 @@ function App() {
             goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
           />
         )}
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    </div>
   );
 }
 

@@ -136,6 +136,16 @@ margin-bottom: 38%;
   color: #fff; /* Cor do botão no tema escuro */
 }
 
+.theme-button.light {
+  background: #379BDE;
+  color: #222;
+}
+
+.theme-button.dark {
+  background: #0A2472;
+  color: #fff;
+}
+
 .voltar-home {
   position: fixed;
   top: 105px;

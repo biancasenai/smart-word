@@ -6,18 +6,6 @@ function Home() {
   const navigate = useNavigate();
   const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto para tema
 
-  const buttonStyle = {
-    backgroundColor: darkMode ? "#0A2472" : "#c2e9fb",
-    color: darkMode ? "#fff" : "#222",
-    border: "none",
-    borderRadius: "20px",
-    padding: "10px 20px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    margin: "8px",
-    transition: "0.3s",
-  };
-
   return (
     <div
       className="home-container"
@@ -58,29 +46,32 @@ function Home() {
           preserveAspectRatio="none"
         >
           <path
-            fill={darkMode ? "#D9D9D9" : "#ADE8F4"}
-            fillOpacity={darkMode ? "0.05" : "0.35"}
-            d="M0,160L60,149.3C120,139,240,117,360,128C480,139,600,181,720,200.3C840,213,960,203,1080,197.3C1200,199,1320,192,1380,192L1440,192L1440,350L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,460,320,360,320C240,360,120,320,60,320L0,320Z"
+            fill={darkMode ? "#1E90FF" : "#87CEFA"}
+            fillOpacity="0.3"
+            d="M0,160L60,149.3C120,139,240,117,360,128C480,139,600,181,720,200.3C840,213,960,203,1080,197.3C1200,192,1320,192,1380,192L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
           ></path>
         </svg>
       </div>
 
       {/* Esquerda */}
       <div className="left-buttons">
-        <button className={`theme-button ${darkMode ? "dark" : "light"}`} onClick={() => navigate("/relatorio")}>
+        <button className="theme-button" onClick={() => navigate("/relatorio")}>
           RELATÓRIO
         </button>
-        <button className={`theme-button ${darkMode ? "dark" : "light"}`} onClick={() => navigate("/trocarpontos")}>
+        <button
+          className="theme-button"
+          onClick={() => navigate("/trocar-pontos")}
+        >
           TROCA DE PONTOS
         </button>
       </div>
 
       {/* Direita */}
       <div className="right-buttons">
-      <button className={`theme-button ${darkMode ? "dark" : "light"}`} onClick={() => navigate("/bateria")}>
+        <button className="theme-button" onClick={() => navigate("/bateria")}>
           BATERIA
         </button>
-        <button className={`theme-button ${darkMode ? "dark" : "light"}`} onClick={() => navigate("/navegar")}>
+        <button className="theme-button" onClick={() => navigate("/navegar")}>
           NAVEGAÇÃO
         </button>
       </div>

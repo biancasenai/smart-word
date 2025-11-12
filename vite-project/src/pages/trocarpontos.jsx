@@ -4,10 +4,10 @@ import Manutencoes from "./PontosManutencao";
 import Hoteis from "./PontosHoteis";
 import Cashback from "./PontosCashback";
 import Produtos from "./PontosProdutos";
-import { UseNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const trocarpontos = () => {
-  const navigate = UseNavigate(); // Inicializa o hook useNavigate
+  const navigate = useNavigate(); // Inicializa o hook useNavigate
 
   return (
     <div

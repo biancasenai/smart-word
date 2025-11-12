@@ -117,11 +117,12 @@ const PontosCashback = () => {
 
 <div
           style={{
-            display: "flex",
+            
+            display: "flex",      
     flexDirection: "column",
     alignItems: "center",
     marginLeft:"900px",
-    marginTop:"-10px",
+    marginTop:"-80px",
     justifyContent: "center",
     backgroundColor: "#00B4D8",
     padding: "20px",
@@ -133,9 +134,10 @@ const PontosCashback = () => {
           <select
           value={chavePix}
           onChange={handlePixChange}
-            style={{
+            style={{ 
               width: "100%",
               height: "100%",
+              marginTop: "10px",
               backgroundColor: "transparent",
               color: "#000",
               border: "none",
@@ -181,7 +183,8 @@ const PontosCashback = () => {
       type="text"
       placeholder={getPlaceholder()} 
       style={{
-        width: "60%",
+        width: "30%",
+        marginRight: "60px",
         padding: "10px",
         borderRadius: "5px",
         border: "1px solid #ccc",

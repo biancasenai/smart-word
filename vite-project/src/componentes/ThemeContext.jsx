@@ -28,6 +28,6 @@ const toggleTheme = () => {
 }
 
 // Hook para usar o contexto facilmente
-export const useTheme = () => useContext(ThemeContext)
+export const useTheme = () => useContext(ThemeContext);
 
 export default ThemeContext;

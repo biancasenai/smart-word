@@ -40,6 +40,8 @@ const PontosMercado = () => {
             marginBottom: "40px",
             color: "#fff",
             fontSize: "36px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           SELECIONE A QUANTIDADE DE PONTOS
@@ -72,6 +74,8 @@ const PontosMercado = () => {
               fontSize: "24px",
               fontWeight: "bold",
               cursor: "pointer",
+              fontFamily:"Kodchasan",
+
             }}
           >
             {pontosOptions.map((ponto) => (
@@ -86,6 +90,8 @@ const PontosMercado = () => {
             marginTop: "30px",
             color: "#fff",
             fontSize: "24px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           Você selecionou: {pontos} pontos
@@ -118,6 +124,8 @@ const PontosMercado = () => {
             marginBottom: "30px",
             color: "#151b8b",
             fontSize: "28px",
+            fontFamily:"Kodchasan",
+
           }}
         >
           ESCANEIE O QR CODE

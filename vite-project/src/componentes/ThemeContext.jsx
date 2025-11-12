@@ -1,4 +1,3 @@
-// ThemeContext.jsx
 import React, { createContext, useContext, useState } from "react";
 
 const ThemeContext = createContext();
@@ -23,11 +22,10 @@ const toggleTheme = () => {
     <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
-
-  );
+  ); // ← estava faltando este fechamento aqui!
 }
 
-// Hook para usar o contexto facilmente
-export const useTheme = () => useContext(ThemeContext);
-
-export default ThemeContext;
+// Hook para usar o contexto
+export function UseTheme() {
+  return useContext(ThemeContext);
+}

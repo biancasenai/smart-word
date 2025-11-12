@@ -77,7 +77,7 @@ function App() {
           </header>
 
           <VoltarHomeButton />
-
+      
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/bateria" element={<Bateria />} />
@@ -98,6 +98,7 @@ function App() {
               }
             />
           </Routes>
+         
         </>
       ) : showLogin ? (
         <Login

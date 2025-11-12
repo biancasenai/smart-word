@@ -17,7 +17,7 @@ const trocarpontos = () => {
         flexDirection: "column",
         alignItems: "center",
         gap: "50px",
-        padding: "20px",
+        padding: "150px",
         marginTop: "70px",
       }}
     >

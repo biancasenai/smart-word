@@ -20,8 +20,8 @@ function Home() {
         onClick={toggleTheme}
         style={{
           position: "absolute",
-          top: "20px",
-          right: "50px",
+          top: "30px",
+          right: "150px",
           padding: "10px 20px",
           borderRadius: "20px",
           border: "none",

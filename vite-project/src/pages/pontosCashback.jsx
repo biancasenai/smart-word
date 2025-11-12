@@ -2,9 +2,14 @@ import React, { useState } from "react";
 
 const PontosCashback = () => {
   const [pontos, setPontos] = useState(1000);
+  const [chavePix, setChavePix] = useState("celular"); // Estado para armazenar a chave PIX selecionada
 
   const handleChange = (event) => {
     setPontos(Number(event.target.value));
+  };
+
+  const handlePixChange = (event) => {
+    setChavePix(event.target.value); // Atualiza o estado com a opção selecionada
   };
 
   const pontosOptions = [];
@@ -12,95 +17,217 @@ const PontosCashback = () => {
     pontosOptions.push(i);
   }
 
+  const getPlaceholder = () => {
+    switch (chavePix) {
+      case "celular":
+        return "Digite seu número de celular";
+      case "cpf":
+      case "cnpj":
+        return "Digite seu CPF/CNPJ";
+      case "email":
+        return "Digite seu email";
+      case "aleatoria":
+        return "Chave aleatória não precisa ser digitada";
+      default:
+        return "Digite aqui";
+    }
+  };
+
   return (
     <div
       style={{
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: "100vh",
-        padding: "0 100px",
-        backgroundColor: "#151b8b",
+        // CENTRALIZAÇÃO: Use 'alignItems: "center"' para alinhar verticalmente
+        // e 'justifyContent: "center"' para centralizar o bloco principal
+        justifyContent: "center", 
+        alignItems: "center", 
+        // REMOÇÃO DO SCROLL: Use 'minHeight: "100vh"' para garantir que
+        // ele ocupe toda a altura, mas não force o scroll se o conteúdo for maior.
+        minHeight: "100vh", 
+        backgroundColor: "#00072D",
+        // Adicionei padding horizontal para espaçamento lateral seguro
+        padding: "0 50px", 
       }}
     >
-      {/* Lado esquerdo: Seleção de pontos */}
+      {/* Container Principal de Conteúdo (Lado a Lado) */}
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
+          // 'justifyContent: "space-between"' para separar os dois lados dentro deste container
+          justifyContent: "space-between", 
           alignItems: "flex-start",
+          width: "100%",
+          maxWidth: "1200px", // Limita a largura máxima do conteúdo
         }}
       >
-        <h2
-          style={{
-            marginBottom: "40px",
-            color: "#fff",
-            fontSize: "36px",
-          }}
-        >
-          SELECIONE A QUANTIDADE DE PONTOS
-        </h2>
+        {/* Lado esquerdo: Seleção de pontos */}
         <div
           style={{
-            width: "400px",
-            height: "80px",
-            backgroundColor: "#F37E7E",
-            color: "white",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "20px",
-            fontSize: "24px",
-            fontWeight: "bold",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            width: "45%", // Usando porcentagem para responsividade
           }}
         >
-          <select
-            value={pontos}
-            onChange={handleChange}
+          <h2
             style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "transparent",
-              color: "#000",
-              border: "none",
-              outline: "none",
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "bold",
-              cursor: "pointer",
+              marginBottom: "40px",
+              color: "#fff",
+              fontSize: "36px",
+              // Usei margin-top para descer o título se necessário
+              // Mas removi para centralizar melhor com o lado direito
             }}
           >
-            {pontosOptions.map((ponto) => (
-              <option key={ponto} value={ponto}>
-                {ponto} Pontos
-              </option>
-            ))}
-          </select>
+            SELECIONE A QUANTIDADE DE PONTOS
+          </h2>
+          {/* Retângulo de seleção de pontos */}
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              height: "80px",
+              backgroundColor: "#00B4D8",
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "20px",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            <select
+              value={pontos}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "transparent",
+                color: "#000",
+                border: "none",
+                outline: "none",
+                textAlign: "center",
+                fontSize: "24px",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+            >
+              {pontosOptions.map((ponto) => (
+                <option key={ponto} value={ponto}>
+                  {ponto} Pontos
+                </option>
+              ))}
+            </select>
+          </div>
+          <p
+            style={{
+              marginTop: "30px",
+              color: "#fff",
+              fontSize: "24px",
+            }}
+          >
+            Você selecionou: **{pontos} pontos**
+          </p>
         </div>
-        <p
+
+        {/* Lado direito: Seleção da Chave PIX e Input */}
+        <div
           style={{
-            marginTop: "30px",
-            color: "#fff",
-            fontSize: "24px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            width: "45%", // Usando porcentagem para responsividade
+            // Removi o marginTop fixo para o alinhamento com 'alignItems: "flex-start"' funcionar melhor
+            // Agora o lado direito começa alinhado com o topo do lado esquerdo
           }}
         >
-          Você selecionou: {pontos} pontos
-        </p>
-        <p
-          style={{
-            marginTop: "20px",
-            color: "#fff",
-            fontWeight: "bold",
-            fontSize: "34px",
-          }}
-        ></p>
+          {/* Retângulo de seleção da Chave PIX */}
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              height: "80px",
+              backgroundColor: "#00B4D8",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "20px",
+              color: "#fff",
+              padding: "10px",
+              boxSizing: "border-box",
+            }}
+          >
+            <h3
+              style={{
+                fontSize: "18px",
+                color: "#fff",
+                marginBottom: "5px",
+                marginTop: "-10px", // Ajuste fino para centralizar o texto verticalmente
+              }}
+            >
+              Selecione a chave pix cadastrada
+            </h3>
+            <select
+              value={chavePix}
+              onChange={handlePixChange}
+              style={{
+                width: "100%",
+                height: "auto",
+                backgroundColor: "transparent",
+                color: "#000",
+                border: "none",
+                outline: "none",
+                textAlign: "center",
+                fontSize: "24px",
+                fontWeight: "bold",
+                cursor: "pointer",
+              }}
+            >
+              <option value="celular">Celular</option>
+              <option value="cpf">CPF</option>
+              <option value="email">Email</option>
+              <option value="aleatoria">Chave Aleatória</option>
+            </select>
+          </div>
 
-
-        
+          {/* Input para a Chave PIX */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              marginTop: "20px",
+              width: "100%",
+              maxWidth: "400px",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "18px",
+                color: "#fff",
+                marginBottom: "10px",
+              }}
+            >
+              Digite sua chave PIX:
+            </p>
+            <input
+              type="text"
+              placeholder={getPlaceholder()}
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+                fontSize: "16px",
+                outline: "none",
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default PontosCashback;
-''

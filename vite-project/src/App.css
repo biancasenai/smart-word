@@ -60,28 +60,8 @@ margin-bottom: 38%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Quando o tema estiver ativo */
-.theme-toggle.active .toggle-track {
-  background: #222;
-}
 
-/* Bolinha que se move */
-.toggle-ball {
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  border-radius: 50%;
-  position: absolute;
-  left: 2px;
-  transition: left 0.3s, background 0.3s;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-}
 
-/* Bolinha ao ativar tema escuro */
-.theme-toggle.active .toggle-ball {
-  left: 22px;
-  background: #ffc640;
-}
 
 .app {
   min-height: 0vh; /* Altura mínima (aqui 0) */
@@ -119,6 +99,16 @@ margin-bottom: 38%;
   width: 100%; /* Fixa no topo */
   z-index: 1000; /* Sobreposição acima de outros elementos */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra da barra */
+  
+}
+
+.header-bar.light {
+  background: #0E6BA8;
+  color: #222;
+}
+.header-bar.dark {
+  background: #0D1164;
+  color: #fff;
 }
 
 .app.dark {
@@ -302,7 +292,6 @@ margin-bottom: 38%;
   justify-content: center;
   align-items: center;
   height: 100vh; /* Centraliza conteúdo */
-  background: linear-gradient(180deg, #00072d 0%, #00114f 100%);
   overflow: hidden; /* Gradiente de fundo e esconde overflow */
 }
 

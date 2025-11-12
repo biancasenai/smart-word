@@ -1,19 +1,42 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { useTheme } from "../componentes/ThemeContext"; // Importa o hook do contexto
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o hook do contexto
 
 function Home() {
   const navigate = useNavigate();
-  const { darkMode } = useTheme(); // Acessa o estado do tema
+  const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto para tema
 
   return (
     <div
       className="home-container"
       style={{
-        backgroundColor: darkMode ? "#00072D" : "#FFFFFF",
-        color: darkMode ? "#FFFFFF" : "#000000",
+        backgroundColor: darkMode ? "#00072D" : "#00B4D8",
+        color: darkMode ? "white" : "black",
+        position: "relative",
       }}
     >
+      {/* Botão de troca de tema */}
+      <button
+        onClick={toggleTheme}
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "50px",
+          padding: "10px 20px",
+          borderRadius: "20px",
+          border: "none",
+          cursor: "pointer",
+          backgroundColor: darkMode ? "#fff" : "#00072D",
+          color: darkMode ? "#00072D" : "#fff",
+          fontFamily: "Kodchasan",
+          fontWeight: "bold",
+          transition: "0.3s",
+          zIndex: 1000,
+        }}
+      >
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
+
       {/* Fundo com onda fixa */}
       <div className="wave-container">
         <svg

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { UseTheme } from "../componentes/ThemeContext"; // Importa o hook do contexto
+import { UseTheme } from "../componentes/ThemeContext";
 
 function Home() {
   const navigate = useNavigate();

@@ -79,8 +79,7 @@ const rectangleStyle = {
   fontWeight: "bold",
   transition: "0.3s",
   textAlign: "center",
-  fontFamily:"Kodchasan",
-
+  fontFamily: "Kodchasan",
 };
 
 export default trocarpontos;

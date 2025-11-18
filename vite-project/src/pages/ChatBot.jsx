@@ -6,6 +6,30 @@ export default function Chatbot() {
   ]);
   const [inputMessage, setInputMessage] = useState("");
 
+  // Simulação de lugares próximos
+  const lugaresProximos = {
+    Mercados: [
+      "Mercado Central - 1.2 km",
+      "Supermercado Bom Preço - 2.5 km",
+      "Mini Mercado da Esquina - 0.8 km",
+    ],
+    Restaurantes: [
+      "Restaurante Sabor Caseiro - 1.0 km",
+      "Pizzaria Bella Itália - 2.0 km",
+      "Churrascaria Boi na Brasa - 1.8 km",
+    ],
+    Hoteis: [
+      "Hotel Conforto - 3.0 km",
+      "Pousada Sol Nascente - 2.2 km",
+      "Resort Paraíso - 5.0 km",
+    ],
+    Recarga: [
+      "Estação de Recarga - Shopping Center - 1.5 km",
+      "Ponto de Recarga - Praça Central - 0.9 km",
+      "Recarga Rápida - Posto de Combustível - 2.3 km",
+    ],
+  };
+
   const handleSendInput = async () => {
     if (!inputMessage.trim()) return;
 
@@ -37,10 +61,18 @@ export default function Chatbot() {
     setInputMessage("");
   };
 
-  const handleQuickReply = (message) => {
-    const quickReplyMessage = { from: "user", text: message };
-    setMessages((prev) => [...prev, quickReplyMessage]);
-    handleSendInput(message);
+  const handleQuickReply = (category) => {
+    const userMessage = { from: "user", text: `Quero ver ${category}` };
+    setMessages((prev) => [...prev, userMessage]);
+
+    // Simula a resposta do bot com os lugares próximos
+    const botMessage = {
+      from: "bot",
+      text: `Aqui estão os ${category.toLowerCase()} mais próximos:\n${lugaresProximos[
+        category
+      ].join("\n")}`,
+    };
+    setMessages((prev) => [...prev, botMessage]);
   };
 
   return (
@@ -88,7 +120,9 @@ export default function Chatbot() {
               }}
             >
               <strong>{msg.from === "user" ? "Você" : "Bot"}:</strong>{" "}
-              {msg.text}
+              {msg.text.split("\n").map((line, i) => (
+                <div key={i}>{line}</div>
+              ))}
             </div>
           ))}
         </div>
@@ -99,7 +133,7 @@ export default function Chatbot() {
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "5px", // Reduz o espaço entre os botões
+            gap: "10px",
             justifyContent: "center",
             marginBottom: "10px",
           }}
@@ -111,66 +145,25 @@ export default function Chatbot() {
             Mercados
           </button>
           <button
-            onClick={() => handleQuickReply("Hotéis")}
-            style={quickReplyButtonStyle}
-          >
-            Hotéis
-          </button>
-          <button
             onClick={() => handleQuickReply("Restaurantes")}
             style={quickReplyButtonStyle}
           >
             Restaurantes
           </button>
           <button
-            onClick={() => handleQuickReply("Ajuda")}
+            onClick={() => handleQuickReply("Hoteis")}
             style={quickReplyButtonStyle}
           >
-            Ajuda
+            Hotéis
+          </button>
+          <button
+            onClick={() => handleQuickReply("Recarga")}
+            style={quickReplyButtonStyle}
+          >
+            Recarga
           </button>
         </div>
 
-        {/* Barra de Input */}
-        <div
-          className="input-bar"
-          style={{
-            display: "flex",
-            width: "100%",
-            marginTop: "10px",
-          }}
-        >
-          <input
-            type="text"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleSendInput();
-              }
-            }}
-            placeholder="Digite sua mensagem..."
-            style={{
-              flexGrow: 1,
-              padding: "10px",
-              border: "1px solid #ccc",
-              borderRadius: "4px 0 0 4px",
-              outline: "none",
-            }}
-          />
-          <button
-            onClick={handleSendInput}
-            style={{
-              padding: "10px 15px",
-              border: "none",
-              backgroundColor: "#00B4D8",
-              color: "white",
-              borderRadius: "0 4px 4px 0",
-              cursor: "pointer",
-            }}
-          >
-            Enviar
-          </button>
-        </div>
       </div>
     </div>
   );

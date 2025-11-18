@@ -57,8 +57,7 @@ export default function Chatbot() {
       setMessages((prev) => [...prev, errorMessage]);
     }
 
-    // Limpa o campo de entrada após o envio
-    setInputMessage("");
+ 
   };
 
   const handleQuickReply = (category) => {

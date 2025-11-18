@@ -45,27 +45,27 @@ const TrocarPontos = () => {
   return (
     // 4. Aplicar o estilo de fundo dinâmico
     <div style={estiloDeFundo}>
-            {/* Retângulo 1 */}     {" "}
+            {/* Retângulo 1 */}     {" "}
       <div style={rectangleStyle} onClick={() => navigate("/pontosMercado")}>
-                TROQUE PONTOS EM MERCADOS      {" "}
+                TROQUE PONTOS EM MERCADOS      {" "}
       </div>
-            {/* Retângulo 2 */}     {" "}
+            {/* Retângulo 2 */}     {" "}
       <div style={rectangleStyle} onClick={() => navigate("/pontosManutencao")}>
-                TROQUE PONTOS EM MANUTENÇÕES      {" "}
+                TROQUE PONTOS EM MANUTENÇÕES      {" "}
       </div>
-            {/* Retângulo 3 */}     {" "}
+            {/* Retângulo 3 */}     {" "}
       <div style={rectangleStyle} onClick={() => navigate("/pontosHoteis")}>
-                TROQUE PONTOS EM HOTÉIS      {" "}
+                TROQUE PONTOS EM HOTÉIS      {" "}
       </div>
-            {/* Retângulo 4 */}     {" "}
+            {/* Retângulo 4 */}     {" "}
       <div style={rectangleStyle} onClick={() => navigate("/pontosProdutos")}>
-                TROQUE PONTOS EM PRODUTOS EXCLUSIVOS      {" "}
+                TROQUE PONTOS EM PRODUTOS EXCLUSIVOS      {" "}
       </div>
-            {/* Retângulo 5 */}     {" "}
+            {/* Retângulo 5 */}     {" "}
       <div style={rectangleStyle} onClick={() => navigate("/pontosCashback")}>
-                CASHBACK DIRETO      {" "}
+                CASHBACK DIRETO      {" "}
       </div>
-         {" "}
+         {" "}
     </div>
   );
 };
@@ -76,3 +76,5 @@ const TrocarPontos = () => {
 // que recebe 'darkMode' como argumento.
 
 export default TrocarPontos;
+
+

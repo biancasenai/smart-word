@@ -25,8 +25,9 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
     existingUsers.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUsers));
 
-    alert("✅ Cadastro realizado com sucesso!");
-    onCadastro();
+    alert("✅ Cadastro realizado com sucesso!"); // Mostra mensagem após salvar
+
+    if (onCadastro) onCadastro(); // Redireciona para Home
   };
 
   const logoImg = darkMode ? logoDark : logoLight;

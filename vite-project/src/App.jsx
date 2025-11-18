@@ -19,7 +19,6 @@ import logoDark from "./img/logoDark.png";
 import Chat from "./pages/ChatBot";
 import { ThemeProvider, UseTheme } from "./componentes/ThemeContext";
 
-
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {
   return (
@@ -33,51 +32,103 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
-  const { darkMode } = UseTheme();
+  const { darkMode, toggleTheme } = UseTheme(); // Adicione o toggleTheme aqui
 
   // Escolhe a imagem conforme o tema
   const logo = darkMode ? logoDark : logoLight;
+
+  const goToCadastro = () => setShowCadastro(true);
+  const goToLogin = () => setShowCadastro(false);
 
   return (
     <div className={`app${darkMode ? "dark" : ""}`}>
       {isLoggedIn ? (
         <>
           {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
-          <header className={`header-bar ${darkMode ? "dark" : "light"}`}>
+          <header
+            className={`header-bar ${darkMode ? "dark" : "light"}`}
+            style={{
+              display: "flex",
+              justifyContent: "space-between", // Espaça os itens (logo e botões)
+              alignItems: "center", // Centraliza os itens verticalmente
+              padding: "10px 20px",
+              backgroundColor: darkMode ? "#0D1164" : "#0E6BA8", // Azul escuro no modo light
+    color: darkMode ? "#fff" : "#fff",
+            }}
+          >
+            {/* Logo à esquerda */}
             <div
               className="logo-container"
               onClick={() => navigate("/")}
               role="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
             >
-              <img src={logo} alt="Logo" className="header-logo" />
-              <h1>
+              <img
+                src={logo}
+                alt="Logo"
+                className="header-logo"
+                style={{ height: "40px", marginRight: "10px" }}
+              />
+              <h1
+                style={{ fontSize: "18px", color: darkMode ? "#fff" : "#000" }}
+              >
                 SMART
                 <br />
                 WORD
               </h1>
             </div>
 
-            <button
-              className="chatbot-button"
-              onClick={() => navigate("/chatbot")}
-              aria-label="Ir para Chatbot"
+            {/* Botões à direita */}
+            <div
               style={{
-                borderRadius: "11%",
-                fontFamily: "Kodchasan",
-                backgroundColor: "#00B4D8",
-                color: "#fff",
-                border: "none",
-                padding: "10px 20px",
-                cursor: "pointer",
-                fontSize: "16px",
+                display: "flex",
+                gap: "10px", // Espaçamento entre os botões
               }}
             >
-              Chatbot
-            </button>
+              {/* Botão de alternância de tema */}
+              <button
+                onClick={toggleTheme}
+                style={{
+                  borderRadius: "11%",
+                  fontFamily: "Kodchasan",
+                  backgroundColor: darkMode ? "#fff" : "#00072D",
+                  color: darkMode ? "#00072D" : "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                {darkMode ? "Light Mode" : "Dark Mode"}
+              </button>
+
+              {/* Botão Chatbot */}
+              <button
+                className="chatbot-button"
+                onClick={() => navigate("/chatbot")}
+                aria-label="Ir para Chatbot"
+                style={{
+                  borderRadius: "11%",
+                  fontFamily: "Kodchasan",
+                  backgroundColor: "#00B4D8",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                Chatbot
+              </button>
+            </div>
           </header>
 
           <VoltarHomeButton />
-      
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/bateria" element={<Bateria />} />
@@ -98,21 +149,19 @@ function App() {
               }
             />
           </Routes>
-         
         </>
-      ) : showLogin ? (
-        <Login
-          onLogin={() => setIsLoggedIn(true)}
-          goToCadastro={() => setIsLoggedIn(false)} // voltar para Cadastro
-        />
-      ) : (
+      ) : showCadastro ? (
         <Cadastro
           onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login
-          goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
+          goToLogin={goToLogin} // botão "Já tenho login"
+        />
+      ) : (
+        <Login
+          onLogin={() => setIsLoggedIn(true)}
+          goToCadastro={goToCadastro} // voltar para Cadastro
         />
       )}
     </div>
   );
 }
-
 export default App;

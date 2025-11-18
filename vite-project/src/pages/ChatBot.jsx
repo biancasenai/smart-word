@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Olá! Como posso ajudar você hoje?" },
+    { from: "bot", text: "Olá! Eu posso ajudar com informações sobre seu carro elétrico." }
   ]);
   const [inputMessage, setInputMessage] = useState("");
 
@@ -75,110 +75,39 @@ export default function Chatbot() {
   };
 
   return (
-    <div
-      className="chatbot-container"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        backgroundColor: "#f5f5f5",
-      }}
-    >
-      <div
-        className="chat-window"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-          maxWidth: "500px",
-          padding: "10px",
-          backgroundColor: "#ffffff",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <div
-          className="messages"
-          style={{
-            width: "100%",
-            maxHeight: "300px",
-            overflowY: "auto",
-            marginBottom: "10px",
-          }}
-        >
+    <div className="chatbot-container">
+      <div className="chat-window">
+        <div className="messages">
           {messages.map((msg, index) => (
-            <div
-              key={index}
-              style={{
-                textAlign: msg.from === "user" ? "right" : "left",
-                margin: "5px 0",
-              }}
-            >
-              <strong>{msg.from === "user" ? "Você" : "Bot"}:</strong>{" "}
-              {msg.text.split("\n").map((line, i) => (
-                <div key={i}>{line}</div>
-              ))}
+            <div key={index} className={`message ${msg.from}`}>
+              {msg.text}
             </div>
           ))}
         </div>
 
-        {/* Botões de Opções Rápidas */}
-        <div
-          className="buttons"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "10px",
-            justifyContent: "center",
-            marginBottom: "10px",
-          }}
-        >
-          <button
-            onClick={() => handleQuickReply("Mercados")}
-            style={quickReplyButtonStyle}
-          >
-            Mercados
-          </button>
-          <button
-            onClick={() => handleQuickReply("Restaurantes")}
-            style={quickReplyButtonStyle}
-          >
-            Restaurantes
-          </button>
-          <button
-            onClick={() => handleQuickReply("Hoteis")}
-            style={quickReplyButtonStyle}
-          >
-            Hotéis
-          </button>
-          <button
-            onClick={() => handleQuickReply("Recarga")}
-            style={quickReplyButtonStyle}
-          >
-            Recarga
-          </button>
-        </div>
+        <div className="buttons">
+          {!showSubOptions && (
+            <>
+              <button onClick={() => handleClick("Onde posso recarregar agora?")}>
+                Onde posso recarregar agora?
+              </button>
+              <button onClick={() => handleClick("Quanto tempo até minha autonomia acabar?")}>
+                Autonomia restante
+              </button>
+              <button onClick={() => handleClick("Quais pontos de recarga existem?")}>
+                Pontos de recarga
+              </button>
+            </>
+          )}
 
+          {showSubOptions && (
+            <>
+              <button onClick={() => handleClick("Mercados")}>Mercados</button>
+              <button onClick={() => handleClick("Hotéis")}>Hotéis</button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
 }
-
-const quickReplyButtonStyle = {
-  padding: "10px 15px",
-  border: "none",
-  backgroundColor: "#0077B6",
-  color: "white",
-  borderRadius: "20px",
-  cursor: "pointer",
-  fontSize: "14px",
-  transition: "background-color 0.3s",
-};
-
-quickReplyButtonStyle["&:hover"] = {
-  backgroundColor: "#005f8a",
-};

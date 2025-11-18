@@ -7,7 +7,7 @@ import Produtos from "./PontosProdutos";
 import { useNavigate } from "react-router";
 
 const trocarpontos = () => {
-  const navigate = useNavigate(); // Inicializa o hook useNavigate
+  const navigate = UseNavigate(); // Inicializa o hook useNavigate
 
   return (
     <div

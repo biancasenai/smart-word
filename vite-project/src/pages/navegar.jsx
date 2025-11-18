@@ -45,7 +45,7 @@ export default function MapaComRota() {
     }
   }, []);
 
-  // Buscar endereços (aceita endereços completos)
+  // Buscar endereços
   const buscarSugestoes = async (texto) => {
     setDestino(texto);
     if (texto.length < 3) {
@@ -55,28 +55,27 @@ export default function MapaComRota() {
 
     if (!posicaoAtual) return;
 
-    const latMin = posicaoAtual.lat - 0.3;
-    const latMax = posicaoAtual.lat + 0.3;
-    const lonMin = posicaoAtual.lng - 0.3;
-    const lonMax = posicaoAtual.lng + 0.3;
-
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
       texto
-    )}&addressdetails=1&limit=5&viewbox=${lonMin},${latMax},${lonMax},${latMin}&bounded=1`;
+    )}&addressdetails=1&limit=5`;
 
-    const res = await fetch(url);
-    const data = await res.json();
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
 
-    setSugestoes(
-      data.map((item) => ({
-        nome: item.display_name,
-        lat: parseFloat(item.lat),
-        lon: parseFloat(item.lon),
-      }))
-    );
+      setSugestoes(
+        data.map((item) => ({
+          nome: item.display_name,
+          lat: parseFloat(item.lat),
+          lon: parseFloat(item.lon),
+        }))
+      );
+    } catch (error) {
+      console.error("Erro ao buscar sugestões:", error);
+    }
   };
 
-  // Calcular rota (OSRM)
+  // Calcular rota
   const calcularRota = async (coordDestino) => {
     if (!posicaoAtual) return;
 
@@ -101,18 +100,18 @@ export default function MapaComRota() {
         setMensagem("Rota não encontrada 😕");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Erro ao calcular rota:", err);
       setMensagem("Erro ao buscar a rota");
     }
   };
 
   return (
     <div style={{ height: "100vh", width: "100%", position: "relative" }}>
-      {/* ---------------------- BARRA DE PESQUISA ---------------------- */}
+      {/* Barra de pesquisa ajustada */}
       <div
         style={{
           position: "absolute",
-          top: "120px",
+          top: "100px", // Ajuste a posição vertical da barra de pesquisa
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1000,
@@ -128,7 +127,7 @@ export default function MapaComRota() {
           type="text"
           value={destino}
           onChange={(e) => buscarSugestoes(e.target.value)}
-          placeholder="Digite um endereço completo (ex: Rua Paraná, 100, Vila Maria Cristina)"
+          placeholder="Digite um endereço completo"
           style={{
             width: "100%",
             padding: "12px 15px",
@@ -176,9 +175,8 @@ export default function MapaComRota() {
           </p>
         )}
       </div>
-      {/* ---------------------- FIM DA BARRA DE PESQUISA ---------------------- */}
 
-      {/* 🗺️ Mapa */}
+      {/* Mapa */}
       {posicaoAtual ? (
         <MapContainer
           center={posicaoAtual}

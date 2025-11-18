@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.7",
+    "body-parser": "^2.2.0",
     "bootstrap": "^5.3.8",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "leaflet-routing-machine": "^3.2.12",
+    "openai": "^6.9.1",
     "qrcode.react": "^4.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

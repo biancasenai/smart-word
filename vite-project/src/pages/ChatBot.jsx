@@ -6,40 +6,46 @@ export default function Chatbot() {
   ]);
   const [showSubOptions, setShowSubOptions] = useState(false);
 
-  const API_URL = "http://localhost:7264/api/Chatbot/pergunta"; // use http para evitar problemas de certificado
-
-  const handleClick = async (userMessage) => {
+  const handleClick = (userMessage) => {
     setMessages(prev => [...prev, { from: "user", text: userMessage }]);
 
-    // Controle local de subopções
     if (userMessage === "Quais pontos de recarga existem?") {
       setShowSubOptions(true);
     } else {
       setShowSubOptions(false);
     }
 
-    try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pergunta: userMessage })
-      });
+    // Respostas locais (sem API)
+    let botResponse = "";
 
-      if (!response.ok) throw new Error("Erro na API");
+    switch (userMessage) {
+      case "Onde posso recarregar agora?":
+        botResponse = "Você pode recarregar em mercados, shoppings e estacionamentos próximos.";
+        break;
 
-      const data = await response.json();
-      const botResponse = data.resposta || "Desculpe, não entendi. Por favor, escolha uma opção abaixo.";
+      case "Quanto tempo até minha autonomia acabar?":
+        botResponse = "Sua autonomia estimada é de 40 km restantes.";
+        break;
 
-      setTimeout(() => {
-        setMessages(prev => [...prev, { from: "bot", text: botResponse }]);
-      }, 500);
+      case "Quais pontos de recarga existem?":
+        botResponse = "Escolha uma das categorias de pontos.";
+        break;
 
-    } catch (error) {
-      console.error(error);
-      setTimeout(() => {
-        setMessages(prev => [...prev, { from: "bot", text: "Erro ao acessar a API. Tente novamente." }]);
-      }, 500);
+      case "Mercados":
+        botResponse = "Mercado Central e SuperNova possuem carregadores disponíveis.";
+        break;
+
+      case "Hotéis":
+        botResponse = "Hotel BlueSun e Comfort Inn possuem carregamento para hóspedes.";
+        break;
+
+      default:
+        botResponse = "Não entendi. Escolha uma opção abaixo.";
     }
+
+    setTimeout(() => {
+      setMessages(prev => [...prev, { from: "bot", text: botResponse }]);
+    }, 400);
   };
 
   return (
@@ -56,9 +62,15 @@ export default function Chatbot() {
         <div className="buttons">
           {!showSubOptions && (
             <>
-              <button onClick={() => handleClick("Onde posso recarregar agora?")}>Onde posso recarregar agora?</button>
-              <button onClick={() => handleClick("Quanto tempo até minha autonomia acabar?")}>Autonomia restante</button>
-              <button onClick={() => handleClick("Quais pontos de recarga existem?")}>Pontos de recarga</button>
+              <button onClick={() => handleClick("Onde posso recarregar agora?")}>
+                Onde posso recarregar agora?
+              </button>
+              <button onClick={() => handleClick("Quanto tempo até minha autonomia acabar?")}>
+                Autonomia restante
+              </button>
+              <button onClick={() => handleClick("Quais pontos de recarga existem?")}>
+                Pontos de recarga
+              </button>
             </>
           )}
 

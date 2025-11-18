@@ -33,16 +33,20 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
+  const [showCadastro, setShowCadastro] = useState(false);
   const { darkMode } = UseTheme();
 
   // Escolhe a imagem conforme o tema
   const logo = darkMode ? logoDark : logoLight;
 
+  const goToCadastro = () => setShowCadastro(true);
+  const goToLogin = () => setShowCadastro(false);
+
   return (
     <div className={`app${darkMode ? "dark" : ""}`}>
       {isLoggedIn ? (
         <>
-          {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
+          {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO' */}
           <header className={`header-bar ${darkMode ? "dark" : "light"}`}>
             <div
               className="logo-container"
@@ -100,15 +104,15 @@ function App() {
           </Routes>
          
         </>
-      ) : showLogin ? (
-        <Login
-          onLogin={() => setIsLoggedIn(true)}
-          goToCadastro={() => setIsLoggedIn(false)} // voltar para Cadastro
-        />
-      ) : (
+      ) : showCadastro ? (
         <Cadastro
           onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login
-          goToLogin={() => setShowLogin(true)} // botão "Já tenho login"
+          goToLogin={goToLogin} // botão "Já tenho login"
+        />
+      ) : (
+        <Login
+          onLogin={() => setIsLoggedIn(true)}
+          goToCadastro={goToCadastro} // voltar para Cadastro
         />
       )}
     </div>

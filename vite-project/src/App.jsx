@@ -49,7 +49,8 @@ function App() {
               justifyContent: "space-between", // Espaça os itens (logo e botões)
               alignItems: "center", // Centraliza os itens verticalmente
               padding: "10px 20px",
-              backgroundColor: darkMode ? "#00072D" : "#00B4D8",
+              backgroundColor: darkMode ? "#0D1164" : "#0E6BA8", // Azul escuro no modo light
+    color: darkMode ? "#fff" : "#fff",
             }}
           >
             {/* Logo à esquerda */}

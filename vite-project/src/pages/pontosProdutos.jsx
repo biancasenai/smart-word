@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto de tema
 
 
 const PontosProdutos = () => {
+  const { darkMode } = UseTheme(); // Usa o contexto para obter o estado do tema
   const [pontos, setPontos] = useState(1000);
   const [codigo, setCodigo] = useState(""); // Estado para armazenar o código gerado
 
@@ -30,7 +32,9 @@ const PontosProdutos = () => {
         alignItems: "center",
         height: "100vh",
         padding: "0 100px",
-        backgroundColor: "#00072D",
+        backgroundColor: darkMode ? "#00072D" : "#00B4D8", // Cor de fundo dinâmica
+        color: darkMode ? "#fff" : "#000", // Cor do texto dinâmica
+        fontFamily: "Kodchasan",
       }}
     >
       {/* Lado esquerdo: Seleção de pontos */}
@@ -72,7 +76,7 @@ const PontosProdutos = () => {
           style={{
             width: "400px",
             height: "80px",
-            backgroundColor: "#00B4D8",
+            backgroundColor: "#fff",
             color: "white",
             display: "flex",
             justifyContent: "center",

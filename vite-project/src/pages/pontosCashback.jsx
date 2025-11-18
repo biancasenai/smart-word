@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto de tema
 
 const PontosCashback = () => {
+  const { darkMode } = UseTheme(); // Usa o contexto para obter o estado do tema
   const [pontos, setPontos] = useState(1000);
   const [chavePix, setChavePix] = useState("celular"); // Estado para armazenar a chave PIX selecionada
 
@@ -37,15 +39,12 @@ const PontosCashback = () => {
     <div
       style={{
         display: "flex",
-        // CENTRALIZAÇÃO: Use 'alignItems: "center"' para alinhar verticalmente
-        // e 'justifyContent: "center"' para centralizar o bloco principal
         justifyContent: "center", 
         alignItems: "center", 
-        // REMOÇÃO DO SCROLL: Use 'minHeight: "100vh"' para garantir que
-        // ele ocupe toda a altura, mas não force o scroll se o conteúdo for maior.
         minHeight: "100vh", 
-        backgroundColor: "#00072D",
-        // Adicionei padding horizontal para espaçamento lateral seguro
+        backgroundColor: darkMode ? "#00072D" : "#00B4D8", // Cor de fundo dinâmica (azul claro no modo light)
+        color: darkMode ? "#fff" : "#000", // Cor do texto dinâmica
+        fontFamily: "Kodchasan",
         padding: "0 50px", 
       }}
     >
@@ -86,7 +85,7 @@ const PontosCashback = () => {
               width: "100%",
               maxWidth: "400px",
               height: "80px",
-              backgroundColor: "#00B4D8",
+              backgroundColor: "#fff",
               color: "white",
               display: "flex",
               justifyContent: "center",

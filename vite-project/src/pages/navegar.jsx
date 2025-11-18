@@ -45,6 +45,41 @@ export default function MapaComRota() {
     }
   }, []);
 
+  // Buscar lugar mais próximo
+  const buscarLugarMaisProximo = async (tipoLugar) => {
+    if (!posicaoAtual) {
+      setMensagem("Localização atual não encontrada.");
+      return;
+    }
+
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      tipoLugar
+    )}&addressdetails=1&limit=1&viewbox=${
+      posicaoAtual.lng - 0.1
+    },${posicaoAtual.lat + 0.1},${posicaoAtual.lng + 0.1},${
+      posicaoAtual.lat - 0.1
+    }&bounded=1`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (data.length > 0) {
+        const lugarMaisProximo = data[0];
+        setCoordenadasDestino({
+          lat: parseFloat(lugarMaisProximo.lat),
+          lng: parseFloat(lugarMaisProximo.lon),
+        });
+        setMensagem(`Lugar mais próximo: ${lugarMaisProximo.display_name}`);
+      } else {
+        setMensagem("Nenhum lugar encontrado nas proximidades.");
+      }
+    } catch (error) {
+      console.error("Erro ao buscar lugar mais próximo:", error);
+      setMensagem("Erro ao buscar lugar mais próximo.");
+    }
+  };
+
   // Buscar endereços
   const buscarSugestoes = async (texto) => {
     setDestino(texto);

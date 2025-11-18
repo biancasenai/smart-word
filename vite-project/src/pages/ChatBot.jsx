@@ -4,75 +4,48 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     { from: "bot", text: "Olá! Como posso ajudar você hoje?" },
   ]);
-  const [inputMessage, setInputMessage] = useState("");
+  const [showSubOptions, setShowSubOptions] = useState(false);
 
-  // Simulação de lugares próximos
-  const lugaresProximos = {
-    Mercados: [
-      "Mercado Central - 1.2 km",
-      "Supermercado Bom Preço - 2.5 km",
-      "Mini Mercado da Esquina - 0.8 km",
-    ],
-    Restaurantes: [
-      "Restaurante Sabor Caseiro - 1.0 km",
-      "Pizzaria Bella Itália - 2.0 km",
-      "Churrascaria Boi na Brasa - 1.8 km",
-    ],
-    Hoteis: [
-      "Hotel Conforto - 3.0 km",
-      "Pousada Sol Nascente - 2.2 km",
-      "Resort Paraíso - 5.0 km",
-    ],
-    Recarga: [
-      "Estação de Recarga - Shopping Center - 1.5 km",
-      "Ponto de Recarga - Praça Central - 0.9 km",
-      "Recarga Rápida - Posto de Combustível - 2.3 km",
-    ],
-  };
+  const handleClick = (userMessage) => {
+    setMessages(prev => [...prev, { from: "user", text: userMessage }]);
 
-  const handleSendInput = async () => {
-    if (!inputMessage.trim()) return;
-
-    const userMessage = { from: "user", text: inputMessage };
-    setMessages((prev) => [...prev, userMessage]);
-
-    try {
-      const response = await fetch("https://api.example.com/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: inputMessage }),
-      });
-
-      const data = await response.json();
-      const botMessage = { from: "bot", text: data.response };
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error("Erro ao enviar mensagem:", error);
-      const errorMessage = {
-        from: "bot",
-        text: "Desculpe, ocorreu um erro ao processar sua mensagem.",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+    if (userMessage === "Quais pontos de recarga existem?") {
+      setShowSubOptions(true);
+    } else {
+      setShowSubOptions(false);
     }
 
-    // Limpa o campo de entrada após o envio
-    setInputMessage("");
-  };
+    // Respostas locais (sem API)
+    let botResponse = "";
 
-  const handleQuickReply = (category) => {
-    const userMessage = { from: "user", text: `Quero ver ${category}` };
-    setMessages((prev) => [...prev, userMessage]);
+    switch (userMessage) {
+      case "Onde posso recarregar agora?":
+        botResponse = "Você pode recarregar em mercados, shoppings e estacionamentos próximos.";
+        break;
 
-    // Simula a resposta do bot com os lugares próximos
-    const botMessage = {
-      from: "bot",
-      text: `Aqui estão os ${category.toLowerCase()} mais próximos:\n${lugaresProximos[
-        category
-      ].join("\n")}`,
-    };
-    setMessages((prev) => [...prev, botMessage]);
+      case "Quanto tempo até minha autonomia acabar?":
+        botResponse = "Sua autonomia estimada é de 40 km restantes.";
+        break;
+
+      case "Quais pontos de recarga existem?":
+        botResponse = "Escolha uma das categorias de pontos.";
+        break;
+
+      case "Mercados":
+        botResponse = "Mercado Central e SuperNova possuem carregadores disponíveis.";
+        break;
+
+      case "Hotéis":
+        botResponse = "Hotel BlueSun e Comfort Inn possuem carregamento para hóspedes.";
+        break;
+
+      default:
+        botResponse = "Não entendi. Escolha uma opção abaixo.";
+    }
+
+    setTimeout(() => {
+      setMessages(prev => [...prev, { from: "bot", text: botResponse }]);
+    }, 400);
   };
 
   return (
@@ -127,41 +100,27 @@ export default function Chatbot() {
           ))}
         </div>
 
-        {/* Botões de Opções Rápidas */}
-        <div
-          className="buttons"
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "10px",
-            justifyContent: "center",
-            marginBottom: "10px",
-          }}
-        >
-          <button
-            onClick={() => handleQuickReply("Mercados")}
-            style={quickReplyButtonStyle}
-          >
-            Mercados
-          </button>
-          <button
-            onClick={() => handleQuickReply("Restaurantes")}
-            style={quickReplyButtonStyle}
-          >
-            Restaurantes
-          </button>
-          <button
-            onClick={() => handleQuickReply("Hoteis")}
-            style={quickReplyButtonStyle}
-          >
-            Hotéis
-          </button>
-          <button
-            onClick={() => handleQuickReply("Recarga")}
-            style={quickReplyButtonStyle}
-          >
-            Recarga
-          </button>
+        <div className="buttons">
+          {!showSubOptions && (
+            <>
+              <button onClick={() => handleClick("Onde posso recarregar agora?")}>
+                Onde posso recarregar agora?
+              </button>
+              <button onClick={() => handleClick("Quanto tempo até minha autonomia acabar?")}>
+                Autonomia restante
+              </button>
+              <button onClick={() => handleClick("Quais pontos de recarga existem?")}>
+                Pontos de recarga
+              </button>
+            </>
+          )}
+
+          {showSubOptions && (
+            <>
+              <button onClick={() => handleClick("Mercados")}>Mercados</button>
+              <button onClick={() => handleClick("Hotéis")}>Hotéis</button>
+            </>
+          )}
         </div>
 
       </div>

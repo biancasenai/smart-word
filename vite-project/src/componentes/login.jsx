@@ -17,6 +17,12 @@ const Login = ({ onLogin, goToCadastro }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!cpf || !senha || !placa) {
+      setError("Preencha todos os campos!");
+      return;
+    }
+
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const userFound = users.find(
       (user) => user.cpf === cpf && user.senha === senha && user.placa === placa
@@ -28,8 +34,8 @@ const Login = ({ onLogin, goToCadastro }) => {
       setError("❌ Login não encontrado. Verifique seus dados.");
     }
   };
-
   const toggleTheme = () => setDarkMode(!darkMode);
+  onLogin;
 
   // Escolha da imagem baseada no tema
   const logoImg = darkMode ? logoDark : logoLight;
@@ -70,41 +76,51 @@ const Login = ({ onLogin, goToCadastro }) => {
       </button>
 
       {/* Lado esquerdo - logo */}
-     {/* Lado esquerdo - Imagem */}
-<div
-  style={{
-    flex: 1,
-    display: "flex",
-    justifyContent: "flex-start", // garante que fique à esquerda
-    alignItems: "stretch", // ocupa toda a altura
-    height: "100vh", // ocupa toda a altura da tela
-    margin: 0,
-    padding: 0,
-  }}
->
-  <img
-    src={logoImg}
-    alt="Smart Word"
-    style={{
-      width: "100%", // ocupa toda a largura do lado esquerdo
-      height: "100%", // ocupa toda a altura
-      objectFit: "cover", // preenche sem distorcer
-      display: "block", // remove espaços brancos padrão de imagens
-    }}
-  />
-</div>
-
+      {/* Lado esquerdo - Imagem */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "flex-start", // garante que fique à esquerda
+          alignItems: "stretch", // ocupa toda a altura
+          height: "100vh", // ocupa toda a altura da tela
+          margin: 0,
+          padding: 0,
+        }}
+      >
+        <img
+          src={logoImg}
+          alt="Smart Word"
+          style={{
+            width: "100%", // ocupa toda a largura do lado esquerdo
+            height: "100%", // ocupa toda a altura
+            objectFit: "cover", // preenche sem distorcer
+            display: "block", // remove espaços brancos padrão de imagens
+          }}
+        />
+      </div>
 
       {/* Lado direito - login */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <img
           src={userImg}
           alt="Ícone de Login"
           style={{ width: "200px", height: "200px", marginBottom: "10px" }}
         />
 
-        <h2 style={{ fontSize: "50px", fontFamily: "Kodchasan" }}>Bem-vindo!</h2>
-        <h3 style={{ fontSize: "25px", fontFamily: "Kodchasan" }}>Faça seu login:</h3>
+        <h2 style={{ fontSize: "50px", fontFamily: "Kodchasan" }}>
+          Bem-vindo!
+        </h2>
+        <h3 style={{ fontSize: "25px", fontFamily: "Kodchasan" }}>
+          Faça seu login:
+        </h3>
 
         <form
           style={{
@@ -157,7 +173,9 @@ const Login = ({ onLogin, goToCadastro }) => {
           </button>
 
           {error && (
-            <p style={{ color: "red", marginTop: "10px", fontWeight: "bold" }}>{error}</p>
+            <p style={{ color: "red", marginTop: "10px", fontWeight: "bold" }}>
+              {error}
+            </p>
           )}
         </form>
 

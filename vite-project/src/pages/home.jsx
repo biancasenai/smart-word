@@ -4,7 +4,7 @@ import { UseTheme } from "../componentes/ThemeContext";
 
 function Home() {
   const navigate = useNavigate();
-  const { darkMode } = UseTheme(); // Usa o contexto para tema
+  const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto para tema
 
   return (
     <div

@@ -4,7 +4,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     { from: "bot", text: "Olá! Eu posso ajudar com informações sobre seu carro elétrico." }
   ]);
-  const [inputMessage, setInputMessage] = useState("");
+  const [inputMessage, SetInputMessage] = useState("");
 
   // Simulação de lugares próximos
   const lugaresProximos = {

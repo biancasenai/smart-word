@@ -32,6 +32,7 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
+  const [showCadastro, setShowCadastro] = useState(false); // Adicione esta linha
   const { darkMode, toggleTheme } = UseTheme(); // Adicione o toggleTheme aqui
 
   // Escolhe a imagem conforme o tema
@@ -152,7 +153,7 @@ function App() {
         </>
       ) : showCadastro ? (
         <Cadastro
-          onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login
+          onCadastro={() => setIsLoggedIn(true)} // depois do cadastro vai pra Home
           goToLogin={goToLogin} // botão "Já tenho login"
         />
       ) : (

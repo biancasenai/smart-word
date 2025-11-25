@@ -4,7 +4,7 @@ import { UseTheme } from "../componentes/ThemeContext";
 
 function Home() {
   const navigate = useNavigate();
-  const { darkMode } = UseTheme(); // Usa o contexto para tema
+  const { darkMode, toggleTheme } = UseTheme(); // Agora sim
 
   return (
     <div
@@ -15,7 +15,6 @@ function Home() {
         position: "relative",
       }}
     >
-      {/* Botão de troca de tema */}
       <button
         onClick={toggleTheme}
         style={{
@@ -26,7 +25,6 @@ function Home() {
           borderRadius: "20px",
           border: "none",
           cursor: "pointer",
-          // Os estilos de cor são mantidos
           backgroundColor: darkMode ? "#fff" : "#00072D",
           color: darkMode ? "#00072D" : "#fff",
           fontFamily: "Kodchasan",
@@ -35,8 +33,6 @@ function Home() {
           zIndex: 1000,
         }}
       >
-        {/* Se for darkMode (true), exibe a Lua 🌙 (para sugerir Light Mode)
-      Se não for darkMode (false - Light Mode), exibe o Sol ☀️ (para sugerir Dark Mode) */}
         {darkMode ? "🌙" : "☀️"}
       </button>
 

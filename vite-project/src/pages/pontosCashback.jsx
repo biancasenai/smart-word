@@ -39,13 +39,13 @@ const PontosCashback = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center", 
-        alignItems: "center", 
-        minHeight: "100vh", 
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
         backgroundColor: darkMode ? "#00072D" : "#00B4D8", // Cor de fundo dinâmica (azul claro no modo light)
         color: darkMode ? "#fff" : "#000", // Cor do texto dinâmica
         fontFamily: "Kodchasan",
-        padding: "0 50px", 
+        padding: "0 50px",
       }}
     >
       {/* Container Principal de Conteúdo (Lado a Lado) */}
@@ -53,7 +53,7 @@ const PontosCashback = () => {
         style={{
           display: "flex",
           // 'justifyContent: "space-between"' para separar os dois lados dentro deste container
-          justifyContent: "space-between", 
+          justifyContent: "space-between",
           alignItems: "flex-start",
           width: "100%",
           maxWidth: "1200px", // Limita a largura máxima do conteúdo
@@ -173,7 +173,7 @@ const PontosCashback = () => {
               style={{
                 width: "100%",
                 height: "auto",
-                backgroundColor: "transparent",
+                backgroundColor: "#fff",
                 color: "#000",
                 border: "none",
                 outline: "none",

@@ -146,7 +146,8 @@ const PontosProdutos = () => {
     marginTop: "-250px",
     marginLeft: "1120px",
     width: "20%",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    backgroundColor: "transparent",
+    
     borderRadius: "10px",
     padding: "12px 20px",
     letterSpacing: "3px",

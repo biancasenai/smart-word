@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { UseTheme } from "../componentes/ThemeContext";
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto de tema
 
 function Home() {
   const navigate = useNavigate();
-  const { darkMode } = UseTheme(); // Usa o contexto para tema
+  const { darkMode, toggleTheme } = UseTheme(); // Obtém o estado do tema e a função para alternar o tema
 
   return (
     <div
@@ -17,7 +17,7 @@ function Home() {
     >
       {/* Botão de troca de tema */}
       <button
-        onClick={toggleTheme}
+        onClick={toggleTheme} // Garante que toggleTheme está definido
         style={{
           position: "absolute",
           top: "30px",
@@ -26,7 +26,6 @@ function Home() {
           borderRadius: "20px",
           border: "none",
           cursor: "pointer",
-          // Os estilos de cor são mantidos
           backgroundColor: darkMode ? "#fff" : "#00072D",
           color: darkMode ? "#00072D" : "#fff",
           fontFamily: "Kodchasan",
@@ -35,9 +34,7 @@ function Home() {
           zIndex: 1000,
         }}
       >
-        {/* Se for darkMode (true), exibe a Lua 🌙 (para sugerir Light Mode)
-      Se não for darkMode (false - Light Mode), exibe o Sol ☀️ (para sugerir Dark Mode) */}
-        {darkMode ? "🌙" : "☀️"}
+        {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
 
       {/* Fundo com onda fixa */}

@@ -54,7 +54,7 @@ function App() {
               alignItems: "center", // Centraliza os itens verticalmente
               padding: "10px 20px",
               backgroundColor: darkMode ? "#0D1164" : "#0E6BA8", // Azul escuro no modo light
-    color: darkMode ? "#fff" : "#fff",
+              color: darkMode ? "#fff" : "#fff",
             }}
           >
             {/* Logo à esquerda */}

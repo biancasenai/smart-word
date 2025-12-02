@@ -1,57 +1,60 @@
 import React, { useState } from "react";
-import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto de tema
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto do tema
 
 export default function Chatbot() {
-  const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto para obter o estado do tema e a função de troca
-
+  const { darkMode } = UseTheme(); // Usa o contexto para gerenciar o tema
   const [messages, setMessages] = useState([
     { from: "bot", text: "Olá! Como posso ajudar você hoje?" },
   ]);
-  const [showSubOptions, setShowSubOptions] = useState(false);
+  const [inputMessage, setInputMessage] = useState("");
 
-  const handleClick = (userMessage) => {
-    setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
+  // Simulação de lugares próximos
+  const lugaresProximos = {
+    Mercados: [
+      "Mercado Central - 1.2 km",
+      "Supermercado Bom Preço - 2.5 km",
+      "Mini Mercado da Esquina - 0.8 km",
+    ],
+    Restaurantes: [
+      "Restaurante Sabor Caseiro - 1.0 km",
+      "Pizzaria Bella Itália - 2.0 km",
+      "Churrascaria Boi na Brasa - 1.8 km",
+    ],
+    Hoteis: [
+      "Hotel Conforto - 3.0 km",
+      "Pousada Sol Nascente - 2.2 km",
+      "Resort Paraíso - 5.0 km",
+    ],
+    Recarga: [
+      "Estação de Recarga - Shopping Center - 1.5 km",
+      "Ponto de Recarga - Praça Central - 0.9 km",
+      "Recarga Rápida - Posto de Combustível - 2.3 km",
+    ],
+  };
 
-    if (userMessage === "Quais pontos de recarga existem?") {
-      setShowSubOptions(true);
-    } else {
-      setShowSubOptions(false);
-    }
+  const handleSendInput = () => {
+    if (!inputMessage.trim()) return;
 
-    // Respostas locais (sem API)
+    const userMessage = { from: "user", text: inputMessage };
+    setMessages((prev) => [...prev, userMessage]);
+
+    // Resposta simulada do bot
     let botResponse = "";
-
-    switch (userMessage) {
-      case "Onde posso recarregar agora?":
-        botResponse =
-          "Você pode recarregar em mercados, shoppings e estacionamentos próximos.";
-        break;
-
-      case "Quanto tempo até minha autonomia acabar?":
-        botResponse = "Sua autonomia estimada é de 40 km restantes.";
-        break;
-
-      case "Quais pontos de recarga existem?":
-        botResponse = "Escolha uma das categorias de pontos.";
-        break;
-
-      case "Mercados":
-        botResponse =
-          "Mercado Central e SuperNova possuem carregadores disponíveis.";
-        break;
-
-      case "Hotéis":
-        botResponse =
-          "Hotel BlueSun e Comfort Inn possuem carregamento para hóspedes.";
-        break;
-
-      default:
-        botResponse = "Não entendi. Escolha uma opção abaixo.";
+    if (inputMessage.toLowerCase().includes("mercado")) {
+      botResponse = lugaresProximos.Mercados.join(", ");
+    } else if (inputMessage.toLowerCase().includes("restaurante")) {
+      botResponse = lugaresProximos.Restaurantes.join(", ");
+    } else if (inputMessage.toLowerCase().includes("hotel")) {
+      botResponse = lugaresProximos.Hoteis.join(", ");
+    } else if (inputMessage.toLowerCase().includes("recarga")) {
+      botResponse = lugaresProximos.Recarga.join(", ");
+    } else {
+      botResponse =
+        "Desculpe, não entendi. Pergunte sobre mercados, restaurantes, hotéis ou recarga.";
     }
 
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { from: "bot", text: botResponse }]);
-    }, 400);
+    setMessages((prev) => [...prev, { from: "bot", text: botResponse }]);
+    setInputMessage("");
   };
 
   // Cores baseadas no tema
@@ -62,46 +65,22 @@ export default function Chatbot() {
 
   return (
     <div
-      className="chatbot-container"
       style={{
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        backgroundColor: colorPageBg,
-        color: colorPrimaryText,
-        transition: "0.5s",
+        backgroundColor: "#0077B6", // Fundo azul
+        padding: "20px",
       }}
     >
-      {/* BOTÃO DE TEMA */}
-      <button
-        onClick={toggleTheme} // Adiciona a função de troca de tema
-        style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          padding: "10px 20px",
-          background: colorHighlight,
-          color: colorHighlightText,
-          border: "none",
-          borderRadius: "10px",
-          cursor: "pointer",
-          fontWeight: "bold",
-          boxShadow: darkMode ? `0 0 10px ${colorHighlight}` : "none",
-        }}
-      >
-        {darkMode ? "Modo Light" : "Modo Dark"}
-      </button>
-
       <div
-        className="chat-window"
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
+<<<<<<< HEAD
           maxWidth: "500px",
           padding: "10px",
           backgroundColor: darkMode ? "#001E3C" : "#00B4D8",
@@ -110,16 +89,36 @@ export default function Chatbot() {
             ? `0 10px 30px rgba(0,0,0,0.8), 0 0 30px ${colorHighlight}`
             : "0 4px 8px rgba(0, 0, 0, 0.1)",
           border: "2px solid black", // Adiciona uma borda preta
+=======
+          maxWidth: "400px",
+          height: "600px",
+          backgroundColor: "#ffffff", // Fundo branco do chat
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          overflow: "hidden",
+>>>>>>> main
         }}
       >
+        {/* Cabeçalho do chat */}
         <div
-          className="messages"
           style={{
-            width: "100%",
-            maxHeight: "300px",
+            backgroundColor: "#0077B6",
+            color: "#ffffff",
+            padding: "10px",
+            textAlign: "center",
+            fontWeight: "bold",
+          }}
+        >
+          Chatbot
+        </div>
+
+        {/* Área de mensagens */}
+        <div
+          style={{
+            flex: 1,
+            padding: "10px",
             overflowY: "auto",
-            marginBottom: "10px",
-            color: colorPrimaryText,
+            backgroundColor: "#f9f9f9",
           }}
         >
           {messages.map((msg, index) => (
@@ -127,50 +126,72 @@ export default function Chatbot() {
               key={index}
               style={{
                 textAlign: msg.from === "user" ? "right" : "left",
-                margin: "5px 0",
+                margin: "10px 0",
               }}
             >
-              <strong>{msg.from === "user" ? "Você" : "Bot"}:</strong>{" "}
-              {msg.text.split("\n").map((line, i) => (
-                <div key={i}>{line}</div>
-              ))}
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  backgroundColor:
+                    msg.from === "user" ? "#0077B6" : "#e0e0e0",
+                  color: msg.from === "user" ? "#ffffff" : "#000000",
+                  maxWidth: "70%",
+                  wordWrap: "break-word",
+                }}
+              >
+                {msg.text}
+              </span>
             </div>
           ))}
         </div>
 
-        <div className="buttons">
-          {!showSubOptions && (
-            <>
-              <button
-                onClick={() => handleClick("Onde posso recarregar agora?")}
-              >
-                Onde posso recarregar agora?
-              </button>
-              <button
-                onClick={() =>
-                  handleClick("Quanto tempo até minha autonomia acabar?")
-                }
-              >
-                Autonomia restante
-              </button>
-              <button
-                onClick={() => handleClick("Quais pontos de recarga existem?")}
-              >
-                Pontos de recarga
-              </button>
-            </>
-          )}
-
-          {showSubOptions && (
-            <>
-              <button onClick={() => handleClick("Mercados")}>Mercados</button>
-              <button onClick={() => handleClick("Hotéis")}>Hotéis</button>
-            </>
-          )}
+        {/* Barra de entrada */}
+        <div
+          style={{
+            display: "flex",
+            padding: "10px",
+            borderTop: "1px solid #e0e0e0",
+          }}
+        >
+          <input
+            type="text"
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSendInput();
+              }
+            }}
+            placeholder="Digite sua mensagem..."
+            style={{
+              flex: 1,
+              padding: "10px",
+              borderRadius: "20px",
+              border: "1px solid #ccc",
+              outline: "none",
+              marginRight: "10px",
+            }}
+          />
+          <button
+            onClick={handleSendInput}
+            style={{
+              padding: "10px 15px",
+              borderRadius: "20px",
+              border: "none",
+              backgroundColor: "#0077B6",
+              color: "#ffffff",
+              cursor: "pointer",
+            }}
+          >
+            Enviar
+          </button>
         </div>
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
 
 const quickReplyButtonStyle = {
@@ -187,3 +208,6 @@ const quickReplyButtonStyle = {
 quickReplyButtonStyle["&:hover"] = {
   backgroundColor: "#005f8a",
 };
+=======
+}
+>>>>>>> main

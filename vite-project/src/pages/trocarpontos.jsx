@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 // 1. Importar o hook UseTheme
-import { UseTheme } from "../componentes/ThemeContext";
+import { UseTheme }  from "../componentes/ThemeContext.jsx";
 
 // 2. CORREÇÃO: Componente renomeado para começar com letra maiúscula
 const TrocarPontos = () => {

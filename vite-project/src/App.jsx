@@ -6,14 +6,14 @@ import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
-import TrocarPontos from "./pages/TrocarPontos";
+import TrocarPontos from "./pages/trocarpontos";
 import Navegar from "./pages/navegar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import PontosMercado from "./pages/PontosMercado";
-import PontosManutencao from "./pages/PontosManutencao";
-import PontosHoteis from "./pages/PontosHoteis";
-import PontosCashback from "./pages/PontosCashback";
-import PontosProdutos from "./pages/PontosProdutos";
+import PontosMercado from "./pages/pontosMercado";
+import PontosManutencao from "./pages/pontosManutencao";
+import PontosHoteis from "./pages/pontosHoteis";
+import PontosCashback from "./pages/pontosCashback";
+import PontosProdutos from "./pages/pontosProdutos";
 import logoLight from "./img/logoligth.png";
 import logoDark from "./img/logoDark.png";
 import Chat from "./pages/ChatBot";
@@ -32,7 +32,7 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
-  const [showCadastro, setShowCadastro] = useState(false); 
+  const [showCadastro, setShowCadastro] = useState(false); // alterna entre cadastro e login
   const { darkMode, toggleTheme } = UseTheme(); // Adicione o toggleTheme aqui
 
   // Escolhe a imagem conforme o tema
@@ -54,7 +54,7 @@ function App() {
               alignItems: "center", // Centraliza os itens verticalmente
               padding: "10px 20px",
               backgroundColor: darkMode ? "#0D1164" : "#0E6BA8", // Azul escuro no modo light
-    color: darkMode ? "#fff" : "#fff",
+              color: darkMode ? "#fff" : "#fff",
             }}
           >
             {/* Logo à esquerda */}
@@ -153,7 +153,7 @@ function App() {
         </>
       ) : showCadastro ? (
         <Cadastro
-          onCadastro={() => setShowLogin(true)} // depois do cadastro vai pro login
+          onCadastro={() => setIsLoggedIn(true)} // depois do cadastro vai pra Home
           goToLogin={goToLogin} // botão "Já tenho login"
         />
       ) : (

@@ -146,7 +146,7 @@ const PontosCashback = () => {
               width: "100%",
               maxWidth: "400px",
               height: "80px",
-              backgroundColor: "#00B4D8",
+              backgroundColor: "#ffffff",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -160,7 +160,7 @@ const PontosCashback = () => {
             <h3
               style={{
                 fontSize: "18px",
-                color: "#fff",
+                color: "#000000",
                 marginBottom: "5px",
                 marginTop: "-10px", // Ajuste fino para centralizar o texto verticalmente
               }}

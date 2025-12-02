@@ -104,7 +104,7 @@ export default function Chatbot() {
           width: "100%",
           maxWidth: "500px",
           padding: "10px",
-          backgroundColor: darkMode ? "#001E3C" : "#5fafe5",
+          backgroundColor: darkMode ? "#001E3C" : "#00B4D8",
           borderRadius: "8px",
           boxShadow: darkMode
             ? `0 10px 30px rgba(0,0,0,0.8), 0 0 30px ${colorHighlight}`
@@ -176,7 +176,7 @@ export default function Chatbot() {
 const quickReplyButtonStyle = {
   padding: "10px 15px",
   border: "none",
-  backgroundColor: "#0077B6",
+  backgroundColor: "#00B4D8",
   color: "white",
   borderRadius: "20px",
   cursor: "pointer",

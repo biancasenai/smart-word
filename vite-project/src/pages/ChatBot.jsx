@@ -106,7 +106,11 @@ export default function Chatbot() {
               <button onClick={() => handleClick("Onde posso recarregar agora?")}>
                 Onde posso recarregar agora?
               </button>
-              <button onClick={() => handleClick("Quanto tempo até minha autonomia acabar?")}>
+              <button
+                onClick={() =>
+                  handleClick("Quanto tempo até minha autonomia acabar?")
+                }
+              >
                 Autonomia restante
               </button>
               <button onClick={() => handleClick("Quais pontos de recarga existem?")}>

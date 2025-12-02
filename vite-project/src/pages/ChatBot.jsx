@@ -57,6 +57,12 @@ export default function Chatbot() {
     setInputMessage("");
   };
 
+  // Cores baseadas no tema
+  const colorPageBg = darkMode ? "#00072D" : "#f5f5f5";
+  const colorPrimaryText = darkMode ? "#fff" : "#000";
+  const colorHighlight = darkMode ? "#00B4D8" : "#E0E0E0";
+  const colorHighlightText = darkMode ? "#00072D" : "#000";
+
   return (
     <div
       style={{

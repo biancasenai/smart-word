@@ -39,13 +39,13 @@ const PontosCashback = () => {
     <div
       style={{
         display: "flex",
-        justifyContent: "center", 
-        alignItems: "center", 
-        minHeight: "100vh", 
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
         backgroundColor: darkMode ? "#00072D" : "#00B4D8", // Cor de fundo dinâmica (azul claro no modo light)
         color: darkMode ? "#fff" : "#000", // Cor do texto dinâmica
         fontFamily: "Kodchasan",
-        padding: "0 50px", 
+        padding: "0 50px",
       }}
     >
       {/* Container Principal de Conteúdo (Lado a Lado) */}
@@ -53,7 +53,7 @@ const PontosCashback = () => {
         style={{
           display: "flex",
           // 'justifyContent: "space-between"' para separar os dois lados dentro deste container
-          justifyContent: "space-between", 
+          justifyContent: "space-between",
           alignItems: "flex-start",
           width: "100%",
           maxWidth: "1200px", // Limita a largura máxima do conteúdo
@@ -146,7 +146,7 @@ const PontosCashback = () => {
               width: "100%",
               maxWidth: "400px",
               height: "80px",
-              backgroundColor: "#00B4D8",
+              backgroundColor: "#ffffff",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -160,7 +160,7 @@ const PontosCashback = () => {
             <h3
               style={{
                 fontSize: "18px",
-                color: "#fff",
+                color: "#000000",
                 marginBottom: "5px",
                 marginTop: "-10px", // Ajuste fino para centralizar o texto verticalmente
               }}
@@ -173,7 +173,7 @@ const PontosCashback = () => {
               style={{
                 width: "100%",
                 height: "auto",
-                backgroundColor: "transparent",
+                backgroundColor: "#fff",
                 color: "#000",
                 border: "none",
                 outline: "none",

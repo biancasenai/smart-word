@@ -80,7 +80,6 @@ export default function Chatbot() {
           flexDirection: "column",
           justifyContent: "space-between",
           width: "100%",
-<<<<<<< HEAD
           maxWidth: "500px",
           padding: "10px",
           backgroundColor: darkMode ? "#001E3C" : "#00B4D8",
@@ -89,14 +88,6 @@ export default function Chatbot() {
             ? `0 10px 30px rgba(0,0,0,0.8), 0 0 30px ${colorHighlight}`
             : "0 4px 8px rgba(0, 0, 0, 0.1)",
           border: "2px solid black", // Adiciona uma borda preta
-=======
-          maxWidth: "400px",
-          height: "600px",
-          backgroundColor: "#ffffff", // Fundo branco do chat
-          borderRadius: "10px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          overflow: "hidden",
->>>>>>> main
         }}
       >
         {/* Cabeçalho do chat */}

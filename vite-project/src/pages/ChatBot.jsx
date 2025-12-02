@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto de tema
 
 export default function Chatbot() {
+  const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto para obter o estado do tema e a função de troca
+
   const [messages, setMessages] = useState([
     { from: "bot", text: "Olá! Como posso ajudar você hoje?" },
   ]);
   const [showSubOptions, setShowSubOptions] = useState(false);
 
   const handleClick = (userMessage) => {
-    setMessages(prev => [...prev, { from: "user", text: userMessage }]);
+    setMessages((prev) => [...prev, { from: "user", text: userMessage }]);
 
     if (userMessage === "Quais pontos de recarga existem?") {
       setShowSubOptions(true);
@@ -20,7 +23,8 @@ export default function Chatbot() {
 
     switch (userMessage) {
       case "Onde posso recarregar agora?":
-        botResponse = "Você pode recarregar em mercados, shoppings e estacionamentos próximos.";
+        botResponse =
+          "Você pode recarregar em mercados, shoppings e estacionamentos próximos.";
         break;
 
       case "Quanto tempo até minha autonomia acabar?":
@@ -32,11 +36,13 @@ export default function Chatbot() {
         break;
 
       case "Mercados":
-        botResponse = "Mercado Central e SuperNova possuem carregadores disponíveis.";
+        botResponse =
+          "Mercado Central e SuperNova possuem carregadores disponíveis.";
         break;
 
       case "Hotéis":
-        botResponse = "Hotel BlueSun e Comfort Inn possuem carregamento para hóspedes.";
+        botResponse =
+          "Hotel BlueSun e Comfort Inn possuem carregamento para hóspedes.";
         break;
 
       default:
@@ -44,9 +50,15 @@ export default function Chatbot() {
     }
 
     setTimeout(() => {
-      setMessages(prev => [...prev, { from: "bot", text: botResponse }]);
+      setMessages((prev) => [...prev, { from: "bot", text: botResponse }]);
     }, 400);
   };
+
+  // Cores baseadas no tema
+  const colorPageBg = darkMode ? "#00072D" : "#f5f5f5";
+  const colorPrimaryText = darkMode ? "#fff" : "#000";
+  const colorHighlight = darkMode ? "#00B4D8" : "#E0E0E0";
+  const colorHighlightText = darkMode ? "#00072D" : "#000";
 
   return (
     <div
@@ -57,9 +69,31 @@ export default function Chatbot() {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
-        backgroundColor: "#f5f5f5",
+        backgroundColor: colorPageBg,
+        color: colorPrimaryText,
+        transition: "0.5s",
       }}
     >
+      {/* BOTÃO DE TEMA */}
+      <button
+        onClick={toggleTheme} // Adiciona a função de troca de tema
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          padding: "10px 20px",
+          background: colorHighlight,
+          color: colorHighlightText,
+          border: "none",
+          borderRadius: "10px",
+          cursor: "pointer",
+          fontWeight: "bold",
+          boxShadow: darkMode ? `0 0 10px ${colorHighlight}` : "none",
+        }}
+      >
+        {darkMode ? "Modo Light" : "Modo Dark"}
+      </button>
+
       <div
         className="chat-window"
         style={{
@@ -70,9 +104,12 @@ export default function Chatbot() {
           width: "100%",
           maxWidth: "500px",
           padding: "10px",
-          backgroundColor: "#ffffff",
+          backgroundColor: darkMode ? "#001E3C" : "#5fafe5",
           borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: darkMode
+            ? `0 10px 30px rgba(0,0,0,0.8), 0 0 30px ${colorHighlight}`
+            : "0 4px 8px rgba(0, 0, 0, 0.1)",
+          border: "2px solid black", // Adiciona uma borda preta
         }}
       >
         <div
@@ -82,6 +119,7 @@ export default function Chatbot() {
             maxHeight: "300px",
             overflowY: "auto",
             marginBottom: "10px",
+            color: colorPrimaryText,
           }}
         >
           {messages.map((msg, index) => (
@@ -103,7 +141,9 @@ export default function Chatbot() {
         <div className="buttons">
           {!showSubOptions && (
             <>
-              <button onClick={() => handleClick("Onde posso recarregar agora?")}>
+              <button
+                onClick={() => handleClick("Onde posso recarregar agora?")}
+              >
                 Onde posso recarregar agora?
               </button>
               <button
@@ -113,7 +153,9 @@ export default function Chatbot() {
               >
                 Autonomia restante
               </button>
-              <button onClick={() => handleClick("Quais pontos de recarga existem?")}>
+              <button
+                onClick={() => handleClick("Quais pontos de recarga existem?")}
+              >
                 Pontos de recarga
               </button>
             </>
@@ -126,7 +168,6 @@ export default function Chatbot() {
             </>
           )}
         </div>
-
       </div>
     </div>
   );

@@ -80,12 +80,23 @@ export default function Chatbot() {
           flexDirection: "column",
           justifyContent: "space-between",
           width: "100%",
+<<<<<<< HEAD
+          maxWidth: "500px",
+          padding: "10px",
+          backgroundColor: darkMode ? "#001E3C" : "#00B4D8",
+          borderRadius: "8px",
+          boxShadow: darkMode
+            ? `0 10px 30px rgba(0,0,0,0.8), 0 0 30px ${colorHighlight}`
+            : "0 4px 8px rgba(0, 0, 0, 0.1)",
+          border: "2px solid black", // Adiciona uma borda preta
+=======
           maxWidth: "400px",
           height: "600px",
           backgroundColor: "#ffffff", // Fundo branco do chat
           borderRadius: "10px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           overflow: "hidden",
+>>>>>>> main
         }}
       >
         {/* Cabeçalho do chat */}
@@ -180,4 +191,23 @@ export default function Chatbot() {
       </div>
     </div>
   );
+<<<<<<< HEAD
 }
+
+const quickReplyButtonStyle = {
+  padding: "10px 15px",
+  border: "none",
+  backgroundColor: "#00B4D8",
+  color: "white",
+  borderRadius: "20px",
+  cursor: "pointer",
+  fontSize: "14px",
+  transition: "background-color 0.3s",
+};
+
+quickReplyButtonStyle["&:hover"] = {
+  backgroundColor: "#005f8a",
+};
+=======
+}
+>>>>>>> main

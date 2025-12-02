@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { UseTheme } from "../componentes/ThemeContext"; // Importa o contexto do tema
 
-export default function ChatBot() {
+export default function Chatbot() {
+  const { darkMode } = UseTheme(); // Usa o contexto para gerenciar o tema
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Olá! Eu posso ajudar com informações sobre seu carro elétrico." }
+    { from: "bot", text: "Olá! Como posso ajudar você hoje?" },
   ]);
   const [inputMessage, setInputMessage] = useState("");
-  const [darkMode, setDarkMode] = useState(true);
-  const [showSubOptions, setShowSubOptions] = useState(false);
 
   // Simulação de lugares próximos
   const lugaresProximos = {
@@ -49,7 +49,8 @@ export default function ChatBot() {
     } else if (inputMessage.toLowerCase().includes("recarga")) {
       botResponse = lugaresProximos.Recarga.join(", ");
     } else {
-      botResponse = "Desculpe, não entendi. Pergunte sobre mercados, restaurantes, hotéis ou recarga.";
+      botResponse =
+        "Desculpe, não entendi. Pergunte sobre mercados, restaurantes, hotéis ou recarga.";
     }
 
     setMessages((prev) => [...prev, { from: "bot", text: botResponse }]);
@@ -59,70 +60,117 @@ export default function ChatBot() {
   return (
     <div
       style={{
-        background: darkMode ? "#151B8B" : "#f5f5f5",
-        color: darkMode ? "white" : "black",
-        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        backgroundColor: "#0077B6", // Fundo azul
         padding: "20px",
-        position: "relative"
       }}
     >
-      <button
-        onClick={() => setDarkMode(!darkMode)}
+      <div
         style={{
-          position: "absolute",
-          top: 20,
-          right: 20,
-          padding: "10px 20px",
-          borderRadius: "20px",
-          border: "none",
-          background: darkMode ? "#0E6BA8" : "#ccc",
-          color: darkMode ? "white" : "black",
-          cursor: "pointer"
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          width: "100%",
+          maxWidth: "400px",
+          height: "600px",
+          backgroundColor: "#ffffff", // Fundo branco do chat
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          overflow: "hidden",
         }}
       >
-        {darkMode ? "Light Mode" : "Dark Mode"}
-      </button>
+        {/* Cabeçalho do chat */}
+        <div
+          style={{
+            backgroundColor: "#0077B6",
+            color: "#ffffff",
+            padding: "10px",
+            textAlign: "center",
+            fontWeight: "bold",
+          }}
+        >
+          Chatbot
+        </div>
 
-      <div style={{ marginBottom: "20px" }}>
-        {messages.map((msg, idx) => (
-          <div key={idx} style={{
-            textAlign: msg.from === "bot" ? "left" : "right",
-            margin: "10px 0"
-          }}>
-            <span>{msg.text}</span>
-          </div>
-        ))}
-      </div>
-
-      <div style={{ display: "flex", gap: "10px" }}>
-        <input
-          type="text"
-          value={inputMessage}
-          onChange={e => setInputMessage(e.target.value)}
-          placeholder="Digite sua mensagem..."
+        {/* Área de mensagens */}
+        <div
           style={{
             flex: 1,
             padding: "10px",
-            borderRadius: "10px",
-            border: "1px solid #ccc",
-            outline: "none",
-            background: darkMode ? "#0E6BA8" : "#fff",
-            color: darkMode ? "white" : "black"
-          }}
-        />
-        <button
-          onClick={handleSendInput}
-          style={{
-            padding: "10px 20px",
-            borderRadius: "10px",
-            border: "none",
-            background: darkMode ? "#1E90FF" : "#00B4D8",
-            color: "white",
-            cursor: "pointer"
+            overflowY: "auto",
+            backgroundColor: "#f9f9f9",
           }}
         >
-          Enviar
-        </button>
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              style={{
+                textAlign: msg.from === "user" ? "right" : "left",
+                margin: "10px 0",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "10px",
+                  borderRadius: "10px",
+                  backgroundColor:
+                    msg.from === "user" ? "#0077B6" : "#e0e0e0",
+                  color: msg.from === "user" ? "#ffffff" : "#000000",
+                  maxWidth: "70%",
+                  wordWrap: "break-word",
+                }}
+              >
+                {msg.text}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Barra de entrada */}
+        <div
+          style={{
+            display: "flex",
+            padding: "10px",
+            borderTop: "1px solid #e0e0e0",
+          }}
+        >
+          <input
+            type="text"
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSendInput();
+              }
+            }}
+            placeholder="Digite sua mensagem..."
+            style={{
+              flex: 1,
+              padding: "10px",
+              borderRadius: "20px",
+              border: "1px solid #ccc",
+              outline: "none",
+              marginRight: "10px",
+            }}
+          />
+          <button
+            onClick={handleSendInput}
+            style={{
+              padding: "10px 15px",
+              borderRadius: "20px",
+              border: "none",
+              backgroundColor: "#0077B6",
+              color: "#ffffff",
+              cursor: "pointer",
+            }}
+          >
+            Enviar
+          </button>
+        </div>
       </div>
     </div>
   );

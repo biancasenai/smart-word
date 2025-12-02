@@ -32,6 +32,7 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
+  const [showCadastro, setShowCadastro] = useState(false); // alterna entre cadastro e login
   const { darkMode, toggleTheme } = UseTheme(); // Adicione o toggleTheme aqui
 
   // Escolhe a imagem conforme o tema

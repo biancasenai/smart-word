@@ -25,9 +25,9 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
     existingUsers.push(newUser);
     localStorage.setItem("users", JSON.stringify(existingUsers));
 
-    alert("✅ Cadastro realizado com sucesso!"); // Mostra mensagem após salvar
+    alert("✅ Cadastro realizado com sucesso!");
 
-    if (onCadastro) onCadastro(); // Redireciona para Home
+    if (onCadastro) onCadastro();
   };
 
   const logoImg = darkMode ? logoDark : logoLight;
@@ -35,179 +35,216 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
 
   return (
     <div
+      className={`cadastro-root ${darkMode ? "dark" : "light"}`}
       style={{
-        backgroundColor: darkMode ? "#00072D" : "#00B4D8",
-        color: darkMode ? "white" : "black",
         height: "100vh",
         display: "flex",
-        alignItems: "center",
-        justifyContent: "space-evenly",
         position: "relative",
         transition: "0.3s",
       }}
     >
+      {/* Estilos CSS locais (escopo pelo nome das classes) */}
+      <style>{`
+        .cadastro-root.dark {
+          background-color: #00072D;
+          color: white;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+        .cadastro-root.light {
+          background-color: #00B4D8;
+          color: black;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+
+        /* Botão toggle tema */
+        .theme-toggle {
+          position: absolute;
+          top: 20px;
+          right: 50px;
+          padding: 10px 20px;
+          border-radius: 20px;
+          border: none;
+          cursor: pointer;
+          font-family: Kodchasan, sans-serif;
+          font-weight: bold;
+          transition: 0.3s;
+        }
+
+        /* Lado esquerdo imagem */
+        .left-panel {
+          flex: 1;
+          display: flex;
+          justify-content: flex-start;
+          align-items: stretch;
+          height: 100vh;
+          margin: 0;
+          padding: 0;
+        }
+        .left-panel img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+
+        /* Lado direito form */
+        .right-panel {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .right-panel img {
+          width: 200px;
+          height: 200px;
+          margin-bottom: 10px;
+        }
+
+        .titulo {
+          font-size: 50px;
+          font-family: Kodchasan, sans-serif;
+        }
+        .subtitulo {
+          font-size: 25px;
+          font-family: Kodchasan, sans-serif;
+        }
+
+        form {
+          margin-top: 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          align-items: center;
+        }
+
+        /* INPUTS - classe única aplicada a todos inputs para consistência */
+        .inputField {
+          padding: 20px;
+          width: 650px;
+          border-radius: 90px;
+          border: 4px solid #151B8B; /* borda azul consistente */
+          outline: none;
+          text-align: center;
+          font-size: 14px;
+          font-family: Kodchasan, sans-serif;
+          transition: 0.15s;
+          box-sizing: border-box;
+        }
+
+        /* Estados dark / light específicos */
+        .cadastro-root.dark .inputField {
+          background: transparent; /* deixa "transparente" para mostrar o fundo escuro */
+          color: white;
+        }
+        .cadastro-root.dark .inputField::placeholder {
+          color: rgba(255,255,255,0.6);
+        }
+
+        .cadastro-root.light .inputField {
+          background: white;
+          color: black;
+          border: 4px solid #ccc; /* borda clara no modo light */
+        }
+        .cadastro-root.light .inputField::placeholder {
+          color: #666;
+        }
+
+        .submitButton {
+          padding: 20px;
+          width: 350px;
+          border-radius: 90px;
+          outline: none;
+          background: #0E6BA8;
+          color: white;
+          text-align: center;
+          font-size: 20px;
+          font-family: Kodchasan, sans-serif;
+          border: none;
+          cursor: pointer;
+        }
+
+        .loginButton {
+          margin-top: 20px;
+          background: none;
+          border: none;
+          font-size: 16px;
+          font-family: Kodchasan, sans-serif;
+          text-decoration: underline;
+          cursor: pointer;
+          padding: 0;
+        }
+
+        /* Ajuste para melhorar render em dispositivos pequenos */
+        @media (max-width: 900px) {
+          .inputField { width: 90%; }
+          .submitButton { width: 70%; }
+        }
+      `}</style>
+
       {/* Botão de troca de tema */}
       <button
         onClick={toggleTheme}
+        className="theme-toggle"
         style={{
-          position: "absolute",
-          top: "20px",
-          right: "50px",
-          padding: "10px 20px",
-          borderRadius: "20px",
-          border: "none",
-          cursor: "pointer",
           backgroundColor: darkMode ? "#fff" : "#00072D",
           color: darkMode ? "#00072D" : "#fff",
-          fontFamily: "Kodchasan",
-          fontWeight: "bold",
-          transition: "0.3s",
         }}
       >
         {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
 
       {/* Lado esquerdo - Imagem */}
-<div
-  style={{
-    flex: 1,
-    display: "flex",
-    justifyContent: "flex-start", // garante que fique à esquerda
-    alignItems: "stretch", // ocupa toda a altura
-    height: "100vh", // ocupa toda a altura da tela
-    margin: 0,
-    padding: 0,
-  }}
->
-  <img
-    src={logoImg}
-    alt="Smart Word"
-    style={{
-      width: "100%", // ocupa toda a largura do lado esquerdo
-      height: "100%", // ocupa toda a altura
-      objectFit: "cover", // preenche sem distorcer
-      display: "block", // remove espaços brancos padrão de imagens
-    }}
-  />
-</div>
-
+      <div className="left-panel">
+        <img src={logoImg} alt="Smart Word" />
+      </div>
 
       {/* Lado direito - Formulário */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <img
-          src={userImg}
-          alt="Ícone de Cadastro"
-          style={{ width: "200px", height: "200px", marginBottom: "10px" }}
-        />
+      <div className="right-panel">
+        <img src={userImg} alt="Ícone de Cadastro" />
 
-        <h2 style={{ fontSize: "50px", fontFamily: "Kodchasan" }}>
-          Bem-vindo!
-        </h2>
-        <h3 style={{ fontSize: "25px", fontFamily: "Kodchasan" }}>
-          Faça seu cadastro:
-        </h3>
+        <h2 className="titulo">Bem-vindo!</h2>
+        <h3 className="subtitulo">Faça seu cadastro:</h3>
 
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            marginTop: "30px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "15px",
-            alignItems: "center",
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <input
+            className="inputField"
             type="text"
             placeholder="CPF"
             maxLength="11"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
-            style={{
-              ...inputStyle,
-              color: darkMode ? "white" : "black",
-              borderColor: darkMode ? "#151B8B" : "#ccc",
-            }}
+            // Removi estilos inline conflitantes; tudo é controlado pela classe
           />
           <input
+            className="inputField"
             type="password"
             placeholder="Senha"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
-            style={{
-              ...inputStyle,
-              color: darkMode ? "white" : "black",
-              borderColor: darkMode ? "#151B8B" : "#ccc",
-            }}
           />
           <input
+            className="inputField"
             type="text"
             placeholder="Placa do carro"
             maxLength="7"
             value={placa}
             onChange={(e) => setPlaca(e.target.value)}
-            style={{
-              ...inputStyle,
-              color: darkMode ? "white" : "black",
-              borderColor: darkMode ? "#151B8B" : "#ccc",
-            }}
           />
 
-          <button type="submit" style={buttonStyle}>
+          <button type="submit" className="submitButton">
             CADASTRAR
           </button>
         </form>
 
-        <button onClick={goToLogin} style={buttonLoginStyle}>
+        <button onClick={goToLogin} className="loginButton">
           Já tenho conta
         </button>
       </div>
     </div>
   );
-};
-
-// Estilos
-
-const inputStyle = {
-  padding: "20px",
-  width: "650px",
-  borderRadius: "90px",
-  border: "4px solid #151B8B",
-  outline: "none",
-  background: "transparent",
-  textAlign: "center",
-  fontSize: "14px",
-  fontFamily: "Kodchasan",
-};
-
-const buttonStyle = {
-  padding: "20px",
-  width: "350px",
-  borderRadius: "90px",
-  outline: "none",
-  background: "#0E6BA8",
-  color: "white",
-  textAlign: "center",
-  fontSize: "20px",
-  fontFamily: "Kodchasan",
-};
-
-const buttonLoginStyle = {
-  marginTop: "20px",
-  background: "none",
-  border: "none",
-  fontSize: "16px",
-  fontFamily: "Kodchasan",
-  textDecoration: "underline",
-  cursor: "pointer",
-  padding: 0,
 };
 
 export default Cadastro;

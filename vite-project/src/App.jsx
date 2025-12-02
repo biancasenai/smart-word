@@ -6,14 +6,14 @@ import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
-import TrocarPontos from "./pages/TrocarPontos";
+import TrocarPontos from "./pages/trocarpontos";
 import Navegar from "./pages/navegar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import PontosMercado from "./pages/PontosMercado";
-import PontosManutencao from "./pages/PontosManutencao";
-import PontosHoteis from "./pages/PontosHoteis";
-import PontosCashback from "./pages/PontosCashback";
-import PontosProdutos from "./pages/PontosProdutos";
+import PontosMercado from "./pages/pontosMercado";
+import PontosManutencao from "./pages/pontosManutencao";
+import PontosHoteis from "./pages/pontosHoteis";
+import PontosCashback from "./pages/pontosCashback";
+import PontosProdutos from "./pages/pontosProdutos";
 import logoLight from "./img/logoligth.png";
 import logoDark from "./img/logoDark.png";
 import Chat from "./pages/ChatBot";
@@ -32,7 +32,6 @@ function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
-  const [showCadastro, setShowCadastro] = useState(false); // Adicione esta linha
   const { darkMode, toggleTheme } = UseTheme(); // Adicione o toggleTheme aqui
 
   // Escolhe a imagem conforme o tema

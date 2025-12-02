@@ -15,26 +15,7 @@ function Home() {
         position: "relative",
       }}
     >
-      <button
-        onClick={toggleTheme}
-        style={{
-          position: "absolute",
-          top: "30px",
-          right: "150px",
-          padding: "10px 20px",
-          borderRadius: "20px",
-          border: "none",
-          cursor: "pointer",
-          backgroundColor: darkMode ? "#fff" : "#00072D",
-          color: darkMode ? "#00072D" : "#fff",
-          fontFamily: "Kodchasan",
-          fontWeight: "bold",
-          transition: "0.3s",
-          zIndex: 1000,
-        }}
-      >
-        {darkMode ? "🌙" : "☀️"}
-      </button>
+     
 
       {/* Fundo com onda fixa */}
       <div className="wave-container">
@@ -79,4 +60,3 @@ function Home() {
 }
 
 export default Home;
-

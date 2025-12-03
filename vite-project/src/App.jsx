@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 import "./App.css";
-import Cadastro from "vite-project/src/componentes/Cadastro.jsx";
+import Cadastro from "./componentes/Cadastro.jsx";
 import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
@@ -151,12 +151,10 @@ function App() {
       ) : showCadastro ? (
         <Cadastro
           onCadastro={() => setIsLoggedIn(true)} // depois do cadastro vai pra Home
-          goToLogin={goToLogin} // botão "Já tenho login"
         />
       ) : (
         <Login
           onLogin={() => setIsLoggedIn(true)}
-          goToCadastro={goToCadastro} // voltar para Cadastro
         />
       )}
     </div>

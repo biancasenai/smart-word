@@ -94,7 +94,7 @@ function App() {
               <button
                 onClick={toggleTheme}
                 style={{
-                  borderRadius: "11%",
+                  borderRadius: "20px",
                   fontFamily: "Kodchasan",
                   backgroundColor: darkMode ? "#fff" : "#00072D",
                   color: darkMode ? "#00072D" : "#fff",

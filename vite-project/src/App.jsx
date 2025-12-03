@@ -16,7 +16,7 @@ import PontosCashback from "./pages/pontosCashback";
 import PontosProdutos from "./pages/pontosProdutos";
 import logoLight from "./img/logoligth.png";
 import logoDark from "./img/logoDark.png";
-import Chat from "./pages/ChatBot";
+import ChatBot from "./pages/ChatBot";
 import { ThemeProvider, UseTheme } from "./componentes/ThemeContext";
 
 // Botão voltar para todas as páginas
@@ -145,7 +145,7 @@ function App() {
               path="/chatbot"
               element={
                 <div className="App">
-                  <Chat />
+                  <ChatBot />
                 </div>
               }
             />

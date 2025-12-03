@@ -32,28 +32,37 @@ export default function Chatbot() {
     ],
   };
 
-  const handleSendInput = () => {
+  const handleSendInput = async () => {
     if (!inputMessage.trim()) return;
 
     const userMessage = { from: "user", text: inputMessage };
     setMessages((prev) => [...prev, userMessage]);
 
-    // Resposta simulada do bot
-    let botResponse = "";
-    if (inputMessage.toLowerCase().includes("mercado")) {
-      botResponse = lugaresProximos.Mercados.join(", ");
-    } else if (inputMessage.toLowerCase().includes("restaurante")) {
-      botResponse = lugaresProximos.Restaurantes.join(", ");
-    } else if (inputMessage.toLowerCase().includes("hotel")) {
-      botResponse = lugaresProximos.Hoteis.join(", ");
-    } else if (inputMessage.toLowerCase().includes("recarga")) {
-      botResponse = lugaresProximos.Recarga.join(", ");
-    } else {
-      botResponse =
-        "Desculpe, não entendi. Pergunte sobre mercados, restaurantes, hotéis ou recarga.";
+    try {
+      // Chame sua API aqui (substitua a URL pela sua)
+      const response = await fetch(
+        "https://localhost:7150/api/ChatbotRequests",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: inputMessage }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Erro na resposta da API");
+
+      const data = await response.json();
+      // Supondo que a resposta da API tenha um campo 'reply'
+      const botResponse = data.reply || "Desculpe, não entendi sua pergunta.";
+
+      setMessages((prev) => [...prev, { from: "bot", text: botResponse }]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        { from: "bot", text: "Erro ao conectar com o servidor." },
+      ]);
     }
 
-    setMessages((prev) => [...prev, { from: "bot", text: botResponse }]);
     setInputMessage("");
   };
 
@@ -125,8 +134,7 @@ export default function Chatbot() {
                   display: "inline-block",
                   padding: "10px",
                   borderRadius: "10px",
-                  backgroundColor:
-                    msg.from === "user" ? "#0077B6" : "#e0e0e0",
+                  backgroundColor: msg.from === "user" ? "#0077B6" : "#e0e0e0",
                   color: msg.from === "user" ? "#ffffff" : "#000000",
                   maxWidth: "70%",
                   wordWrap: "break-word",
@@ -182,7 +190,6 @@ export default function Chatbot() {
       </div>
     </div>
   );
-<<<<<<< HEAD
 }
 
 const quickReplyButtonStyle = {
@@ -199,6 +206,3 @@ const quickReplyButtonStyle = {
 quickReplyButtonStyle["&:hover"] = {
   backgroundColor: "#005f8a",
 };
-=======
-}
->>>>>>> main

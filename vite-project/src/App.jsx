@@ -1,11 +1,32 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Certifique-se de importar corretamente
-import { UseTheme } from "./componentes/ThemeContext"; // Importa o contexto do tema
-import logoDark from "./assets/logo-dark.png"; // Substitua pelo caminho correto
-import logoLight from "./assets/logo-light.png"; // Substitua pelo caminho correto
-import Home from "./pages/home"; // Substitua pelo caminho correto
-import Login from "./pages/login"; // Substitua pelo caminho correto
-import Cadastro from "./pages/cadastro"; // Substitua pelo caminho correto
+import { Routes, Route, useNavigate } from "react-router";
+import "./App.css";
+import Cadastro from "./componentes/Cadastro";
+import Login from "./componentes/login";
+import Home from "./pages/home";
+import Bateria from "./pages/bateria";
+import Relatorio from "./pages/Relatório";
+import TrocarPontos from "./pages/trocarpontos";
+import Navegar from "./pages/navegar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import PontosMercado from "./pages/pontosMercado";
+import PontosManutencao from "./pages/pontosManutencao";
+import PontosHoteis from "./pages/pontosHoteis";
+import PontosCashback from "./pages/pontosCashback";
+import PontosProdutos from "./pages/pontosProdutos";
+import logoLight from "./img/logoligth.png";
+import logoDark from "./img/logoDark.png";
+import ChatBot from "./pages/ChatBot";
+import { ThemeProvider, UseTheme } from "./componentes/ThemeContext";
+
+// Botão voltar para todas as páginas
+function VoltarHomeButton() {
+  return (
+    <button className="voltar-home" onClick={() => history.back()}>
+      ◀
+    </button>
+  );
+}
 
 function App() {
   const navigate = useNavigate();
@@ -59,15 +80,40 @@ function App() {
         </button>
       </header>
 
-      <main>
-        {isLoggedIn ? (
-          <Home />
-        ) : showLogin ? (
-          <Login onLogin={() => setIsLoggedIn(true)} />
-        ) : (
-          <Cadastro onCadastro={() => setShowLogin(true)} />
-        )}
-      </main>
+          <VoltarHomeButton />
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/bateria" element={<Bateria />} />
+            <Route path="/relatorio" element={<Relatorio />} />
+            <Route path="/navegar" element={<Navegar />} />
+            <Route path="/trocar-pontos" element={<TrocarPontos />} />
+            <Route path="/pontosMercado" element={<PontosMercado />} />
+            <Route path="/pontosManutencao" element={<PontosManutencao />} />
+            <Route path="/pontosHoteis" element={<PontosHoteis />} />
+            <Route path="/pontosCashback" element={<PontosCashback />} />
+            <Route path="/pontosProdutos" element={<PontosProdutos />} />
+            <Route
+              path="/chatbot"
+              element={
+                <div className="App">
+                  <ChatBot />
+                </div>
+              }
+            />
+          </Routes>
+        </>
+      ) : showCadastro ? (
+        <Cadastro
+          onCadastro={() => setIsLoggedIn(true)} // depois do cadastro vai pra Home
+          goToLogin={goToLogin} // botão "Já tenho login"
+        />
+      ) : (
+        <Login
+          onLogin={() => setIsLoggedIn(true)}
+          goToCadastro={goToCadastro} // voltar para Cadastro
+        />
+      )}
     </div>
   );
 }

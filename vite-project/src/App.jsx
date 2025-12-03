@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 import "./App.css";
-import Cadastro from "./componentes/Cadastro";
+import Cadastro from "vite-project/src/componentes/Cadastro.jsx";
 import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";

@@ -76,5 +76,3 @@ const TrocarPontos = () => {
 // que recebe 'darkMode' como argumento.
 
 export default TrocarPontos;
-
-

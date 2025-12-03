@@ -15,27 +15,7 @@ function Home() {
         position: "relative",
       }}
     >
-      {/* Botão de troca de tema */}
-      <button
-        onClick={toggleTheme} // Garante que toggleTheme está definido
-        style={{
-          position: "absolute",
-          top: "30px",
-          right: "150px",
-          padding: "10px 20px",
-          borderRadius: "20px",
-          border: "none",
-          cursor: "pointer",
-          backgroundColor: darkMode ? "#fff" : "#00072D",
-          color: darkMode ? "#00072D" : "#fff",
-          fontFamily: "Kodchasan",
-          fontWeight: "bold",
-          transition: "0.3s",
-          zIndex: 1000,
-        }}
-      >
-        {darkMode ? "Light Mode" : "Dark Mode"}
-      </button>
+    
 
       {/* Fundo com onda fixa */}
       <div className="wave-container">

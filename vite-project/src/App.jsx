@@ -39,46 +39,91 @@ function App() {
   const logo = darkMode ? logoDark : logoLight;
 
   return (
-    <div
-      className={`app-container ${darkMode ? "dark-mode" : "light-mode"}`}
-      style={{
-        backgroundColor: darkMode ? "#00072D" : "#FFFFFF",
-        color: darkMode ? "#FFFFFF" : "#000000",
-        minHeight: "100vh",
-        transition: "background-color 0.3s, color 0.3s",
-      }}
-    >
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "10px 20px",
-          backgroundColor: darkMode ? "#001F3F" : "#F5F5F5",
-        }}
-      >
-        <img
-          src={logo}
-          alt="Logo"
-          style={{ height: "40px", cursor: "pointer" }}
-          onClick={() => navigate("/")}
-        />
-        <button
-          onClick={toggleTheme}
-          style={{
-            padding: "10px 20px",
-            borderRadius: "20px",
-            border: "none",
-            cursor: "pointer",
-            backgroundColor: darkMode ? "#FFFFFF" : "#00072D",
-            color: darkMode ? "#00072D" : "#FFFFFF",
-            fontWeight: "bold",
-            transition: "background-color 0.3s, color 0.3s",
-          }}
-        >
-          {darkMode ? "Modo Claro" : "Modo Escuro"}
-        </button>
-      </header>
+    <div className={`app${darkMode ? "dark" : ""}`}>
+      {isLoggedIn ? (
+        <>
+          {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
+          <header
+            className={`header-bar ${darkMode ? "dark" : "light"}`}
+            style={{
+              display: "flex",
+              justifyContent: "space-between", // Espaça os itens (logo e botões)
+              alignItems: "center", // Centraliza os itens verticalmente
+              padding: "10px 20px",
+              backgroundColor: darkMode ? "#0D1164" : "#0E6BA8", // Azul escuro no modo light
+              color: darkMode ? "#fff" : "#fff",
+            }}
+          >
+            {/* Logo à esquerda */}
+            <div
+              className="logo-container"
+              onClick={() => navigate("/")}
+              role="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <img
+                src={logo}
+                alt="Logo"
+                className="header-logo"
+                style={{ height: "40px", marginRight: "10px" }}
+              />
+              <h1
+                style={{ fontSize: "18px", color: darkMode ? "#fff" : "#000" }}
+              >
+                SMART
+                <br />
+                WORD
+              </h1>
+            </div>
+
+            {/* Botões à direita */}
+            <div
+              style={{
+                display: "flex",
+                gap: "10px", // Espaçamento entre os botões
+              }}
+            >
+              {/* Botão de alternância de tema */}
+              <button
+                onClick={toggleTheme}
+                style={{
+                  borderRadius: "20px",
+                  fontFamily: "Kodchasan",
+                  backgroundColor: darkMode ? "#fff" : "#00072D",
+                  color: darkMode ? "#00072D" : "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                {darkMode ? "Light Mode" : "Dark Mode"}
+              </button>
+
+              {/* Botão Chatbot */}
+              <button
+                className="chatbot-button"
+                onClick={() => navigate("/chatbot")}
+                aria-label="Ir para Chatbot"
+                style={{
+                  borderRadius: "11%",
+                  fontFamily: "Kodchasan",
+                  backgroundColor: "#00B4D8",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                Chatbot
+              </button>
+            </div>
+          </header>
 
           <VoltarHomeButton />
 

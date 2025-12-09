@@ -5,8 +5,8 @@ import logoLight from "../img/ligthSW.png";
 import userLight from "../img/usuarioligth.png";
 
 // Imagens para tema escuro
-import logoDark from "../img/SmartWord.png"; // substitua se tiver
-import userDark from "../img/usuario.png"; // substitua se tiver
+import logoDark from "../img/SmartWord.png";
+import userDark from "../img/usuario.png";
 
 const Cadastro = ({ onCadastro, goToLogin }) => {
   const [cpf, setCpf] = useState("");
@@ -16,19 +16,38 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
 
   const toggleTheme = () => setDarkMode(!darkMode);
 
-  const handleSubmit = (e) => {
+  // ---------- API IMPLEMENTADA (POST) ----------
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const newUser = { cpf, senha, placa };
+    const newUser = {
+      cpf: cpf,
+      senha: senha,
+      placa: placa,
+    };
 
-    existingUsers.push(newUser);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
+    try {
+      const response = await fetch("https://localhost:7150/api/Carros", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
 
-    alert("✅ Cadastro realizado com sucesso!");
+      if (!response.ok) {
+        throw new Error("Erro ao cadastrar");
+      }
 
-    if (onCadastro) onCadastro();
+      alert("Cadastro realizado com sucesso!");
+
+      if (onCadastro) onCadastro();
+    } catch (error) {
+      alert("Falha ao enviar os dados para a API.");
+      console.error(error);
+    }
   };
+  // ---------------------------------------------------
 
   const logoImg = darkMode ? logoDark : logoLight;
   const userImg = darkMode ? userDark : userLight;
@@ -43,7 +62,6 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
         transition: "0.3s",
       }}
     >
-      {/* Estilos CSS locais (escopo pelo nome das classes) */}
       <style>{`
         .cadastro-root.dark {
           background-color: #00072D;
@@ -58,7 +76,6 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
           align-items: center;
         }
 
-        /* Botão toggle tema */
         .theme-toggle {
           position: absolute;
           top: 20px;
@@ -72,7 +89,6 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
           transition: 0.3s;
         }
 
-        /* Lado esquerdo imagem */
         .left-panel {
           flex: 1;
           display: flex;
@@ -89,7 +105,6 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
           display: block;
         }
 
-        /* Lado direito form */
         .right-panel {
           flex: 1;
           display: flex;
@@ -120,12 +135,11 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
           align-items: center;
         }
 
-        /* INPUTS - classe única aplicada a todos inputs para consistência */
         .inputField {
           padding: 20px;
           width: 650px;
           border-radius: 90px;
-          border: 4px solid #151B8B; /* borda azul consistente */
+          border: 4px solid #151B8B;
           outline: none;
           text-align: center;
           font-size: 14px;
@@ -134,9 +148,8 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
           box-sizing: border-box;
         }
 
-        /* Estados dark / light específicos */
         .cadastro-root.dark .inputField {
-          background: transparent; /* deixa "transparente" para mostrar o fundo escuro */
+          background: transparent;
           color: white;
         }
         .cadastro-root.dark .inputField::placeholder {
@@ -146,7 +159,7 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
         .cadastro-root.light .inputField {
           background: white;
           color: black;
-          border: 4px solid #ccc; /* borda clara no modo light */
+          border: 4px solid #ccc;
         }
         .cadastro-root.light .inputField::placeholder {
           color: #666;
@@ -177,14 +190,12 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
           padding: 0;
         }
 
-        /* Ajuste para melhorar render em dispositivos pequenos */
         @media (max-width: 900px) {
           .inputField { width: 90%; }
           .submitButton { width: 70%; }
         }
       `}</style>
 
-      {/* Botão de troca de tema */}
       <button
         onClick={toggleTheme}
         className="theme-toggle"
@@ -196,12 +207,10 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
         {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
 
-      {/* Lado esquerdo - Imagem */}
       <div className="left-panel">
         <img src={logoImg} alt="Smart Word" />
       </div>
 
-      {/* Lado direito - Formulário */}
       <div className="right-panel">
         <img src={userImg} alt="Ícone de Cadastro" />
 
@@ -216,8 +225,8 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
             maxLength="11"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
-            // Removi estilos inline conflitantes; tudo é controlado pela classe
           />
+
           <input
             className="inputField"
             type="password"
@@ -225,6 +234,7 @@ const Cadastro = ({ onCadastro, goToLogin }) => {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
           />
+
           <input
             className="inputField"
             type="text"

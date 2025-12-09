@@ -6,7 +6,7 @@ import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
-import TrocarPontos from "./pages/trocarpontos";
+import TrocarPontos from "./pages/trocarpontos.jsx";
 import Navegar from "./pages/navegar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PontosMercado from "./pages/pontosMercado";

@@ -16,8 +16,8 @@ import logoLight from "./img/logoligth.png";
 import logoDark from "./img/logoDark.png";
 import ChatBot from "./pages/ChatBot";
 import { ThemeProvider, UseTheme } from "./componentes/ThemeContext";
-import Cadastro from "./pages/Cadastro.jsx";
-import Login from "./pages/login.jsx";
+import Cadastro from "./componentes/Cadastro.jsx";
+import Login from "./componentes/login.jsx";
 
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {

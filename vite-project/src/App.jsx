@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 import "./App.css";
-import Cadastro from "./componentes/Cadastro.jsx";
-import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
@@ -18,6 +16,8 @@ import logoLight from "./img/logoligth.png";
 import logoDark from "./img/logoDark.png";
 import ChatBot from "./pages/ChatBot";
 import { ThemeProvider, UseTheme } from "./componentes/ThemeContext";
+import Cadastro from "./pages/Cadastro.jsx";
+import Login from "./pages/login.jsx";
 
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {
@@ -29,11 +29,14 @@ function VoltarHomeButton() {
 }
 
 function App() {
-  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
-  const [showCadastro, setShowCadastro] = useState(false); // alterna entre cadastro e login
+  const [showCadastro, setShowCadastro] = useState(false);
+  const navigate = useNavigate();
   const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto do tema
+
+  const goToCadastro = () => {
+    navigate("/cadastro");
+  };
 
   // Escolhe a imagem conforme o tema
   const logo = darkMode ? logoDark : logoLight;

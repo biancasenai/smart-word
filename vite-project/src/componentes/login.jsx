@@ -5,8 +5,8 @@ import logoLight from "../img/ligthSW.png";
 import userLight from "../img/usuarioligth.png";
 
 // Imagens para tema escuro
-import logoDark from "../img/SmartWord.png"; // substitua com a imagem correta se já tiver
-import userDark from "../img/usuario.png"; // substitua com a imagem correta se já tiver
+import logoDark from "../img/SmartWord.png";
+import userDark from "../img/usuario.png";
 
 const Login = ({ onLogin, goToCadastro }) => {
   const [cpf, setCpf] = useState("");
@@ -15,7 +15,7 @@ const Login = ({ onLogin, goToCadastro }) => {
   const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!cpf || !senha || !placa) {
@@ -23,21 +23,33 @@ const Login = ({ onLogin, goToCadastro }) => {
       return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userFound = users.find(
-      (user) => user.cpf === cpf && user.senha === senha && user.placa === placa
-    );
-    if (userFound) {
-      setError("");
-      onLogin();
-    } else {
-      setError("❌ Login não encontrado. Verifique seus dados.");
+    try {
+      const response = await fetch(
+        `https://localhost:7150/api/Carros/${placa}`
+      );
+
+      if (!response.ok) {
+        setError("❌ Placa não encontrada na API.");
+        return;
+      }
+
+      const data = await response.json();
+
+      // Verificação API
+      if (data.cpf === cpf && data.senha === senha && data.placa === placa) {
+        setError("");
+        onLogin();
+      } else {
+        setError("❌ Dados inválidos. Verifique CPF, senha e placa.");
+      }
+    } catch (error) {
+      console.error("Erro ao conectar à API:", error);
+      setError("⚠️ Erro ao conectar ao servidor.");
     }
   };
-  const toggleTheme = () => setDarkMode(!darkMode);
-  onLogin;
 
-  // Escolha da imagem baseada no tema
+  const toggleTheme = () => setDarkMode(!darkMode);
+
   const logoImg = darkMode ? logoDark : logoLight;
   const userImg = darkMode ? userDark : userLight;
 
@@ -75,15 +87,14 @@ const Login = ({ onLogin, goToCadastro }) => {
         {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
 
-      {/* Lado esquerdo - logo */}
-      {/* Lado esquerdo - Imagem */}
+      {/* Lado esquerdo - imagem */}
       <div
         style={{
           flex: 1,
           display: "flex",
-          justifyContent: "flex-start", // garante que fique à esquerda
-          alignItems: "stretch", // ocupa toda a altura
-          height: "100vh", // ocupa toda a altura da tela
+          justifyContent: "flex-start",
+          alignItems: "stretch",
+          height: "100vh",
           margin: 0,
           padding: 0,
         }}
@@ -92,10 +103,10 @@ const Login = ({ onLogin, goToCadastro }) => {
           src={logoImg}
           alt="Smart Word"
           style={{
-            width: "100%", // ocupa toda a largura do lado esquerdo
-            height: "100%", // ocupa toda a altura
-            objectFit: "cover", // preenche sem distorcer
-            display: "block", // remove espaços brancos padrão de imagens
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
           }}
         />
       </div>
@@ -144,6 +155,7 @@ const Login = ({ onLogin, goToCadastro }) => {
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
           />
+
           <input
             type="password"
             placeholder="Senha"
@@ -155,6 +167,7 @@ const Login = ({ onLogin, goToCadastro }) => {
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
           />
+
           <input
             type="text"
             placeholder="Placa do carro"
@@ -187,8 +200,7 @@ const Login = ({ onLogin, goToCadastro }) => {
   );
 };
 
-// Estilos
-
+// Estilos globais
 const inputStyle = {
   padding: "20px",
   width: "650px",

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router";
 import "./App.css";
+import Cadastro from "./componentes/Cadastro.jsx";
+import Login from "./componentes/login";
 import Home from "./pages/home";
 import Bateria from "./pages/bateria";
 import Relatorio from "./pages/Relatório";
@@ -16,8 +18,6 @@ import logoLight from "./img/logoligth.png";
 import logoDark from "./img/logoDark.png";
 import ChatBot from "./pages/ChatBot";
 import { ThemeProvider, UseTheme } from "./componentes/ThemeContext";
-import Cadastro from "./pages/Cadastro.jsx";
-import Login from "./pages/login.jsx";
 
 // Botão voltar para todas as páginas
 function VoltarHomeButton() {
@@ -29,68 +29,47 @@ function VoltarHomeButton() {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showCadastro, setShowCadastro] = useState(false);
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLogin, setShowLogin] = useState(false); // alterna entre cadastro e login
+  const [showCadastro, setShowCadastro] = useState(false); // alterna entre cadastro e login
   const { darkMode, toggleTheme } = UseTheme(); // Usa o contexto do tema
-
-  const goToCadastro = () => {
-    navigate("/cadastro");
-  };
 
   // Escolhe a imagem conforme o tema
   const logo = darkMode ? logoDark : logoLight;
 
   return (
     <div className={`app${darkMode ? "dark" : ""}`}>
+ 
       {isLoggedIn ? (
+        // ---------------- LOGADO --------------------
         <>
-          {/* A BARRA SÓ APARECE QUANDO ESTÁ LOGADO */}
           <header
             className={`header-bar ${darkMode ? "dark" : "light"}`}
             style={{
               display: "flex",
-              justifyContent: "space-between", // Espaça os itens (logo e botões)
-              alignItems: "center", // Centraliza os itens verticalmente
+              justifyContent: "space-between",
+              alignItems: "center",
               padding: "10px 20px",
-              backgroundColor: darkMode ? "#0D1164" : "#0E6BA8", // Azul escuro no modo light
-              color: darkMode ? "#fff" : "#fff",
+              backgroundColor: darkMode ? "#0D1164" : "#0E6BA8",
+              color: "#fff",
             }}
           >
-            {/* Logo à esquerda */}
+            {/* Logo */}
             <div
               className="logo-container"
               onClick={() => navigate("/")}
               role="button"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
+              style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             >
-              <img
-                src={logo}
-                alt="Logo"
-                className="header-logo"
-                style={{ height: "40px", marginRight: "10px" }}
-              />
-              <h1
-                style={{ fontSize: "18px", color: darkMode ? "#fff" : "#000" }}
-              >
-                SMART
-                <br />
-                WORD
+              <img src={logo} alt="Logo" style={{ height: "40px", marginRight: "10px" }} />
+              <h1 style={{ fontSize: "18px", color: darkMode ? "#fff" : "#000" }}>
+                SMART <br /> WORD
               </h1>
             </div>
-
-            {/* Botões à direita */}
-            <div
-              style={{
-                display: "flex",
-                gap: "10px", // Espaçamento entre os botões
-              }}
-            >
-              {/* Botão de alternância de tema */}
+ 
+            {/* Botões */}
+            <div style={{ display: "flex", gap: "10px" }}>
               <button
                 onClick={toggleTheme}
                 style={{
@@ -101,17 +80,13 @@ function App() {
                   border: "none",
                   padding: "10px 20px",
                   cursor: "pointer",
-                  fontSize: "16px",
                 }}
               >
                 {darkMode ? "Light Mode" : "Dark Mode"}
               </button>
-
-              {/* Botão Chatbot */}
+ 
               <button
-                className="chatbot-button"
                 onClick={() => navigate("/chatbot")}
-                aria-label="Ir para Chatbot"
                 style={{
                   borderRadius: "11%",
                   fontFamily: "Kodchasan",
@@ -120,16 +95,16 @@ function App() {
                   border: "none",
                   padding: "10px 20px",
                   cursor: "pointer",
-                  fontSize: "16px",
                 }}
               >
                 Chatbot
               </button>
             </div>
           </header>
-
+ 
           <VoltarHomeButton />
-
+ 
+          {/* Rotas quando está logado */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/bateria" element={<Bateria />} />
@@ -141,30 +116,25 @@ function App() {
             <Route path="/pontosHoteis" element={<PontosHoteis />} />
             <Route path="/pontosCashback" element={<PontosCashback />} />
             <Route path="/pontosProdutos" element={<PontosProdutos />} />
-            <Route path="/cadastro" element={<Cadastro />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/chatbot"
-              element={
-                <div className="App">
-                  <ChatBot />
-                </div>
-              }
-            />
+            <Route path="/chatbot" element={<ChatBot />} />
           </Routes>
         </>
       ) : showCadastro ? (
+        // ------------- TELA DE CADASTRO ----------------
         <Cadastro
-          onCadastro={() => setIsLoggedIn(true)} // depois do cadastro vai pra Home
+          onCadastro={() => setIsLoggedIn(true)}      // cadastra → já loga
+          goToLogin={() => setShowCadastro(false)}    // botão "já tenho conta"
         />
       ) : (
-        <>
-          <Login onLogin={() => setIsLoggedIn(true)} />
-          <button onClick={goToCadastro}>Cadastrar-se</button>
-        </>
+        // ---------------- TELA DE LOGIN ---------------
+        <Login
+          onLogin={() => setIsLoggedIn(true)}         // login ok → logado
+          goToCadastro={() => setShowCadastro(true)}  // botão "cadastre-se"
+        />
       )}
     </div>
   );
+ 
 }
 
 export default App;

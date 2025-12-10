@@ -15,7 +15,7 @@ const Login = ({ onLogin, goToCadastro }) => {
   const [error, setError] = useState("");
   const [darkMode, setDarkMode] = useState(true);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!cpf || !senha || !placa) {
@@ -23,28 +23,8 @@ const Login = ({ onLogin, goToCadastro }) => {
       return;
     }
 
-    try {
-      const response = await fetch(`https://localhost:7150/api/Carros/${placa}`);
-
-      if (!response.ok) {
-        setError("❌ Placa não encontrada na API.");
-        return;
-      }
-
-      const data = await response.json();
-
-      // Verificação API
-      if (data.cpf === cpf && data.senha === senha && data.placa === placa) {
-        setError("");
-        onLogin();
-      } else {
-        setError("❌ Dados inválidos. Verifique CPF, senha e placa.");
-      }
-
-    } catch (error) {
-      console.error("Erro ao conectar à API:", error);
-      setError("⚠️ Erro ao conectar ao servidor.");
-    }
+    setError("");
+    onLogin(); // Agora entra direto sem API
   };
 
   const toggleTheme = () => setDarkMode(!darkMode);
@@ -86,7 +66,7 @@ const Login = ({ onLogin, goToCadastro }) => {
         {darkMode ? "Light Mode" : "Dark Mode"}
       </button>
 
-      {/* Lado esquerdo - imagem */}
+      {/* Lado esquerdo */}
       <div
         style={{
           flex: 1,
@@ -94,8 +74,6 @@ const Login = ({ onLogin, goToCadastro }) => {
           justifyContent: "flex-start",
           alignItems: "stretch",
           height: "100vh",
-          margin: 0,
-          padding: 0,
         }}
       >
         <img
@@ -105,12 +83,11 @@ const Login = ({ onLogin, goToCadastro }) => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            display: "block",
           }}
         />
       </div>
 
-      {/* Lado direito - login */}
+      {/* Lado direito */}
       <div
         style={{
           flex: 1,
@@ -192,15 +169,14 @@ const Login = ({ onLogin, goToCadastro }) => {
         </form>
 
         <button onClick={goToCadastro} style={buttonLoginStyle}>
-  Não tem conta? Cadastre-se
-</button>
-
+          Não tem conta? Cadastre-se
+        </button>
       </div>
     </div>
   );
 };
 
-// Estilos globais
+// Estilos
 const inputStyle = {
   padding: "20px",
   width: "650px",
